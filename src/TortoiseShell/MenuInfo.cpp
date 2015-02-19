@@ -59,12 +59,13 @@ bool warnIfPathHasControlledDecendantFolders(std::wstring path, HWND parentWindo
 					message += L"\n\t  " + getFormattedTortoiseSIString(IDS_SHOWING_PARTIAL_RESULTS, maxPaths, folders.size());
 				}
 			}
-			message += L"\n\t '" + rootFolder + L"'";
-		}
 
-		if (nPaths >= maxPaths) {
-			message += L"\n\t  " + getTortoiseSIString(IDS_ETC);
-			break;
+			message += L"\n\t '" + rootFolder + L"'";
+
+			if (nPaths >= maxPaths) {
+				message += L"\n\t  " + getTortoiseSIString(IDS_ETC);
+				break;
+			}
 		}
 	}
 
