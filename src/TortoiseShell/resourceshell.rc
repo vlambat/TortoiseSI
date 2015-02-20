@@ -202,10 +202,15 @@ END
 
 STRINGTABLE
 BEGIN
-    IDS_VIEW_SANDBOX        "View Sandbox"
-    IDS_CREATE_SANDBOX      "Create Sandbox"
-    IDS_MENU                "Tortoise SI"
-    IDS_SANDBOX_NOTALLOWED1 "Can't create Sandbox here because the following folder(s) already have a Sandbox:"
+    IDS_VIEW_SANDBOX			"View Sandbox"
+    IDS_CREATE_SANDBOX			"Create Sandbox"
+	IDS_RESYNCH					"Resynchronize"
+	IDS_RESYNCH_ENTIRE_SANDBOX	"Resynchronize Entire Sandbox"
+	IDS_DROP_SANDBOX			"Drop Sandbox"
+	IDS_RETARGET_SANDBOX		"Retarget Sandbox"
+    IDS_MENU					"Tortoise SI"
+    IDS_SANDBOX_NOTALLOWED1		"Can't create Sandbox here because the following folder(s) already have a Sandbox:"
+	IDS_MULTIPLE_SANDBOXES		"Multiple top level Sandboxes found:"
 END
 
 STRINGTABLE

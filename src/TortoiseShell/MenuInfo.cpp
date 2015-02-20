@@ -78,6 +78,49 @@ bool warnIfPathHasControlledDecendantFolders(std::wstring path, HWND parentWindo
 	}
 }
 
+/**
+*  Find the top level sandbox directory. Display an error if
+*  nested sandboxes are found.
+*/
+std::wstring getTopLevelSandbox(std::wstring path, HWND parentWindow) {
+
+	std::wstring message;
+	std::wstring topLevel;
+
+	if (path.empty())
+		return topLevel;
+
+	std::transform(path.begin(), path.end(), path.begin(), ::tolower);
+
+	for (std::wstring sandboxFolder : IntegrityActions::getSandboxList(getIntegritySession())) {
+
+		// Strip off the .pj file at the end of the path before we do comparison
+		std::wstring subDir = sandboxFolder.substr(0, sandboxFolder.find_last_of('\\'));
+
+		if (startsWith(path, subDir)) {
+
+			// Found another top level sandbox folder
+			if (!topLevel.empty()) {
+				if (message.empty()) {
+					message = getTortoiseSIString(IDS_MULTIPLE_SANDBOXES);
+					message += L"\n\t '" + topLevel + L"'";
+				}
+				message += L"\n\t '" + sandboxFolder + L"'";
+			}
+			else {
+				topLevel += sandboxFolder;
+			}
+		}
+	}
+
+	if (!message.empty()) {
+		MessageBoxW(parentWindow, message.c_str(), NULL, MB_ICONERROR);
+		topLevel.clear();
+	}
+
+	return topLevel;
+}
+
 std::vector<MenuInfo> menuInfo =
 {
 	{ MenuItem::ViewSandbox, 0, IDS_VIEW_SANDBOX, IDS_VIEW_SANDBOX,
@@ -111,5 +154,94 @@ std::vector<MenuInfo> menuInfo =
 	}
 	},
 	menuSeperator,
+	{ MenuItem::ResyncFolder, 0, IDS_RESYNCH, IDS_RESYNCH,
+	[](const std::vector<std::wstring>& selectedItems, HWND)
+		{
+			std::wstring sandboxDir;
 
+			sandboxDir = IntegrityActions::getSandboxName(getIntegritySession(), selectedItems.front());
+
+			if (sandboxDir.empty())
+				return;
+
+			IntegrityActions::resyncFolder(getIntegritySession(), sandboxDir,
+				[]{ IStatusCache::getInstance().getRootFolderCache().forceRefresh(); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+					hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
+					hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	{ MenuItem::ResyncFile, 0, IDS_RESYNCH, IDS_RESYNCH,
+	[](const std::vector<std::wstring>& selectedItems, HWND)
+		{
+			IntegrityActions::resyncFile(getIntegritySession(), selectedItems.front(),
+				[]{ IStatusCache::getInstance().getRootFolderCache().forceRefresh(); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	{ MenuItem::ResyncEntireSandbox, 0, IDS_RESYNCH_ENTIRE_SANDBOX, IDS_RESYNCH_ENTIRE_SANDBOX,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring sandboxName;
+
+			sandboxName = getTopLevelSandbox(selectedItems.front(), parentWindow);
+			if (sandboxName.empty())
+				return;
+
+			IntegrityActions::resyncEntireSandbox(getIntegritySession(), sandboxName,
+				[]{ IStatusCache::getInstance().getRootFolderCache().forceRefresh(); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	{ MenuItem::DropSandbox, 0, IDS_DROP_SANDBOX, IDS_DROP_SANDBOX,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring sandboxName;
+
+			sandboxName = getTopLevelSandbox(selectedItems.front(), parentWindow);
+			if (sandboxName.empty())
+				return;
+
+			IntegrityActions::dropSandbox(getIntegritySession(), sandboxName,
+				[]{ IStatusCache::getInstance().getRootFolderCache().forceRefresh(); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	{ MenuItem::RetargetSandbox, 0, IDS_RETARGET_SANDBOX, IDS_RETARGET_SANDBOX,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring sandboxName;
+
+			sandboxName = getTopLevelSandbox(selectedItems.front(), parentWindow);
+			if (sandboxName.empty())
+				return;
+
+			IntegrityActions::retargetSandbox(getIntegritySession(), sandboxName,
+				[]{ IStatusCache::getInstance().getRootFolderCache().forceRefresh(); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
 };

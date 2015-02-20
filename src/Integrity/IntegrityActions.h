@@ -29,6 +29,8 @@ namespace IntegrityActions {
 	FileStatusFlags getFileStatus(const IntegritySession& session, const std::wstring& files);
 
 	std::vector<std::wstring> getControlledPaths(const IntegritySession& session);
+	std::wstring getSandboxName(const IntegritySession& session, std::wstring path);
+	std::vector<std::wstring> getSandboxList(const IntegritySession& session);
 
 	void launchSandboxView(const IntegritySession& session, std::wstring path);
 	void launchMemberHistoryView(const IntegritySession& session, std::wstring path);
@@ -49,11 +51,13 @@ namespace IntegrityActions {
 	void renameFile(const IntegritySession& session, std::wstring path);
 	void revertFile(const IntegritySession& session, std::wstring path);
 
-	void resynchronize(const IntegritySession& session, std::wstring path);
 	void resynchronizeByChangePackage(const IntegritySession& session, std::wstring path);
 
 	void createSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
-	void dropSandbox(const IntegritySession& session, std::wstring path);
-	void retargetSandbox(const IntegritySession& session, std::wstring path);
+	void dropSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
+	void resyncFile(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
+	void resyncFolder(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
+	void resyncEntireSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
+	void retargetSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 
 }

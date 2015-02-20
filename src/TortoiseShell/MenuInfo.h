@@ -28,7 +28,12 @@ enum MenuItem {
 	IgnoreSubMenu,
 	UnIgnoreSubMenu,
 
-	Seperator
+	Seperator,
+	ResyncFile,
+	ResyncFolder,
+	ResyncEntireSandbox,
+	DropSandbox,
+	RetargetSandbox
 };
 
 struct MenuInfo
