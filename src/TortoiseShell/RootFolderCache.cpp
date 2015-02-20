@@ -92,8 +92,6 @@ void RootFolderCache::updateFoldersList()
 {
 	std::vector<std::wstring> rootFolders = IntegrityActions::getControlledPaths(integritySession);
 
-	std::sort(rootFolders.begin(), rootFolders.end(), std::less<std::wstring>());
-
 	// to lower case everything
 	for (std::wstring& rootPath : rootFolders) {
 		if (rootPath.at(rootPath.size() - 1) != '\\') {
@@ -102,6 +100,8 @@ void RootFolderCache::updateFoldersList()
 
 		std::transform(rootPath.begin(), rootPath.end(), rootPath.begin(), ::tolower);
 	}
+
+	std::sort(rootFolders.begin(), rootFolders.end(), std::less<std::wstring>());
 
 	// lock cach and copy back
 	std::vector<std::wstring> oldRootFolders;
