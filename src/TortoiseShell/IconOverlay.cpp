@@ -199,12 +199,9 @@ FileStatusFlags	CShellExt::getPathStatus(std::wstring path)
 		// slots some of our overlays aren't loaded. But we assume that
 		// at least the 'normal' and 'modified' overlay are available.
 
-
-	// error case
 	 if (fileStatusFlags == 0) {
 		 return S_FALSE;
 	 }
-	// locked
 	 else if (hasFileStatus(fileStatusFlags, FileStatus::Locked)) {
 		 if (g_lockedovlloaded && m_State == FileStateLockedOverlay) {
 			 return S_OK;
@@ -216,7 +213,6 @@ FileStatusFlags	CShellExt::getPathStatus(std::wstring path)
 			 return S_FALSE;
 		 }
 	 }
-	// incoming
 	 else if (hasFileStatus(fileStatusFlags, FileStatus::Incoming)) {
 		 if (g_conflictedovlloaded && m_State == FileStateConflict) {
 			 return S_OK;
@@ -230,7 +226,6 @@ FileStatusFlags	CShellExt::getPathStatus(std::wstring path)
 			 return S_FALSE;
 		 }
 	 }
-	// formermember
 	 else if (hasFileStatus(fileStatusFlags, FileStatus::FormerMember)) {
 		 if (g_deletedovlloaded && m_State == FileStateDeleted) {
 			 return S_OK;
@@ -244,16 +239,17 @@ FileStatusFlags	CShellExt::getPathStatus(std::wstring path)
 			 return S_FALSE;
 		 }
 	 }
-	// merge needed
 	 else if (hasFileStatus(fileStatusFlags, FileStatus::MergeNeeded)) {
-		 if (m_State == FileStateConflict) {
+		 if (g_conflictedovlloaded && m_State == FileStateConflict) {
+			 return S_OK;
+		 }
+		 else if (!g_conflictedovlloaded && m_State == FileStateModified) {
 			 return S_OK;
 		 }
 		 else {
 			 return S_FALSE;
 		 }
 	 }
-	// renamed, moved, modified
 	 else if (hasFileStatus(fileStatusFlags, FileStatus::Modified)
 		 || hasFileStatus(fileStatusFlags, FileStatus::Moved)
 		 || hasFileStatus(fileStatusFlags, FileStatus::Renamed)) {
@@ -265,21 +261,24 @@ FileStatusFlags	CShellExt::getPathStatus(std::wstring path)
 			 return S_FALSE;
 		 }
 	 }
-	// drop
 	 else if (hasFileStatus(fileStatusFlags, FileStatus::Drop)) {
-		 if (m_State == FileStateDeleted) {
+		 if (g_deletedovlloaded && m_State == FileStateDeleted) {
+			 return S_OK;
+		 }
+		 else if (!g_deletedovlloaded && m_State == FileStateModified) {
+			 // the 'deleted' overlay isn't available (due to lack of enough
+			 // overlay slots). So just show the 'modified' overlay instead.
 			 return S_OK;
 		 }
 		 else {
 			 return S_FALSE;
 		 }
 	 }
-	// add
 	 else if (hasFileStatus(fileStatusFlags, FileStatus::Add)) {
 		 if (g_addedovlloaded && m_State == FileStateAddedOverlay){
 			 return S_OK;
 		 }
-		 else	if (!g_addedovlloaded && m_State == FileStateModified) {
+		 else if (!g_addedovlloaded && m_State == FileStateModified) {
 			 // the 'added' overlay isn't available (due to lack of enough
 			 // overlay slots). So just show the 'modified' overlay instead.
 			 return S_OK;
@@ -288,7 +287,6 @@ FileStatusFlags	CShellExt::getPathStatus(std::wstring path)
 			 return S_FALSE;
 		 }
 	 }
-	// member
 	 else if (hasFileStatus(fileStatusFlags, FileStatus::Member)) {
 		 if (m_State == FileStateVersioned) {
 			 return S_OK;
@@ -299,76 +297,4 @@ FileStatusFlags	CShellExt::getPathStatus(std::wstring path)
 	 }
 	 return S_FALSE;
 
-	 /*
-	if (fileStatusFlags == 0) {
-		 return S_FALSE;	
-	} else if (hasFileStatus(fileStatusFlags, FileStatus::FormerMember)) {
-		 if (g_deletedovlloaded && m_State == FileStateDeleted) {
-			 return S_OK;
-		 } else if (m_State == FileStateModified) {
-			 // the 'deleted' overlay isn't available (due to lack of enough
-			 // overlay slots). So just show the 'modified' overlay instead.
-			 return S_OK;
-		 } else {
-			return S_FALSE;
-		 }
-	} else if (hasFileStatus(fileStatusFlags, FileStatus::Incoming)) {
-		 if (g_conflictedovlloaded && m_State == FileStateConflict) {
-			 return S_OK;
-		 } else if (m_State == FileStateModified) {
-			 // the 'conflicted' overlay isn't available (due to lack of enough
-			 // overlay slots). So just show the 'modified' overlay instead.
-			 return S_OK;
-		 } else {
-			return S_FALSE;
-		 }
-	} else if (hasFileStatus(fileStatusFlags, FileStatus::Modified) 
-		|| hasFileStatus(fileStatusFlags, FileStatus::Moved)
-		|| hasFileStatus(fileStatusFlags, FileStatus::Renamed)) {
-
-		if (m_State == FileStateModified) {
-			return S_OK;
-		} else {
-			return S_FALSE;
-		}
-	 } else if (hasFileStatus(fileStatusFlags, FileStatus::Add)) {
-		 if (g_addedovlloaded && m_State == FileStateAddedOverlay){
-			 return S_OK;
-		 } else	if (m_State == FileStateModified) {
-			// the 'added' overlay isn't available (due to lack of enough
-			// overlay slots). So just show the 'modified' overlay instead.
-			return S_OK;
-		 } else {
-			return S_FALSE;
-		}
-	} else if (hasFileStatus(fileStatusFlags, FileStatus::Locked)) {
-		 if (g_lockedovlloaded && m_State == FileStateLockedOverlay) {
-			 return S_OK;
-		 } else if (m_State == FileStateVersioned) {
-			 return S_OK;
-		 } else {
-			 return S_FALSE;
-		 }
-	 } else if (hasFileStatus(fileStatusFlags, FileStatus::Member)) {
-		if (m_State == FileStateVersioned) {
-			 return S_OK;
-		 } else {
-			 return S_FALSE;
-		 }
-	 }
-	 else if (hasFileStatus(fileStatusFlags, FileStatus::MergeNeeded)) {
-		 if (m_State == FileStateConflict) {
-			 return S_OK;
-		 } else {
-			 return S_FALSE;
-		 }
-	 }
-	 else if (hasFileStatus(fileStatusFlags, FileStatus::Drop)) {
-		 if (m_State == FileStateDeleted) {
-			 return S_OK;
-		 } else {
-			 return S_FALSE;
-		 }
-	 }
-	 return S_FALSE;*/
  }
