@@ -30,7 +30,6 @@ enum MenuItem {
 
 	Seperator,
 	ResyncFile,
-	ResyncFolder,
 	ResyncEntireSandbox,
 	DropSandbox,
 	RetargetSandbox

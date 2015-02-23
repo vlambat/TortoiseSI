@@ -33,6 +33,13 @@ namespace IntegrityActions {
 
 	// list of server connections the client has
 	std::vector<std::wstring> servers(const IntegritySession& session);
+
+	// list of all sandboxes
+	std::vector<std::wstring> getSandboxList(const IntegritySession& session);
+
+	// name of specific sandbox (includes .pj file)
+	std::wstring getSandboxName(const IntegritySession& session, std::wstring path);
+
 	bool connect(const IntegritySession& session);
 
 	void launchSandboxView(const IntegritySession& session, std::wstring path);
@@ -54,12 +61,9 @@ namespace IntegrityActions {
 	void renameFile(const IntegritySession& session, std::wstring path);
 	void revertFile(const IntegritySession& session, std::wstring path);
 
-	void resynchronizeByChangePackage(const IntegritySession& session, std::wstring path);
-
 	void createSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 	void dropSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
-	void resyncFile(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
-	void resyncFolder(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
+	void resyncFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone);
 	void resyncEntireSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 	void retargetSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 
