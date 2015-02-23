@@ -97,12 +97,13 @@ namespace IntegrityActions {
 	const FileStatusFlags NO_STATUS = 0;
 
 	// get status flags for a set of files...
-	FileStatusFlags getFileStatus(const IntegritySession& session, const std::wstring& file) 
+	FileStatusFlags fileInfo(const IntegritySession& session, const std::wstring& file) 
 	{
 		IntegrityCommand command(L"wf", L"fileinfo");
 		command.addSelection(file);
 
-		std::future<std::unique_ptr<IntegrityResponse>> responseFuture = session.executeAsync(command);
+		std::future<std::unique_ptr<IntegrityResponse>> responseFuture =
+			std::async(std::launch::async, [command, &session]() { return session.execute(command); });
 
 		std::future_status status = responseFuture.wait_for(std::chrono::seconds(10));
 		if (status != std::future_status::ready) {
@@ -142,57 +143,7 @@ namespace IntegrityActions {
 		return NO_STATUS;
 	}
 
-	std::wstring getSandboxName(const IntegritySession& session, std::wstring path) {
-
-		std::wstring sandboxName;
-
-		IntegrityCommand command(L"si", L"sandboxinfo");
-		command.addOption(L"cwd", path);
-
-		std::unique_ptr<IntegrityResponse> response = session.execute(command);
-
-		if (response->getException() != NULL) {
-			logAnyExceptions(*response);
-			displayException(*response);
-			return sandboxName;
-		}
-
-		for (mksWorkItem item : *response) {
-			return getId(item);
-		}
-
-		return sandboxName;
-	}
-
-	std::vector<std::wstring> getSandboxList(const IntegritySession& session) {
-
-		std::vector<std::wstring> sandboxPaths;
-		IntegrityCommand command(L"si", L"sandboxes");
-
-		std::unique_ptr<IntegrityResponse> response = session.execute(command);
-
-		if (response->getException() != NULL) {
-			logAnyExceptions(*response);
-			displayException(*response);
-			return sandboxPaths;
-		}
-
-		for (mksWorkItem item : *response) {
-
-			// Retrieve sandbox name - sandbox directory including
-			// associated .pj file
-			std::wstring id = getId(item);
-
-			// Convert all to lowercase
-			std::transform(id.begin(), id.end(), id.begin(), ::tolower);
-
-			sandboxPaths.push_back(id);
-		}
-
-		return sandboxPaths;
-	}
-
-	std::vector<std::wstring> getControlledPaths(const IntegritySession& session) 
+	std::vector<std::wstring> folders(const IntegritySession& session) 
 	{
 		IntegrityCommand command(L"wf", L"folders");
 		std::vector<std::wstring> rootPaths;
@@ -209,6 +160,44 @@ namespace IntegrityActions {
 		}
 		
 		return rootPaths;
+	}
+
+	std::vector<std::wstring> servers(const IntegritySession& session)
+	{
+		IntegrityCommand command(L"si", L"servers");
+		std::vector<std::wstring> servers;
+
+		std::unique_ptr<IntegrityResponse> response = session.execute(command);
+
+		if (response->getException() != NULL) {
+			logAnyExceptions(*response);
+			return servers;
+		}
+
+		for (mksWorkItem item : *response) {
+			servers.push_back(getId(item));
+		}
+
+		return servers;
+	}
+
+	bool connect(const IntegritySession& session) 
+	{
+		IntegrityCommand command(L"si", L"connect");
+		command.addOption(L"g");
+
+		std::unique_ptr<IntegrityResponse> response = session.execute(command);
+
+		if (response->getException() != NULL) {
+			logAnyExceptions(*response);
+			return false;
+		}
+
+		if (response->getExitCode() != 0) {
+			return false;
+		}
+
+		return true;
 	}
 
 	void logAnyExceptions(const IntegrityResponse& response) {
