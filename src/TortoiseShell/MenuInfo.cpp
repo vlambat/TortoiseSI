@@ -34,8 +34,19 @@ static const IntegritySession& getIntegritySession() {
 	return IStatusCache::getInstance().getIntegritySession();
 }
 
+
 /**
-*  return true if there was a decentant path that was controlled
+*  Takes a path to a folder as an argument and initiates an explorer refresh to refresh any icons
+*  that may have changes as a result of an update of file status
+*/
+void refreshFolder(std::wstring folder) {
+	EventLog::writeDebug(L"sending update notification for " + folder);
+
+	SHChangeNotify(SHCNE_ATTRIBUTES, SHCNF_PATH | SHCNF_FLUSH, (LPCVOID)folder.c_str(), NULL);
+}
+
+/**
+*  return true if there was a decendant path that was controlled
 */
 bool warnIfPathHasControlledDecendantFolders(std::wstring path, HWND parentWindow) {
 	std::vector<std::wstring> folders = IStatusCache::getInstance().getRootFolderCache().getRootFolders();
@@ -78,6 +89,51 @@ bool warnIfPathHasControlledDecendantFolders(std::wstring path, HWND parentWindo
 	}
 }
 
+/**
+*  Find the top level sandbox directory. Display an error if
+*  nested sandboxes are found.
+*/
+std::wstring getTopLevelSandbox(std::wstring path, HWND parentWindow) {
+
+	std::wstring message;
+	std::wstring topLevel;
+
+	if (path.empty())
+		return topLevel;
+
+	// Update to lower case for comparison
+	std::transform(path.begin(), path.end(), path.begin(), ::tolower);
+
+	for (std::wstring sandboxFolder : IntegrityActions::getSandboxList(getIntegritySession())) {
+
+		// Strip off the .pj file at the end of the path before we do comparison
+		std::wstring subDir = sandboxFolder.substr(0, sandboxFolder.find_last_of('\\'));
+
+		if (startsWith(path, subDir)) {
+
+			// Found another top level sandbox folder
+			if (!topLevel.empty()) {
+				if (message.empty()) {
+					message = getTortoiseSIString(IDS_MULTIPLE_SANDBOXES);
+					message += L"\n\t '" + topLevel + L"'";
+				}
+				message += L"\n\t '" + sandboxFolder + L"'";
+			}
+			else {
+				topLevel = sandboxFolder;
+			}
+		}
+	}
+
+	// Display error message if one exists
+	if (!message.empty()) {
+		MessageBoxW(parentWindow, message.c_str(), NULL, MB_ICONERROR);
+		topLevel.clear();
+	}
+
+	return topLevel;
+}
+
 std::vector<MenuInfo> menuInfo =
 {
 	{ MenuItem::ViewSandbox, 0, IDS_VIEW_SANDBOX, IDS_VIEW_SANDBOX,
@@ -111,5 +167,115 @@ std::vector<MenuInfo> menuInfo =
 	}
 	},
 	menuSeperator,
+	{ MenuItem::ResyncFile, 0, IDS_RESYNC, IDS_RESYNC,
+	[](const std::vector<std::wstring>& selectedItems, HWND)
+		{
+			std::wstring folder;
+			std::wstring file;
 
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for resync file operation");
+				return;
+			}
+
+			// First selected file
+			file = selectedItems.front();
+
+			// Extract folder name from file path
+			folder = file.substr(0, file.find_last_of('\\'));
+
+			// Pass list of selections for resync operation
+			IntegrityActions::resyncFiles(getIntegritySession(), selectedItems,
+				[folder] { refreshFolder(folder); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				!hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	{ MenuItem::ResyncEntireSandbox, 0, IDS_RESYNC_ENTIRE_SANDBOX, IDS_RESYNC_ENTIRE_SANDBOX,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring sandboxName;
+			std::wstring folder;
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for resync entire sandbox operation");
+				return;
+			}
+
+			// Error will be displayed if multiple sandboxes found
+			sandboxName = getTopLevelSandbox(selectedItems.front(), parentWindow);
+			if (sandboxName.empty())
+				return;
+
+			// Extract folder name from file path
+			folder = sandboxName.substr(0, sandboxName.find_last_of('\\'));
+
+			IntegrityActions::resyncEntireSandbox(getIntegritySession(), sandboxName,
+				[folder]{ refreshFolder(folder); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	{ MenuItem::DropSandbox, 0, IDS_DROP_SANDBOX, IDS_DROP_SANDBOX,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring sandboxName;
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for drop sandbox operation");
+				return;
+			}
+
+			// Error will be displayed if multiple sandboxes found
+			sandboxName = getTopLevelSandbox(selectedItems.front(), parentWindow);
+			if (sandboxName.empty())
+				return;
+
+			IntegrityActions::dropSandbox(getIntegritySession(), sandboxName,
+				[]{ IStatusCache::getInstance().getRootFolderCache().forceRefresh(); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	{ MenuItem::RetargetSandbox, 0, IDS_RETARGET_SANDBOX, IDS_RETARGET_SANDBOX,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring folder;
+			std::wstring sandboxName;
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for retarget sandbox operation");
+				return;
+			}
+
+			// Error will be displayed if multiple sandboxes found
+			sandboxName = getTopLevelSandbox(selectedItems.front(), parentWindow);
+			if (sandboxName.empty())
+				return;
+
+			// Extract folder name from file path
+			folder = sandboxName.substr(0, sandboxName.find_last_of('\\'));
+
+			IntegrityActions::retargetSandbox(getIntegritySession(), sandboxName,
+				[folder]{ refreshFolder(folder); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
 };
