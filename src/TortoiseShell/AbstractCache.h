@@ -55,6 +55,8 @@ CacheValueType AbstractCache<CacheValueType>::getValue()
 {
 	std::lock_guard<std::mutex> lock(lockObject);
 
+	refreshIfStale();
+
 	return cachedValue;
 };
 
