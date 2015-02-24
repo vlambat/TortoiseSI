@@ -51,7 +51,11 @@ void refreshFolder(std::wstring folder) {
 bool warnIfPathHasControlledDecendantFolders(std::wstring path, HWND parentWindow) {
 	std::vector<std::wstring> folders = IStatusCache::getInstance().getRootFolderCache().getRootFolders();
 	const int maxPaths = 10;
-	int nPaths = 0;
+	int nMatchingPaths = 0;
+
+	if (path.at(path.size() - 1) != '\\') {
+		path += L"\\";
+	}
 
 	std::transform(path.begin(), path.end(), path.begin(), ::tolower);
 
@@ -60,24 +64,25 @@ bool warnIfPathHasControlledDecendantFolders(std::wstring path, HWND parentWindo
 	std::wstring message;
 	for (std::wstring rootFolder : folders) {
 
-		nPaths++;
-
 		if (startsWith(rootFolder, path)) {
+
+			nMatchingPaths++;
+
 			if (message.empty()) {
 				message = getTortoiseSIString(IDS_SANDBOX_NOTALLOWED1);
-				// Add message indicating we are showing only partial results
-				if (folders.size() > maxPaths) {
-					message += L"\n\t  " + getFormattedTortoiseSIString(IDS_SHOWING_PARTIAL_RESULTS, maxPaths, folders.size());
-				}
 			}
 
-			message += L"\n\t '" + rootFolder + L"'";
+			if (nMatchingPaths <= maxPaths) {
+				message += L"\n\t '" + rootFolder + L"'";
+		    }
 
-			if (nPaths >= maxPaths) {
-				message += L"\n\t  " + getTortoiseSIString(IDS_ETC);
-				break;
-			}
 		}
+	}
+
+	if (nMatchingPaths > maxPaths) {
+		// Add message indicating we are showing only partial results
+		message += L"\n\t  " + getFormattedTortoiseSIString(IDS_SHOWING_PARTIAL_RESULTS, maxPaths, nMatchingPaths);
+		message += L"\n\t  " + getTortoiseSIString(IDS_ETC);
 	}
 
 	if (!message.empty()) {
