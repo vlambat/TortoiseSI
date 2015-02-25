@@ -130,7 +130,7 @@ bool ServerConnections::isOnline()
 			} else {
 				transitionToPromptingState();
 			}
-		} else if (state == ConnectionState::Offline) {
+		} else if (state == ConnectionState::Offline || state == ConnectionState::Prompting) {
 			if (!getValue().empty()) {
 				transitionToOnlineState();
 				state = ConnectionState::Online;
