@@ -1,4 +1,4 @@
-// TortoiseSI - a Windows shell extension for easy version control
+ // TortoiseSI - a Windows shell extension for easy version control
 
 // Copyright (C) 2015 - TortoiseSI
 
@@ -58,6 +58,8 @@ namespace IntegrityActions {
 			command.addSelection(path);
 		}
 
+		// Issue found with wf execute command accepting options - don't use it for now
+		// executeUserCommand(session, initializeWFExecute(command), onDone);
 		executeUserCommand(session, command, onDone);
 	}
 
@@ -317,5 +319,23 @@ namespace IntegrityActions {
 			displayException(response.getCommand(), getId(exception),
 				getExceptionMessage(exception));
 		}
+	}
+
+	IntegrityCommand initializeWFExecute(const IntegrityCommand& command) {
+		IntegrityCommand wfcommand(L"wf", L"execute");
+
+		wfcommand.addSelection(command.getName());
+
+		for (IntegrityCommand::Option option : command.options) {
+			wfcommand.addSelection(option.getAsString());
+		}
+
+		// explicitly mark end of options and start of selection 
+		wfcommand.addSelection(L"--");
+
+		for (std::wstring selectionItem : command.selection) {
+			wfcommand.addSelection(selectionItem);
+		}
+		return wfcommand;
 	}
 }

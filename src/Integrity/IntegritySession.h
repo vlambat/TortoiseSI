@@ -68,8 +68,6 @@ public:
 	void addSelection(std::wstring selectionItem) {
 		selection.push_back(selectionItem);
 	}
-	// for commands that wrap other commands
-	void addSelection(const IntegrityCommand& selectionItem);
 
 	wchar_t* getApp() const {
 		return app;
@@ -85,6 +83,8 @@ public:
 
 		Option(std::wstring name, std::wstring value) : name(name), value(value){}
 		Option(std::wstring name) : name(name) {}
+
+		std::wstring getAsString();
 	};
 
 	std::vector<std::wstring> selection;
