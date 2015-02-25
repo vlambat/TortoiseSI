@@ -87,6 +87,7 @@
 #define IDS_MENU                        174
 #define IDS_SANDBOX_NOTALLOWED1         175
 #define IDS_MENUDIFF                    176
+#define IDS_IGNORE_SUBMENU              176
 #define IDS_MENUDESCDIFF                177
 #define IDS_DROPCOPYADDMENU             178
 #define IDS_DROPMOVEMENU                179
@@ -201,11 +202,11 @@
 #define IDS_MENUREVISIONGRAPH           367
 #define IDS_MENUDESCREVISIONGRAPH       368
 #define IDS_LOADING                     369
-#define IDS_RESYNC						370
-#define IDS_RESYNC_ENTIRE_SANDBOX		371
-#define IDS_DROP_SANDBOX				372
-#define IDS_RETARGET_SANDBOX			373
-#define IDS_MULTIPLE_SANDBOXES			374
+#define IDS_RESYNC                      370
+#define IDS_RESYNC_ENTIRE_SANDBOX       371
+#define IDS_DROP_SANDBOX                372
+#define IDS_RETARGET_SANDBOX            373
+#define IDS_MULTIPLE_SANDBOXES          374
 #define IDC_REVISION                    1001
 #define IDC_HEAD_HASH                   1001
 #define IDC_LAST_HASH                   1002

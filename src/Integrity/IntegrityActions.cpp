@@ -88,6 +88,15 @@ namespace IntegrityActions {
 		executeUserCommand(session, command, onDone);
 	}
 
+	void setExcludeFileFilter(const IntegritySession& session, std::wstring patterns, std::function<void()> onDone)
+	{
+		IntegrityCommand command(L"si", L"setprefs");
+		command.addOption(L"command=viewnonmembers");
+		command.addSelection(L"excludeFilter=" + patterns);
+
+		executeUserCommand(session, command, onDone);
+	}
+
 	const FileStatusFlags NO_STATUS = 0;
 
 	// get status flags for a set of files...

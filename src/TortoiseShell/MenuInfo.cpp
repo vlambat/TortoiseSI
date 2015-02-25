@@ -283,4 +283,21 @@ std::vector<MenuInfo> menuInfo =
 				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},
+	{ MenuItem::IgnoreSubMenu, 0, IDS_IGNORE_SUBMENU, IDS_IGNORE_SUBMENU,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for ignore operations");
+				return;
+			}
+
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::File) && 
+				!hasFileStatus(selectedItemsStatus, FileStatus::Ignored);
+		}
+	},
+	
 };

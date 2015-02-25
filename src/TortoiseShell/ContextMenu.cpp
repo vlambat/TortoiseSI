@@ -278,7 +278,7 @@ STDMETHODIMP CShellExt::QueryContextMenu_Wrap(HMENU hMenu,
 				// handle special cases (sub menus)
 				if ((menu.menuID == MenuItem::IgnoreSubMenu) || (menu.menuID == MenuItem::UnIgnoreSubMenu))
 				{
-					if (InsertIgnoreSubmenus(idCmd, idCmdFirst, hMenu, subMenu, indexMenu, indexSubMenu, 0, TRUE, uFlags))
+					if (InsertIgnoreSubmenus(idCmd, idCmdFirst, hMenu, subMenu, indexMenu, indexSubMenu, 0, TRUE, menu, uFlags))
 						bMenuEntryAdded = true;
 				}
 				else
@@ -524,23 +524,79 @@ bool CShellExt::IsIllegalFolder(std::wstring folder)
 	return false;
 }
 
-bool CShellExt::InsertIgnoreSubmenus(UINT &idCmd, UINT idCmdFirst, HMENU hMenu, HMENU subMenu, UINT &indexMenu, int &indexSubMenu, unsigned __int64 topmenu, bool bShowIcons, UINT /*uFlags*/)
+bool CShellExt::InsertIgnoreSubmenus(UINT &idCmd, UINT idCmdFirst, HMENU hMenu, HMENU subMenu, UINT &indexMenu, int &indexSubMenu, unsigned __int64 topmenu, bool bShowIcons, MenuInfo &menuInfo, UINT /*uFlags*/)
 {
-#if 0
+	std::wstring menutext = getTortoiseSIString(menuInfo.menuTextID);
+
 	HMENU ignoresubmenu = NULL;
 	int indexignoresub = 0;
 	bool bShowIgnoreMenu = false;
 	TCHAR maskbuf[MAX_PATH] = {0};		// MAX_PATH is ok, since this only holds a filename
 	TCHAR ignorepath[MAX_PATH] = {0};		// MAX_PATH is ok, since this only holds a filename
-	if (files_.empty())
+	if (selectedItems.empty())
 		return false;
+
 	UINT icon = bShowIcons ? IDI_IGNORE : 0;
 
-	std::vector<stdstring>::iterator I = files_.begin();
+	std::vector<stdstring>::iterator I = selectedItems.begin();
 	if (_tcsrchr(I->c_str(), '\\'))
 		_tcscpy_s(ignorepath, MAX_PATH, _tcsrchr(I->c_str(), '\\')+1);
 	else
 		_tcscpy_s(ignorepath, MAX_PATH, I->c_str());
+
+	ignoresubmenu = CreateMenu();
+	InsertMenu(ignoresubmenu, indexignoresub++, MF_BYPOSITION | MF_STRING, idCmd, ignorepath);
+	stdstring verb = stdstring(ignorepath);
+	myVerbsMap[verb] = idCmd - idCmdFirst;
+	myVerbsMap[verb] = idCmd;
+	myVerbsIDMap[idCmd - idCmdFirst] = verb;
+	myVerbsIDMap[idCmd] = verb;
+	myIDMap[idCmd - idCmdFirst] = &menuInfo;
+	myIDMap[idCmd++] = &menuInfo;
+	bShowIgnoreMenu = true;
+
+	_tcscpy_s(maskbuf, MAX_PATH, _T("*"));
+	if (_tcsrchr(ignorepath, '.'))
+	{
+		_tcscat_s(maskbuf, MAX_PATH, _tcsrchr(ignorepath, '.'));
+		
+		if (ignoresubmenu==NULL)
+			ignoresubmenu = CreateMenu();
+
+		InsertMenu(ignoresubmenu, indexignoresub++, MF_BYPOSITION | MF_STRING , idCmd, maskbuf);
+		stdstring verb = stdstring(maskbuf);
+		myVerbsMap[verb] = idCmd - idCmdFirst;
+		myVerbsMap[verb] = idCmd;
+		myVerbsIDMap[idCmd - idCmdFirst] = verb;
+		myVerbsIDMap[idCmd] = verb;
+		myIDMap[idCmd - idCmdFirst] = &menuInfo;
+		myIDMap[idCmd++] = &menuInfo;
+		bShowIgnoreMenu = true;
+	}
+
+	if (bShowIgnoreMenu)
+	{
+		MENUITEMINFO menuiteminfo;
+		SecureZeroMemory(&menuiteminfo, sizeof(menuiteminfo));
+		menuiteminfo.cbSize = sizeof(menuiteminfo);
+		menuiteminfo.fMask = MIIM_FTYPE | MIIM_ID | MIIM_SUBMENU | MIIM_DATA | MIIM_STRING;
+		if (icon)
+		{
+			menuiteminfo.fMask |= MIIM_BITMAP;
+			menuiteminfo.hbmpItem = SysInfo::Instance().IsVistaOrLater() ? m_iconBitmapUtils.IconToBitmapPARGB32(g_hResInst, icon) : m_iconBitmapUtils.IconToBitmap(g_hResInst, icon);
+		}
+		menuiteminfo.fType = MFT_STRING;
+		menuiteminfo.dwTypeData = (LPWSTR)menutext.c_str();
+		menuiteminfo.hSubMenu = ignoresubmenu;
+		menuiteminfo.wID = idCmd;
+
+		InsertMenuItem((topmenu) ? hMenu : subMenu, (topmenu) ? indexMenu++ : indexSubMenu++, TRUE, &menuiteminfo);
+		myIDMap[idCmd - idCmdFirst] = &menuInfo;
+		myIDMap[idCmd++] = &menuInfo;
+	}
+	return bShowIgnoreMenu;
+
+#if FALSE
 	if ((itemStates & ITEMIS_IGNORED) && (!ignoredprops.empty()))
 	{
 		// check if the item name is ignored or the mask
@@ -689,8 +745,9 @@ bool CShellExt::InsertIgnoreSubmenus(UINT &idCmd, UINT idCmdFirst, HMENU hMenu, 
 		}
 	}
 	return bShowIgnoreMenu;
-#endif 
+#endif
 	return false;
+
 }
 
 std::vector<std::wstring> CShellExt::getItemsForMenuAction()
