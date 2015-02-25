@@ -221,7 +221,7 @@ END
 
 STRINGTABLE
 BEGIN
-    IDS_IGNORE_SUBMENU      "Ignore"
+    IDS_IGNORE_SUBMENU      "Add to exclude filter"
 END
 
 #endif    // English (United States) resources

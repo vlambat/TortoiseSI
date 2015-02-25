@@ -70,6 +70,6 @@ namespace IntegrityActions {
 	void resyncEntireSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 	void retargetSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 
-	void setExcludeFileFilter(const IntegritySession& session, std::wstring patterns, std::function<void()> onDone);
+	void setExcludeFileFilter(const IntegritySession& session, std::vector<std::wstring> patterns, std::function<void()> onDone);
 
 }

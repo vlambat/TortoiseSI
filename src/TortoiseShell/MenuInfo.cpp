@@ -139,6 +139,37 @@ std::wstring getTopLevelSandbox(std::wstring path, HWND parentWindow) {
 	return topLevel;
 }
 
+/**
+* Get current contents of the exclude filter, add new pattern (if it is not already in the filter), and update the exclude filter
+*/
+void updateExcludeFileFilter(const std::vector<std::wstring>& selectedItems, const std::wstring newExclude) {
+	// assume newExclude of the form "filename.extension" or "*.extension" 
+
+	if (selectedItems.empty()) {
+		EventLog::writeDebug(L"selected items list empty for ignore operations");
+		return;
+	}
+
+	std::wstring file = selectedItems.front();
+
+	// Extract folder name from file path
+	std::wstring folder = file.substr(0, file.find_last_of('\\'));
+
+	// retrieve current exclude contents
+	std::vector<std::wstring> excludeContents = IntegrityActions::getExcludeFilterContents(getIntegritySession());
+
+	// append it to this list, error check for duplicates
+	std::wstring newExcludeOption = L"file:" + newExclude;
+	if (std::find(excludeContents.begin(), excludeContents.end(), newExcludeOption) != excludeContents.end()) {
+		EventLog::writeDebug(L"Already contains pattern " + newExcludeOption);
+		return;
+	}
+	excludeContents.push_back(newExcludeOption);
+
+	// set prefs and refresh folder
+	IntegrityActions::setExcludeFileFilter(getIntegritySession(), excludeContents, [folder] { refreshFolder(folder); });
+}
+
 std::vector<MenuInfo> menuInfo =
 {
 	{ MenuItem::ViewSandbox, 0, IDS_VIEW_SANDBOX, IDS_VIEW_SANDBOX,
@@ -284,15 +315,7 @@ std::vector<MenuInfo> menuInfo =
 		}
 	},
 	{ MenuItem::IgnoreSubMenu, 0, IDS_IGNORE_SUBMENU, IDS_IGNORE_SUBMENU,
-	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
-		{
-			if (selectedItems.empty()) {
-				EventLog::writeDebug(L"selected items list empty for ignore operations");
-				return;
-			}
-
-		},
-			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		nullptr, [](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
 		{
 			return selectedItems.size() == 1 &&
 				hasFileStatus(selectedItemsStatus, FileStatus::File) && 
@@ -300,21 +323,31 @@ std::vector<MenuInfo> menuInfo =
 		}
 	},
 
-	{ MenuItem::Test, 0, NULL, NULL,
+	/*{ MenuItem::Test, 0, NULL, NULL,
 	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
 		{
 			if (selectedItems.empty()) {
-				EventLog::writeDebug(L"selected items list empty for ignore operations");
+				EventLog::writeDebug(L"selected items list empty for this operation");
 				return;
 			}
 
-			std::vector<std::wstring> contents = IntegrityActions::getExcludeFilterContents(getIntegritySession());
+			// First selected file
+			std::wstring file = selectedItems.front();
 
-			std::wstring msg;
-			for (std::wstring content : contents) {
-				msg += content + L" ";
+			// Extract folder name from file path
+			std::wstring folder = file.substr(0, file.find_last_of('\\'));
+			std::vector<std::wstring> excludeContents = IntegrityActions::getExcludeFilterContents(getIntegritySession());
+
+			// based on operation (just the file or a glob), append it to this list
+			std::wstring newPattern = L"file:*.test";
+			if (std::find(excludeContents.begin(), excludeContents.end(), newPattern) != excludeContents.end()) {
+				EventLog::writeDebug(L"Already contains pattern " + newPattern);
+				return;
 			}
-			EventLog::writeDebug(msg);
+			excludeContents.push_back(L"file:*.test");
+			
+			// set prefs and refresh folder
+			IntegrityActions::setExcludeFileFilter(getIntegritySession(), excludeContents, [folder] { refreshFolder(folder); });
 			
 		},
 			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
@@ -323,7 +356,7 @@ std::vector<MenuInfo> menuInfo =
 				hasFileStatus(selectedItemsStatus, FileStatus::File) &&
 				!hasFileStatus(selectedItemsStatus, FileStatus::Ignored);
 		}
-	},
+	},*/
 
 	
 };

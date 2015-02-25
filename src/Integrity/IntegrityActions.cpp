@@ -23,6 +23,7 @@
 #include "EventLog.h"
 #include "CrashReport.h"
 #include "DebugEventLog.h"
+#include <sstream>
 
 namespace IntegrityActions {
 	void displayException(const IntegrityResponse& response);
@@ -88,11 +89,23 @@ namespace IntegrityActions {
 		executeUserCommand(session, command, onDone);
 	}
 
-	void setExcludeFileFilter(const IntegritySession& session, std::wstring patterns, std::function<void()> onDone)
+	void setExcludeFileFilter(const IntegritySession& session, std::vector<std::wstring> patterns, std::function<void()> onDone)
 	{
 		IntegrityCommand command(L"si", L"setprefs");
 		command.addOption(L"command=viewnonmembers");
-		command.addSelection(L"excludeFilter=" + patterns);
+
+		std::wstring patternString;
+		if (!patterns.empty()) {
+			std::wostringstream ss;
+
+			// build list of filter patterns, separating with commas. Add last one manually so we don't have trailing comma
+			std::copy(patterns.begin(), patterns.end() - 1, std::ostream_iterator<std::wstring, wchar_t>(ss, L","));
+			ss << patterns.back();
+
+			patternString = ss.str();
+		}
+
+		command.addSelection(L"excludeFilter=" + patternString);
 
 		executeUserCommand(session, command, onDone);
 	}

@@ -71,7 +71,7 @@ protected:
 	FileState m_State;
 	ULONG	m_cRef;
 	// used by IContextMenu
-	std::map<UINT_PTR, MenuInfo*> myIDMap;
+	std::map<UINT_PTR, MenuInfo> myIDMap;
 	std::map<std::wstring, UINT_PTR> myVerbsMap;
 	std::map<UINT_PTR, std::wstring> myVerbsIDMap;
 
