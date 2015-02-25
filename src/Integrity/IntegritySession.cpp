@@ -64,17 +64,17 @@ IntegritySession::~IntegritySession()
 	}
 }
 
-std::wstring getOptionString(IntegrityCommand::Option& option) {
+std::wstring IntegrityCommand::Option::getAsString() {
 	std::wstring optionString = L"";
-	if (option.name.size() == 1) {
-		optionString = L"-" + option.name;
-		if (option.value.size() > 0) {
-			optionString += L" " + option.value;
+	if (name.size() == 1) {
+		optionString = L"-" + name;
+		if (value.size() > 0) {
+			optionString += L" " + value;
 		}
 	} else {
-		optionString = L"--" + option.name;
-		if (option.value.size() > 0) {
-			optionString += L"=" + option.value;
+		optionString = L"--" + name;
+		if (value.size() > 0) {
+			optionString += L"=" + value;
 		}
 	}
 	return optionString;
@@ -109,23 +109,6 @@ public:
 
 	mksCommand nativeCommand;
 };
-
-void IntegrityCommand::addSelection(const IntegrityCommand& command)
-{
-	addSelection(command.getApp());
-	addSelection(command.getName());
-
-	for (IntegrityCommand::Option option : command.options) {
-		addSelection(getOptionString(option));
-	}
-
-	// explicitly mark end of options and start of selection 
-	addSelection(L"--");
-
-	for (std::wstring selectionItem : command.selection) {
-		addSelection(selectionItem);
-	}
-}
 
 std::unique_ptr<IntegrityResponse> IntegritySession::execute(const IntegrityCommand& command) const
 {

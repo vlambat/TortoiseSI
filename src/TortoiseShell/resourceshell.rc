@@ -198,19 +198,26 @@ END
 STRINGTABLE
 BEGIN
     IDS_LOADING             "Loading..."
+    IDS_RESYNC              "Resynchronize"
+    IDS_RESYNC_ENTIRE_SANDBOX "Resynchronize Entire Sandbox"
+    IDS_DROP_SANDBOX        "Drop Sandbox"
+    IDS_RETARGET_SANDBOX    "Retarget Sandbox"
+    IDS_MULTIPLE_SANDBOXES  "Multiple top level Sandboxes found:"
+    IDS_VIEW_SANDBOX_DESC   "Displays the contents of a Sandbox"
+    IDS_RESYNC_DESC         "Resynchronize Sandbox member files by Change Package"
+    IDS_RESYNC_ENTIRE_SANDBOX_DESC "Resynchronize Sandbox member files"
+    IDS_DROP_SANDBOX_DESC   "Unregister Sandbox from Integrity Client"
+    IDS_RETARGET_SANDBOX_DESC 
+                            "Point a Sandbox to a different project configuration"
+    IDS_CREATE_SANDBOX_DESC "Create a new Sandbox"
 END
 
 STRINGTABLE
 BEGIN
-    IDS_VIEW_SANDBOX			"View Sandbox"
-    IDS_CREATE_SANDBOX			"Create Sandbox"
-	IDS_RESYNC					"Resynchronize"
-	IDS_RESYNC_ENTIRE_SANDBOX	"Resynchronize Entire Sandbox"
-	IDS_DROP_SANDBOX			"Drop Sandbox"
-	IDS_RETARGET_SANDBOX		"Retarget Sandbox"
-    IDS_MENU					"Tortoise SI"
-    IDS_SANDBOX_NOTALLOWED1		"Can't create Sandbox here because the following folder(s) already have a Sandbox:"
-	IDS_MULTIPLE_SANDBOXES		"Multiple top level Sandboxes found:"
+    IDS_VIEW_SANDBOX        "View Sandbox"
+    IDS_CREATE_SANDBOX      "Create Sandbox"
+    IDS_MENU                "Tortoise SI"
+    IDS_SANDBOX_NOTALLOWED1 "Can't create Sandbox here because the following folder(s) already have a Sandbox:"
 END
 
 STRINGTABLE
