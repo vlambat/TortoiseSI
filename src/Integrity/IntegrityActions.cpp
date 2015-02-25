@@ -203,6 +203,48 @@ namespace IntegrityActions {
 		return sandboxPaths;
 	}
 
+	/**
+	*  Retrieve current excludeFilter contents using 'viewprefs' command
+	*/
+	std::vector<std::wstring> getExcludeFilterContents(const IntegritySession& session) {
+		
+		std::vector<std::wstring> filterContents;
+		IntegrityCommand command(L"si", L"viewprefs");
+		command.addOption(L"command=viewnonmembers");
+
+		std::unique_ptr<IntegrityResponse> response = session.execute(command);
+
+		if (response->getException() != NULL) {
+			logAnyExceptions(*response);
+			displayException(*response);
+			return filterContents;
+		}
+
+
+		std::wstring contents;
+		for (mksWorkItem item : *response) {
+			std::wstring id = getId(item);
+
+			mksItem setting = getItemFieldValue(item, L"excludeFilter");
+			if (setting != NULL) {
+				contents = getStringFieldValue(setting, L"default");
+			}
+
+		}
+
+		if (!contents.empty()) {
+			wchar_t* token = wcstok((wchar_t*)contents.c_str(), L",");
+			while (token != NULL) {
+				filterContents.push_back(token);
+				token = wcstok(NULL, L",");
+			}
+		}
+
+		return filterContents;
+
+
+	}
+
 	std::vector<std::wstring> folders(const IntegritySession& session)
 	{
 		IntegrityCommand command(L"wf", L"folders");

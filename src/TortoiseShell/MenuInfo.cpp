@@ -299,5 +299,31 @@ std::vector<MenuInfo> menuInfo =
 				!hasFileStatus(selectedItemsStatus, FileStatus::Ignored);
 		}
 	},
+
+	{ MenuItem::Test, 0, NULL, NULL,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for ignore operations");
+				return;
+			}
+
+			std::vector<std::wstring> contents = IntegrityActions::getExcludeFilterContents(getIntegritySession());
+
+			std::wstring msg;
+			for (std::wstring content : contents) {
+				msg += content + L" ";
+			}
+			EventLog::writeDebug(msg);
+			
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				!hasFileStatus(selectedItemsStatus, FileStatus::Ignored);
+		}
+	},
+
 	
 };

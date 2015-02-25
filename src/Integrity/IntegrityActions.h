@@ -40,6 +40,9 @@ namespace IntegrityActions {
 	// name of specific sandbox (includes .pj file)
 	std::wstring getSandboxName(const IntegritySession& session, std::wstring path);
 
+	// list of patterns in exclude filter
+	std::vector<std::wstring> getExcludeFilterContents(const IntegritySession& session);
+
 	bool connect(const IntegritySession& session);
 
 	void launchSandboxView(const IntegritySession& session, std::wstring path);
