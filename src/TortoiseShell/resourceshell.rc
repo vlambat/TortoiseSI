@@ -198,7 +198,7 @@ END
 STRINGTABLE
 BEGIN
     IDS_LOADING             "Loading..."
-    IDS_RESYNC              "Resynchronize"
+    IDS_RESYNC              "Resynchronize by Change Package"
     IDS_RESYNC_ENTIRE_SANDBOX "Resynchronize Entire Sandbox"
     IDS_DROP_SANDBOX        "Drop Sandbox"
     IDS_RETARGET_SANDBOX    "Retarget Sandbox"
