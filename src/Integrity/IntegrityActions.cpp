@@ -94,7 +94,7 @@ namespace IntegrityActions {
 	void setExcludeFileFilter(const IntegritySession& session, std::vector<std::wstring> patterns, std::function<void()> onDone)
 	{
 		IntegrityCommand command(L"si", L"setprefs");
-		command.addOption(L"command=viewnonmembers");
+		command.addOption(L"command",L"viewnonmembers");
 
 		std::wstring patternString;
 		if (!patterns.empty()) {
@@ -225,7 +225,7 @@ namespace IntegrityActions {
 		
 		std::vector<std::wstring> filterContents;
 		IntegrityCommand command(L"si", L"viewprefs");
-		command.addOption(L"command=viewnonmembers");
+		command.addOption(L"command", L"viewnonmembers");
 
 		std::unique_ptr<IntegrityResponse> response = session.execute(command);
 
