@@ -42,7 +42,7 @@ static const IntegritySession& getIntegritySession() {
 void refreshFolder(std::wstring folder) {
 	EventLog::writeDebug(L"sending update notification for " + folder);
 
-	IStatusCache::getInstance().clear(L"");
+	IStatusCache::getInstance().clear();
 
 	SHChangeNotify(SHCNE_ATTRIBUTES, SHCNF_PATH | SHCNF_FLUSH, (LPCVOID)folder.c_str(), NULL);
 }
@@ -322,7 +322,7 @@ std::vector<MenuInfo> menuInfo =
 		}
 	},
 	{ MenuItem::IgnoreSubMenu, 0, IDS_IGNORE_SUBMENU, IDS_IGNORE_SUBMENU_DESC,
-		nullptr, // let Contexthandler define the actions associated with menu
+		nullptr, // CShellExt::InsertIgnoreSubmenus define the actions associated with menu
 		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
 		{
 			return selectedItems.size() == 1 &&

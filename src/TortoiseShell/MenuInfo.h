@@ -28,8 +28,6 @@ enum MenuItem {
 	IgnoreSubMenu,
 	UnIgnoreSubMenu,
 
-	Test,
-
 	Seperator,
 	ResyncFile,
 	ResyncEntireSandbox,
