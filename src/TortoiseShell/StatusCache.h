@@ -26,6 +26,7 @@ class IStatusCache {
 public:
 	virtual FileStatusFlags getFileStatus(std::wstring fileName) = 0;
 	virtual void clear(std::wstring path) = 0;
+	virtual void clear() = 0;
 	virtual RootFolderCache& getRootFolderCache() = 0;
 
 	// the IntegritySession the cache uses to talk to integrity 

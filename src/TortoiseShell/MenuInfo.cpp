@@ -42,6 +42,8 @@ static const IntegritySession& getIntegritySession() {
 void refreshFolder(std::wstring folder) {
 	EventLog::writeDebug(L"sending update notification for " + folder);
 
+	IStatusCache::getInstance().clear(L"");
+
 	SHChangeNotify(SHCNE_ATTRIBUTES, SHCNF_PATH | SHCNF_FLUSH, (LPCVOID)folder.c_str(), NULL);
 }
 
@@ -319,49 +321,15 @@ std::vector<MenuInfo> menuInfo =
 				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},
-	{ MenuItem::IgnoreSubMenu, 0, IDS_IGNORE_SUBMENU, IDS_IGNORE_SUBMENU,
-		nullptr, [](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+	{ MenuItem::IgnoreSubMenu, 0, IDS_IGNORE_SUBMENU, IDS_IGNORE_SUBMENU_DESC,
+		nullptr, // let Contexthandler define the actions associated with menu
+		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
 		{
 			return selectedItems.size() == 1 &&
 				hasFileStatus(selectedItemsStatus, FileStatus::File) && 
 				!hasFileStatus(selectedItemsStatus, FileStatus::Ignored);
 		}
 	},
-
-	/*{ MenuItem::Test, 0, NULL, NULL,
-	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
-		{
-			if (selectedItems.empty()) {
-				EventLog::writeDebug(L"selected items list empty for this operation");
-				return;
-			}
-
-			// First selected file
-			std::wstring file = selectedItems.front();
-
-			// Extract folder name from file path
-			std::wstring folder = file.substr(0, file.find_last_of('\\'));
-			std::vector<std::wstring> excludeContents = IntegrityActions::getExcludeFilterContents(getIntegritySession());
-
-			// based on operation (just the file or a glob), append it to this list
-			std::wstring newPattern = L"file:*.test";
-			if (std::find(excludeContents.begin(), excludeContents.end(), newPattern) != excludeContents.end()) {
-				EventLog::writeDebug(L"Already contains pattern " + newPattern);
-				return;
-			}
-			excludeContents.push_back(L"file:*.test");
-			
-			// set prefs and refresh folder
-			IntegrityActions::setExcludeFileFilter(getIntegritySession(), excludeContents, [folder] { refreshFolder(folder); });
-			
-		},
-			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
-		{
-			return selectedItems.size() == 1 &&
-				hasFileStatus(selectedItemsStatus, FileStatus::File) &&
-				!hasFileStatus(selectedItemsStatus, FileStatus::Ignored);
-		}
-	},*/
 
 	
 };

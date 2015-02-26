@@ -278,7 +278,7 @@ STDMETHODIMP CShellExt::QueryContextMenu_Wrap(HMENU hMenu,
 				// handle special cases (sub menus)
 				if ((menu.menuID == MenuItem::IgnoreSubMenu) || (menu.menuID == MenuItem::UnIgnoreSubMenu))
 				{
-					if (InsertIgnoreSubmenus(idCmd, idCmdFirst, hMenu, subMenu, indexMenu, indexSubMenu, 0, TRUE, menu, uFlags))
+					if (InsertIgnoreSubmenus(idCmd, idCmdFirst, subMenu, indexSubMenu, menu))
 						bMenuEntryAdded = true;
 				}
 				else
@@ -524,7 +524,7 @@ bool CShellExt::IsIllegalFolder(std::wstring folder)
 	return false;
 }
 
-bool CShellExt::InsertIgnoreSubmenus(UINT &idCmd, UINT idCmdFirst, HMENU hMenu, HMENU subMenu, UINT &indexMenu, int &indexSubMenu, unsigned __int64 topmenu, bool bShowIcons, MenuInfo &menuInfo, UINT /*uFlags*/)
+bool CShellExt::InsertIgnoreSubmenus(UINT &idCmd, UINT idCmdFirst, HMENU subMenu, int &indexSubMenu, MenuInfo &menuInfo)
 {
 	std::wstring menutext = getTortoiseSIString(menuInfo.menuTextID);
 
@@ -536,7 +536,7 @@ bool CShellExt::InsertIgnoreSubmenus(UINT &idCmd, UINT idCmdFirst, HMENU hMenu, 
 	if (selectedItems.empty())
 		return false;
 
-	UINT icon = bShowIcons ? IDI_IGNORE : 0;
+	UINT icon = IDI_IGNORE;
 
 	std::vector<stdstring>::iterator I = selectedItems.begin();
 	if (_tcsrchr(I->c_str(), '\\'))
@@ -601,7 +601,7 @@ bool CShellExt::InsertIgnoreSubmenus(UINT &idCmd, UINT idCmdFirst, HMENU hMenu, 
 		menuiteminfo.hSubMenu = ignoresubmenu;
 		menuiteminfo.wID = idCmd;
 
-		InsertMenuItem((topmenu) ? hMenu : subMenu, (topmenu) ? indexMenu++ : indexSubMenu++, TRUE, &menuiteminfo);
+		InsertMenuItem(subMenu, indexSubMenu++, TRUE, &menuiteminfo);
 		myIDMap[idCmd - idCmdFirst] = menuInfo;
 		myIDMap[idCmd++] = menuInfo;
 	}

@@ -229,6 +229,7 @@ END
 STRINGTABLE
 BEGIN
     IDS_IGNORE_SUBMENU      "Add to exclude filter"
+    IDS_IGNORE_SUBMENU_DESC "Add selected pattern to Non-Members View Exclude Filter"
 END
 
 #endif    // English (United States) resources

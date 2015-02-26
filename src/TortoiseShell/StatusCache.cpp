@@ -18,6 +18,7 @@ public:
 
 	virtual FileStatusFlags getFileStatus(std::wstring fileName);
 	virtual void clear(std::wstring path);
+	virtual void clear();
 
 	virtual RootFolderCache& getRootFolderCache() { return *rootFolderCache;  };
 	virtual IntegritySession& getIntegritySession() { return *integritySession; };
@@ -51,7 +52,7 @@ private:
 };
 
 SmallFixedInProcessCache* cacheInstance = NULL;
-const std::chrono::seconds SmallFixedInProcessCache::entryExpiryTime = std::chrono::seconds(30);
+const std::chrono::seconds SmallFixedInProcessCache::entryExpiryTime = std::chrono::seconds(5);
 
 int getIntegrationPoint() 
 {
@@ -84,7 +85,6 @@ SmallFixedInProcessCache::CachedResult SmallFixedInProcessCache::findCachedStatu
 
 	for (CachedEntry& entry : cachedStatus) {
 		if (entry.path == path && (std::chrono::system_clock::now() - entry.entryCreationTime) < entryExpiryTime) {
-			entry.entryCreationTime = std::chrono::system_clock::now();
 			return CachedResult(entry.fileStatus);
 		}
 	}
@@ -137,11 +137,17 @@ void SmallFixedInProcessCache::clear(std::wstring path) {
 	std::lock_guard<std::mutex> lock(cacheLockObject);
 
 	for (CachedEntry& entry : cachedStatus) {
-		if (entry.path == path) {
+		if (path.empty()) {
+			entry.path = L"";
+		} else if (entry.path == path) {
 			entry.path = L"";
 			return;
 		}
 	}
+}
+
+void SmallFixedInProcessCache::clear() {
+	SmallFixedInProcessCache::clear(L"");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
