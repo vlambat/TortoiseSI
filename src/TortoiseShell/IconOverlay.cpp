@@ -244,10 +244,7 @@ FileStatusFlags	CShellExt::getPathStatus(std::wstring path)
 		 }
 	 }
 	 else if (hasFileStatus(fileStatusFlags, FileStatus::MergeNeeded)) {
-		 if (g_conflictedovlloaded && m_State == FileStateConflict) {
-			 return S_OK;
-		 }
-		 else if (!g_conflictedovlloaded && m_State == FileStateModified) {
+		 if (m_State == FileStateModified) {
 			 return S_OK;
 		 }
 		 else {
