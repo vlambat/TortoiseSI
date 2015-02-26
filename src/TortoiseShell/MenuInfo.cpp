@@ -114,6 +114,11 @@ std::wstring getTopLevelSandbox(std::wstring path, HWND parentWindow) {
 		// Strip off the .pj file at the end of the path before we do comparison
 		std::wstring subDir = sandboxFolder.substr(0, sandboxFolder.find_last_of('\\'));
 
+		// Re-append slash
+		if (subDir.at(subDir.size() - 1) != '\\') {
+			subDir += L"\\";
+		}
+
 		if (startsWith(path, subDir)) {
 
 			// Found another top level sandbox folder
@@ -172,7 +177,7 @@ void updateExcludeFileFilter(const std::vector<std::wstring>& selectedItems, con
 
 std::vector<MenuInfo> menuInfo =
 {
-	{ MenuItem::ViewSandbox, 0, IDS_VIEW_SANDBOX, IDS_VIEW_SANDBOX,
+	{ MenuItem::ViewSandbox, IDI_REPOBROWSE, IDS_VIEW_SANDBOX, IDS_VIEW_SANDBOX_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND)
 	{
 		IntegrityActions::launchSandboxView(getIntegritySession(), selectedItems.front());
@@ -184,7 +189,7 @@ std::vector<MenuInfo> menuInfo =
 			hasFileStatus(selectedItemsStatus, FileStatus::Member);
 	}
 	},
-	{ MenuItem::CreateSandbox, 0, IDS_CREATE_SANDBOX, IDS_CREATE_SANDBOX,
+	{ MenuItem::CreateSandbox, IDI_CREATEREPOS, IDS_CREATE_SANDBOX, IDS_CREATE_SANDBOX_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
 	{
 		if (warnIfPathHasControlledDecendantFolders(selectedItems.front(), parentWindow)) {
@@ -203,7 +208,7 @@ std::vector<MenuInfo> menuInfo =
 	}
 	},
 	menuSeperator,
-	{ MenuItem::ResyncFile, 0, IDS_RESYNC, IDS_RESYNC,
+	{ MenuItem::ResyncFile, IDI_PULL, IDS_RESYNC, IDS_RESYNC_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND)
 		{
 			std::wstring folder;
@@ -231,7 +236,7 @@ std::vector<MenuInfo> menuInfo =
 				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},
-	{ MenuItem::ResyncEntireSandbox, 0, IDS_RESYNC_ENTIRE_SANDBOX, IDS_RESYNC_ENTIRE_SANDBOX,
+	{ MenuItem::ResyncEntireSandbox, IDI_PULL, IDS_RESYNC_ENTIRE_SANDBOX, IDS_RESYNC_ENTIRE_SANDBOX_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
 		{
 			std::wstring sandboxName;
@@ -260,7 +265,7 @@ std::vector<MenuInfo> menuInfo =
 				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},
-	{ MenuItem::DropSandbox, 0, IDS_DROP_SANDBOX, IDS_DROP_SANDBOX,
+	{ MenuItem::DropSandbox, IDI_DELETE, IDS_DROP_SANDBOX, IDS_DROP_SANDBOX_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
 		{
 			std::wstring sandboxName;
@@ -285,7 +290,7 @@ std::vector<MenuInfo> menuInfo =
 				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},
-	{ MenuItem::RetargetSandbox, 0, IDS_RETARGET_SANDBOX, IDS_RETARGET_SANDBOX,
+	{ MenuItem::RetargetSandbox, IDI_RELOCATE, IDS_RETARGET_SANDBOX, IDS_RETARGET_SANDBOX_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
 		{
 			std::wstring folder;
