@@ -243,17 +243,10 @@ FileStatusFlags	CShellExt::getPathStatus(std::wstring path)
 			 return S_FALSE;
 		 }
 	 }
-	 else if (hasFileStatus(fileStatusFlags, FileStatus::MergeNeeded)) {
-		 if (m_State == FileStateModified) {
-			 return S_OK;
-		 }
-		 else {
-			 return S_FALSE;
-		 }
-	 }
 	 else if (hasFileStatus(fileStatusFlags, FileStatus::Modified)
 		 || hasFileStatus(fileStatusFlags, FileStatus::Moved)
-		 || hasFileStatus(fileStatusFlags, FileStatus::Renamed)) {
+		 || hasFileStatus(fileStatusFlags, FileStatus::Renamed)
+		 || hasFileStatus(fileStatusFlags, FileStatus::MergeNeeded)) {
 
 		 if (m_State == FileStateModified) {
 			 return S_OK;
