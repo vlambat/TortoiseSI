@@ -42,6 +42,8 @@ static const IntegritySession& getIntegritySession() {
 void refreshFolder(std::wstring folder) {
 	EventLog::writeDebug(L"sending update notification for " + folder);
 
+	IStatusCache::getInstance().clear();
+
 	SHChangeNotify(SHCNE_ATTRIBUTES, SHCNF_PATH | SHCNF_FLUSH, (LPCVOID)folder.c_str(), NULL);
 }
 
@@ -142,6 +144,37 @@ std::wstring getTopLevelSandbox(std::wstring path, HWND parentWindow) {
 	}
 
 	return topLevel;
+}
+
+/**
+* Get current contents of the exclude filter, add new pattern (if it is not already in the filter), and update the exclude filter
+*/
+void updateExcludeFileFilter(const std::vector<std::wstring>& selectedItems, const std::wstring newExclude) {
+	// assume newExclude of the form "filename.extension" or "*.extension" 
+
+	if (selectedItems.empty()) {
+		EventLog::writeDebug(L"selected items list empty for ignore operations");
+		return;
+	}
+
+	std::wstring file = selectedItems.front();
+
+	// Extract folder name from file path
+	std::wstring folder = file.substr(0, file.find_last_of('\\'));
+
+	// retrieve current exclude contents
+	std::vector<std::wstring> excludeContents = IntegrityActions::getExcludeFilterContents(getIntegritySession());
+
+	// append it to this list, error check for duplicates
+	std::wstring newExcludeOption = L"file:" + newExclude;
+	if (std::find(excludeContents.begin(), excludeContents.end(), newExcludeOption) != excludeContents.end()) {
+		EventLog::writeDebug(L"Already contains pattern " + newExcludeOption);
+		return;
+	}
+	excludeContents.push_back(newExcludeOption);
+
+	// set prefs and refresh folder
+	IntegrityActions::setExcludeFileFilter(getIntegritySession(), excludeContents, [folder] { refreshFolder(folder); });
 }
 
 std::vector<MenuInfo> menuInfo =
@@ -288,4 +321,15 @@ std::vector<MenuInfo> menuInfo =
 				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},
+	{ MenuItem::IgnoreSubMenu, 0, IDS_IGNORE_SUBMENU, IDS_IGNORE_SUBMENU_DESC,
+		nullptr, // CShellExt::InsertIgnoreSubmenus define the actions associated with menu
+		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::File) && 
+				!hasFileStatus(selectedItemsStatus, FileStatus::Ignored);
+		}
+	},
+
+	
 };

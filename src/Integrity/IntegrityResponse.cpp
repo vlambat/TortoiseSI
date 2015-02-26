@@ -46,6 +46,33 @@ std::wstring getModelType(mksWorkItem item) {
 	return std::wstring(buffer);
 }
 
+std::wstring getStringFieldValue(mksWorkItem item, const std::wstring& fieldName) {
+	mksField field = mksWorkItemGetField(item, (wchar_t*)fieldName.c_str());
+	wchar_t buffer[DEFAULT_BUFFER_SIZE];
+
+	mksFieldGetStringValue(field, buffer, DEFAULT_BUFFER_SIZE);
+	return std::wstring(buffer);
+
+}
+std::wstring getStringFieldValue(mksItem item, const std::wstring& fieldName) {
+	mksField field = mksItemGetField(item, (wchar_t*)fieldName.c_str());
+	wchar_t buffer[DEFAULT_BUFFER_SIZE];
+
+	mksFieldGetStringValue(field, buffer, DEFAULT_BUFFER_SIZE);
+	return std::wstring(buffer);
+
+}
+
+
+mksItem getItemFieldValue(mksWorkItem item, const std::wstring& fieldName) {
+	mksField field = mksWorkItemGetField(item, (wchar_t*)fieldName.c_str());
+
+	mksItem itemValue = NULL;
+	mksFieldGetItemValue(field, &itemValue);
+	return itemValue;
+
+}
+
 
 bool getBooleanFieldValue(mksField field)
 {

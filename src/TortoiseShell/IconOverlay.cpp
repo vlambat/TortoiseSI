@@ -176,7 +176,11 @@ FileStatusFlags	CShellExt::getPathStatus(std::wstring path)
 			if (PathIsDirectoryW(path.c_str())) {
 				return FileStatus::Folder | FileStatus::Member;
 			} else {
-				return IStatusCache::getInstance().getFileStatus(path) | FileStatus::File;
+				FileStatusFlags status = IStatusCache::getInstance().getFileStatus(path);
+				if (status == 0) {
+					return FileStatus::Ignored | FileStatus::File;
+				}
+				return status | FileStatus::File;
 			}
 		} else {
 			if (PathIsDirectoryW(path.c_str())) {

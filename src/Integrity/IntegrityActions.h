@@ -40,6 +40,9 @@ namespace IntegrityActions {
 	// name of specific sandbox (includes .pj file)
 	std::wstring getSandboxName(const IntegritySession& session, std::wstring path);
 
+	// list of patterns in exclude filter
+	std::vector<std::wstring> getExcludeFilterContents(const IntegritySession& session);
+
 	bool connect(const IntegritySession& session);
 
 	void launchSandboxView(const IntegritySession& session, std::wstring path);
@@ -66,5 +69,7 @@ namespace IntegrityActions {
 	void resyncFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone);
 	void resyncEntireSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 	void retargetSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
+
+	void setExcludeFileFilter(const IntegritySession& session, std::vector<std::wstring> patterns, std::function<void()> onDone);
 
 }

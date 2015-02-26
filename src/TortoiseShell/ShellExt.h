@@ -71,7 +71,7 @@ protected:
 	FileState m_State;
 	ULONG	m_cRef;
 	// used by IContextMenu
-	std::map<UINT_PTR, MenuInfo*> myIDMap;
+	std::map<UINT_PTR, MenuInfo> myIDMap;
 	std::map<std::wstring, UINT_PTR> myVerbsMap;
 	std::map<UINT_PTR, std::wstring> myVerbsIDMap;
 
@@ -87,7 +87,7 @@ private:
 	std::vector<std::wstring> getItemsForMenuAction();
 	FileStatusFlags getItemsStatusForMenuAction();
 	void			InsertSIMenu(HMENU menu, UINT pos, UINT_PTR id, UINT idCmdFirst, MenuInfo& menuInfo);
-	bool			InsertIgnoreSubmenus(UINT &idCmd, UINT idCmdFirst, HMENU hMenu, HMENU subMenu, UINT &indexMenu, int &indexSubMenu, unsigned __int64 topmenu, bool bShowIcons, UINT uFlags);
+	bool			InsertIgnoreSubmenus(UINT &idCmd, UINT idCmdFirst, HMENU subMenu, int &indexSubMenu, MenuInfo &MenuInfo);
 	void			TweakMenu(HMENU menu);
 	bool			IsIllegalFolder(std::wstring folder);
 	HRESULT			doesStatusMatch(FileStatusFlags fileStatusFlags);

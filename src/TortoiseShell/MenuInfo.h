@@ -44,3 +44,5 @@ struct MenuInfo
 	std::function<void(const std::vector<std::wstring>&, HWND)>	siCommand;
 	std::function<bool(const std::vector<std::wstring>&, FileStatusFlags)>			enable;
 };
+
+extern void updateExcludeFileFilter(const std::vector<std::wstring>& selectedItems, const std::wstring newExclude);

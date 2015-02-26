@@ -46,6 +46,7 @@ enum class FileStatus
 	// local stuff (ie things we figure out in the extension)
 	Folder		= 0x00100000l,
 	File		= 0x00200000l,
+	Ignored		= 0x00400000l,
 };
 
 typedef int FileStatusFlags;

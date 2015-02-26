@@ -23,6 +23,7 @@
 #include "EventLog.h"
 #include "CrashReport.h"
 #include "DebugEventLog.h"
+#include <sstream>
 
 namespace IntegrityActions {
 	void displayException(const IntegrityResponse& response);
@@ -86,6 +87,27 @@ namespace IntegrityActions {
 		IntegrityCommand command(L"si", L"retargetsandbox");
 		command.addOption(L"g");
 		command.addSelection(path);
+
+		executeUserCommand(session, command, onDone);
+	}
+
+	void setExcludeFileFilter(const IntegritySession& session, std::vector<std::wstring> patterns, std::function<void()> onDone)
+	{
+		IntegrityCommand command(L"si", L"setprefs");
+		command.addOption(L"command",L"viewnonmembers");
+
+		std::wstring patternString;
+		if (!patterns.empty()) {
+			std::wostringstream ss;
+
+			// build list of filter patterns, separating with commas. Add last one manually so we don't have trailing comma
+			std::copy(patterns.begin(), patterns.end() - 1, std::ostream_iterator<std::wstring, wchar_t>(ss, L","));
+			ss << patterns.back();
+
+			patternString = ss.str();
+		}
+
+		command.addSelection(L"excludeFilter=" + patternString);
 
 		executeUserCommand(session, command, onDone);
 	}
@@ -194,6 +216,48 @@ namespace IntegrityActions {
 		}
 
 		return sandboxPaths;
+	}
+
+	/**
+	*  Retrieve current excludeFilter contents using 'viewprefs' command
+	*/
+	std::vector<std::wstring> getExcludeFilterContents(const IntegritySession& session) {
+		
+		std::vector<std::wstring> filterContents;
+		IntegrityCommand command(L"si", L"viewprefs");
+		command.addOption(L"command", L"viewnonmembers");
+
+		std::unique_ptr<IntegrityResponse> response = session.execute(command);
+
+		if (response->getException() != NULL) {
+			logAnyExceptions(*response);
+			displayException(*response);
+			return filterContents;
+		}
+
+
+		std::wstring contents;
+		for (mksWorkItem item : *response) {
+			std::wstring id = getId(item);
+
+			mksItem setting = getItemFieldValue(item, L"excludeFilter");
+			if (setting != NULL) {
+				contents = getStringFieldValue(setting, L"default");
+			}
+
+		}
+
+		if (!contents.empty()) {
+			wchar_t* token = wcstok((wchar_t*)contents.c_str(), L",");
+			while (token != NULL) {
+				filterContents.push_back(token);
+				token = wcstok(NULL, L",");
+			}
+		}
+
+		return filterContents;
+
+
 	}
 
 	std::vector<std::wstring> folders(const IntegritySession& session)
