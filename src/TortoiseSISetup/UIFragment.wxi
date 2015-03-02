@@ -69,8 +69,8 @@
 		<Binary Id="completi" SourceFile="include\Complete.ico" />
 		<Binary Id="insticon" SourceFile="include\Typical.ico" />
 		<Binary Id="info" SourceFile="include\Info.ico" />
-		<Binary Id="bannrbmp" SourceFile="include\Banner.jpg" />
-		<Binary Id="dlgbmp" SourceFile="include\Dialog.jpg" />
+		<Binary Id="bannrbmp" SourceFile="include\TortoiseSI-banner.png" />
+		<Binary Id="dlgbmp" SourceFile="include\TortoiseSI-Dialog.png" />
 
 		<!-- Text Styles .............................................................................................. -->
 		<TextStyle Id="DlgFont8" FaceName="Tahoma" Size="8" />
