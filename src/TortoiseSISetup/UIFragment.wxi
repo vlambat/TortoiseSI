@@ -109,7 +109,7 @@
 			</Control>
 			<Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
 			<Control Id="DialogDescription" Type="Text" X="75" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" RightAligned="yes">
-				<Text>Browse to the destination folder</Text>
+				<Text>Browse to the destination folder.</Text>
 			</Control>
 			<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
 		</Dialog>
@@ -193,7 +193,7 @@
 			</Control>
 			<Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
 			<Control Id="DialogDescription" Type="Text" X="75" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" RightAligned="yes">
-				<Text>Browse to the destination folder</Text>
+				<Text>Browse to the destination folder.</Text>
 			</Control>
 			<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
 		</Dialog>
@@ -681,7 +681,7 @@
 			</Control>
 			<Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
 			<Control Id="DialogDescription" Type="Text" X="75" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" RightAligned="yes">
-				<Text>[Wizard] is ready to begin [InstallMode] installation</Text>
+				<Text>[Wizard] is ready to begin [InstallMode] installation.</Text>
 			</Control>
 			<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
 		</Dialog>
