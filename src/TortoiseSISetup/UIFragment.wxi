@@ -287,7 +287,7 @@
 			</Control>
 			<Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
 			<Control Id="DialogDescription" Type="Text" X="75" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" RightAligned="yes">
-				<Text>Disk space required for installation of selected features.</Text>
+				<Text>Required Disk Space.</Text>
 			</Control>
 			<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
 		</Dialog>
