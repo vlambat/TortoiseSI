@@ -48,6 +48,7 @@ public:
 		langticker = drivetypeticker;
 
 		langid = CRegStdDWORD(_T("Software\\TortoiseSI\\LanguageID"), 1033);
+
 		for (int i = 0; i < 27; ++i)
 		{
 			drivetypecache[i] = (UINT)-1;

@@ -139,7 +139,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ShellExt.def" />
-    <None Include="resourceshell.rc2" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Integrity\FileStatus.h" />
@@ -235,7 +234,7 @@
     <Image Include="..\Resources\update1.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="resourceshell.rc" />
+    <ResourceCompile Include="..\Resources\TortoiseShellENG.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

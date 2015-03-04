@@ -1,20 +1,20 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <?include ../src/TortoiseGitSetup/Includes.wxi?>
+  <?include ../src/TortoiseSISetup/Includes.wxi?>
 
   <Product
   UpgradeCode="9ECED698-D4D9-42fd-946D-51CC049D1F6F"
-  Name='$(var.LANGNATIVE) Languagepack for TortoiseGit'
+  Name='$(var.LANGNATIVE) Languagepack for TortoiseSI'
   Id='*'
   Language='1033'
   Codepage='1252'
   Version='$(var.VersionNumberInternal)'
-  Manufacturer='TortoiseGit'>
+  Manufacturer='TortoiseSI'>
 
     <Package Id='*' Keywords='Installer'
-      Description="$LANGUI$ language pack for TortoiseGit"
-      Comments='http://tortoisegit.org/' 
-      Manufacturer="Frank Li, Sven Strickroth" 
+      Description="$LANGUI$ language pack for TortoiseSI"
+      Comments='http://tortoiseSI.org/' 
+      Manufacturer="PTC Inc" 
       Platform="$(var.PackagePlatforms)"  
       InstallerVersion='301' 
       Languages='1033' 
@@ -29,35 +29,26 @@
 	<Property Id="ALLUSERS" Secure="yes">1</Property>
 
     <?if $(var.Platform) = "x86" ?>
-        <Condition Message="You are attempting to run the 32-bit installer on a 64-bit version of Windows. Please install the 64-bit version of the TortoiseGit language pack instead.">NOT Msix64</Condition>
+        <Condition Message="You are attempting to run the 32-bit installer on a 64-bit version of Windows. Please install the 64-bit version of the TortoiseSI language pack instead.">NOT Msix64</Condition>
     <?endif ?>
 
     <Property Id="INSTALLDIR" Secure="yes">
-      <RegistrySearch Id="TGitInstallationDir" Root="HKLM" Key="Software\[Manufacturer]" Name="Directory" Type="raw" Win64="$(var.Win64YesNo)"/>
+      <RegistrySearch Id="TSIInstallationDir" Root="HKLM" Key="Software\[Manufacturer]" Name="Directory" Type="raw" Win64="$(var.Win64YesNo)"/>
     </Property>
-    <Condition Message="TortoiseGit is not installed. Please install TortoiseGit before installing the language pack">INSTALLDIR</Condition>
+    <Condition Message="TortoiseSI is not installed. Please install TortoiseSI before installing the language pack">INSTALLDIR</Condition>
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='D__ProgramFilesFolder' ShortName="PFiles" Name="Program Files">
-        <Directory Id='INSTALLDIR' Name='TortoiseGit'>
+        <Directory Id='INSTALLDIR' Name='TortoiseSI'>
           <Directory Id='LanguagesFolder' Name='Languages'>
             <Component Id='Main' Guid='9D004446-94B4-4b9d-8C95-0BD46008A2A5'>
-              <?if $(var.TSVNHelpFile) = "$COUNTRYCODE$" ?>
-              <File Id='HELPPROC' Name='TortoiseSVN_$COUNTRYCODE$.chm' DiskId='1' Source='..\doc\output\TortoiseSVN_$COUNTRYCODE$.chm' Vital='no'></File>
-              <?endif?>
-              <?if $(var.TMergeHelpFile) = "$COUNTRYCODE$" ?>
-              <File Id='HELPMERG' Name='TortoiseMerge_$COUNTRYCODE$.chm' DiskId='1' Source='..\doc\output\TortoiseMerge_$COUNTRYCODE$.chm' Vital='no'></File>
-              <?endif?>
               <?ifdef var.SPELL ?>
               <?include spell/$(var.COUNTRYID).wxi?>
               <?endif?>
-              <File Id='PROCDLL' Name='TortoiseProc$(var.COUNTRYID).dll' DiskId='1' Source='..\bin\$(var.ReleasePath)\bin\TortoiseProc$(var.COUNTRYID).dll' Vital='yes'></File>
-              <File Id='MERGDLL' Name='TortoiseMerge$(var.COUNTRYID).dll' DiskId='1' Source='..\bin\$(var.ReleasePath)\bin\TortoiseMerge$(var.COUNTRYID).dll' Vital='yes'></File>
-              <File Id='BLAMDLL' Name='TortoiseGitBlame$(var.COUNTRYID).dll' DiskId='1' Source='..\bin\$(var.ReleasePath)\bin\TortoiseGitBlame$(var.COUNTRYID).dll' Vital='yes'></File>
-              <File Id='IDIFDLL' Name='TortoiseIDiff$(var.COUNTRYID).dll' DiskId='1' Source='..\bin\$(var.ReleasePath)\bin\TortoiseIDiff$(var.COUNTRYID).dll' Vital='yes'></File>
+              <File Id='PROCDLL' Name='TortoiseShell$(var.COUNTRYID).dll' DiskId='1' Source='..\bin\$(var.ReleasePath)\bin\TortoiseShell$(var.COUNTRYID).dll' Vital='yes'></File>
 
               <?if $(var.Platform) = "x64" ?>
-                <File Id='PROCDLL32' Name='TortoiseProc32$(var.COUNTRYID).dll' DiskId='1' Source='..\bin\$(var.ReleasePath32)\bin\TortoiseProc$(var.COUNTRYID).dll' Vital='yes'></File>
+                <File Id='PROCDLL32' Name='TortoiseShell32$(var.COUNTRYID).dll' DiskId='1' Source='..\bin\$(var.ReleasePath32)\bin\TortoiseShell$(var.COUNTRYID).dll' Vital='yes'></File>
               <?endif ?>
               
             </Component>

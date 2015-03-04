@@ -113,9 +113,6 @@
     <None Include="ShellExt.def">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="resourceshell.rc2">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">
@@ -389,7 +386,7 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="resourceshell.rc">
+    <ResourceCompile Include="..\Resources\TortoiseShellENG.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
