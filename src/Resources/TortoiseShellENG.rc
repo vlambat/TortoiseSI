@@ -1,0 +1,251 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Neutral resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_PULL                ICON                    "..\\resources\\update1.ico"
+IDI_APP                 ICON                    "..\\Resources\\Tortoise.ico"
+IDI_CHECKOUT            ICON                    "..\\Resources\\menucheckout.ico"
+IDI_UPDATE              ICON                    "..\\Resources\\menuupdate.ico"
+IDI_COMMIT              ICON                    "..\\Resources\\menucommit.ico"
+IDI_ADD                 ICON                    "..\\Resources\\menuadd.ico"
+IDI_REVERT              ICON                    "..\\Resources\\menurevert.ico"
+IDI_CLEANUP             ICON                    "..\\Resources\\menucleanup.ico"
+IDI_RESOLVE             ICON                    "..\\Resources\\menuresolve.ico"
+IDI_SWITCH              ICON                    "..\\Resources\\menuswitch.ico"
+IDI_MERGE               ICON                    "..\\Resources\\menumerge.ico"
+IDI_IMPORT              ICON                    "..\\Resources\\menuimport.ico"
+IDI_EXPORT              ICON                    "..\\Resources\\menuexport.ico"
+IDI_COPY                ICON                    "..\\Resources\\menucopy.ico"
+IDI_DELETE              ICON                    "..\\Resources\\menudelete.ico"
+IDI_RENAME              ICON                    "..\\Resources\\menurename.ico"
+IDI_DIFF                ICON                    "..\\Resources\\menucompare.ico"
+IDI_LOG                 ICON                    "..\\Resources\\menulog.ico"
+IDI_ABOUT               ICON                    "..\\Resources\\menuabout.ico"
+IDI_SETTINGS            ICON                    "..\\Resources\\menusettings.ico"
+IDI_CREATEREPOS         ICON                    "..\\Resources\\menucreaterepos.ico"
+IDI_CONFLICT            ICON                    "..\\Resources\\menuconflict.ico"
+IDI_RELOCATE            ICON                    "..\\Resources\\menurelocate.ico"
+IDI_HELP                ICON                    "..\\Resources\\menuhelp.ico"
+IDI_SHOWCHANGED         ICON                    "..\\Resources\\menushowchanged.ico"
+IDI_IGNORE              ICON                    "..\\Resources\\menuignore.ico"
+IDI_REPOBROWSE          ICON                    "..\\Resources\\menurepobrowse.ico"
+IDI_BLAME               ICON                    "..\\Resources\\menublame.ico"
+IDI_PATCH               ICON                    "..\\Resources\\menupatch.ico"
+IDI_CREATEPATCH         ICON                    "..\\Resources\\menudiff.ico"
+IDI_MENUFILE            ICON                    "..\\Resources\\tsvnmenufile.ico"
+IDI_MENUFOLDER          ICON                    "..\\Resources\\tsvnmenufolder.ico"
+IDI_MENULINK            ICON                    "..\\Resources\\tsvnmenulink.ico"
+IDI_MENUMULTIPLE        ICON                    "..\\Resources\\tsvnmenumultiple.ico"
+IDI_PROPERTIES          ICON                    "..\\Resources\\menuproperties.ico"
+IDI_APPSMALL            ICON                    "..\\Resources\\TortoiseSmall.ico"
+IDI_CLIPPASTE           ICON                    "..\\Resources\\clippaste.ico"
+IDI_PUSH                ICON                    "..\\resources\\Push.ico"
+IDI_CLONE               ICON                    "..\\resources\\checkout.ico"
+IDI_TAG                 ICON                    "..\\resources\\Tag.ico"
+IDI_REBASE              ICON                    "..\\resources\\menurebase.ico"
+IDI_COMBINE             ICON                    "..\\resources\\menucombine.ico"
+IDI_SKIP                ICON                    "..\\resources\\menuskip.ico"
+IDI_SQUASH              ICON                    "..\\resources\\menusquash.ico"
+IDI_EDIT                ICON                    "..\\resources\\menuedit.ico"
+IDI_PICK                ICON                    "..\\resources\\menupick.ico"
+IDI_MENUSYNC            ICON                    "..\\resources\\menusync.ico"
+IDI_COPYCLIP            ICON                    "..\\Resources\\copy.ico"
+IDI_THUMB_DOWN          ICON                    "..\\Resources\\thumb_down.ico"
+IDI_THUMB_UP            ICON                    "..\\Resources\\thumb_up.ico"
+IDI_REVISIONGRAPH       ICON                    "..\\Resources\\menurevisiongraph.ico"
+IDI_DAEMON              ICON                    "..\\Resources\\menudaemon.ico"
+IDI_MERGEABORT          ICON                    "..\\Resources\\menumergeabort.ico"
+#endif    // Neutral resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_MENUSENDMAIL        ICON                    "..\\resources\\menusendmail.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PROPPAGE DIALOGEX 0, 0, 247, 277
+STYLE DS_SETFONT | DS_3DLOOK | DS_FIXEDSYS | WS_CHILD | WS_VISIBLE | WS_CAPTION
+CAPTION "Property Page"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    LTEXT           "Current Branch:",IDC_STATIC,4,9,59,8
+    EDITTEXT        IDC_SHELL_CURRENT_BRANCH,91,9,142,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_TRANSPARENT
+    LTEXT           "Tracked Remote Branch:",IDC_ESCAPEDURLLABEL,4,21,85,8
+    EDITTEXT        IDC_SHELL_REMOTE_BRANCH,91,21,139,14,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    LTEXT           "HEAD:",IDC_STATIC,4,35,76,8
+    EDITTEXT        IDC_HEAD_HASH,80,35,163,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_TRANSPARENT
+    EDITTEXT        IDC_HEAD_SUBJECT,80,47,163,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_TRANSPARENT
+    EDITTEXT        IDC_HEAD_AUTHOR,80,59,163,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_TRANSPARENT
+    EDITTEXT        IDC_HEAD_DATE,80,71,163,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_TRANSPARENT
+    LTEXT           "Last Modified:",IDC_STATIC_LASTMODIFIED,4,97,76,8
+    EDITTEXT        IDC_LAST_HASH,80,97,163,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_TRANSPARENT
+    EDITTEXT        IDC_LAST_SUBJECT,80,108,163,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_TRANSPARENT
+    EDITTEXT        IDC_LAST_AUTHOR,80,121,163,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_TRANSPARENT
+    EDITTEXT        IDC_LAST_DATE,80,132,163,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_TRANSPARENT
+    CONTROL         "Assume valid/unchanged",IDC_ASSUMEVALID,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,145,116,10
+    CONTROL         "Executable (+x)",IDC_EXECUTABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,120,145,116,10
+    CONTROL         "Skip worktree",IDC_SKIPWORKTREE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,157,116,10
+    CONTROL         "Symlink",IDC_SYMLINK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,120,157,116,10
+    GROUPBOX        "Config",IDC_STATIC,4,169,239,66
+    LTEXT           "Auto Crlf:",IDC_STATIC,13,181,76,8
+    EDITTEXT        IDC_CONFIG_AUTOCRLF,98,181,136,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    LTEXT           "Safe Crlf:",IDC_STATIC,13,193,76,8
+    EDITTEXT        IDC_CONFIG_SAFECRLF,98,193,136,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    LTEXT           "User Name:",IDC_STATIC,13,205,76,8
+    EDITTEXT        IDC_CONFIG_USERNAME,98,205,136,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    LTEXT           "User Email:",IDC_STATIC,13,217,76,8
+    EDITTEXT        IDC_CONFIG_USEREMAIL,98,217,136,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    PUSHBUTTON      "Settings",IDC_SHOWSETTINGS,4,249,111,14
+    PUSHBUTTON      "Show &log",IDC_SHOWLOG,132,249,111,14
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE
+BEGIN
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""resourceshell.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_PROPPAGE, DIALOG
+    BEGIN
+        VERTGUIDE, 4
+        VERTGUIDE, 30
+        VERTGUIDE, 80
+        VERTGUIDE, 98
+        VERTGUIDE, 120
+        VERTGUIDE, 243
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_LOADING             "Loading..."
+    IDS_RESYNC              "Resynchronize by Change Package"
+    IDS_RESYNC_ENTIRE_SANDBOX "Resynchronize Entire Sandbox"
+    IDS_DROP_SANDBOX        "Drop Sandbox"
+    IDS_RETARGET_SANDBOX    "Retarget Sandbox"
+    IDS_MULTIPLE_SANDBOXES  "Multiple top level Sandboxes found:"
+    IDS_VIEW_SANDBOX_DESC   "Displays the contents of a Sandbox"
+    IDS_RESYNC_DESC         "Resynchronize Sandbox member files by Change Package"
+    IDS_RESYNC_ENTIRE_SANDBOX_DESC "Resynchronize Sandbox member files"
+    IDS_DROP_SANDBOX_DESC   "Unregister Sandbox from Integrity Client"
+    IDS_RETARGET_SANDBOX_DESC
+                            "Point a Sandbox to a different project configuration"
+    IDS_CREATE_SANDBOX_DESC "Create a new Sandbox"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_VIEW_SANDBOX        "View Sandbox"
+    IDS_CREATE_SANDBOX      "Create Sandbox"
+    IDS_MENU                "Tortoise SI"
+    IDS_SANDBOX_NOTALLOWED1 "Can't create Sandbox here because the following folder(s) already have a Sandbox:"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ETC                 "..."
+    IDS_SHOWING_PARTIAL_RESULTS "(Showing %1!d! of %2!d! only)"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_IGNORE_SUBMENU      "Add to exclude filter"
+    IDS_IGNORE_SUBMENU_DESC "Add selected pattern to Non-Members View Exclude Filter"
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "TortoiseShell.rc2"  // non-Microsoft Visual C++ edited resources
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
