@@ -7,7 +7,7 @@ if ($Env:Platform -eq "Win32") {
 }
 
 # dot source so we can access the $countryCodes hash table/dict variable 
-. ./countryCodes.ps1
+. ./build/countryCodes.ps1
 
 
 $apiUrl = 'https://ci.appveyor.com/api'
