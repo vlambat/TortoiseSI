@@ -4,7 +4,7 @@ Set-ExecutionPolicy Bypass -Force
 $version = $Env:APPVEYOR_BUILD_VERSION
 
 # dot source so we can access the $countryCodes hash table/dict variable 
-. ./countryCodes.ps1
+. ./build/countryCodes.ps1
 
 # If building Win32 version, upload TortoiseSI32.dll
 if($Env:Platform -eq "Win32")
