@@ -69,8 +69,8 @@
 		<Binary Id="completi" SourceFile="include\Complete.ico" />
 		<Binary Id="insticon" SourceFile="include\Typical.ico" />
 		<Binary Id="info" SourceFile="include\Info.ico" />
-		<Binary Id="bannrbmp" SourceFile="include\Banner.jpg" />
-		<Binary Id="dlgbmp" SourceFile="include\Dialog.jpg" />
+		<Binary Id="bannrbmp" SourceFile="include\TortoiseSI-banner.jpg" />
+		<Binary Id="dlgbmp" SourceFile="include\TortoiseSI-Dialog.jpg" />
 
 		<!-- Text Styles .............................................................................................. -->
 		<TextStyle Id="DlgFont8" FaceName="Tahoma" Size="8" />
@@ -109,7 +109,7 @@
 			</Control>
 			<Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
 			<Control Id="DialogDescription" Type="Text" X="75" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" RightAligned="yes">
-				<Text>Browse to the destination folder</Text>
+				<Text>Browse to the destination folder.</Text>
 			</Control>
 			<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
 		</Dialog>
@@ -140,7 +140,7 @@
 			</Control>
 			<Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
 			<Control Id="DialogDescription" Type="Text" X="75" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" RightAligned="yes">
-				<Text>Please specify a network location for the server image of [ProductName] product</Text>
+				<Text>Specify network location for server image of [ProductName] product</Text>
 			</Control>
 			<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
 		</Dialog>
@@ -193,7 +193,7 @@
 			</Control>
 			<Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
 			<Control Id="DialogDescription" Type="Text" X="75" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" RightAligned="yes">
-				<Text>Browse to the destination folder</Text>
+				<Text>Browse to the destination folder.</Text>
 			</Control>
 			<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
 		</Dialog>
@@ -266,7 +266,7 @@
 			</Control>
 			<Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
 			<Control Id="DialogDescription" Type="Text" X="75" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" RightAligned="yes">
-				<Text>Pick an install location and which features you want.</Text>
+				<Text>Choose an install location and features.</Text>
 			</Control>
 			<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
 		</Dialog>
@@ -287,7 +287,7 @@
 			</Control>
 			<Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
 			<Control Id="DialogDescription" Type="Text" X="75" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" RightAligned="yes">
-				<Text>The disk space required for the installation of the selected features.</Text>
+				<Text>Required Disk Space.</Text>
 			</Control>
 			<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
 		</Dialog>
@@ -434,7 +434,7 @@
 			</Control>
 			<Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
 			<Control Id="DialogDescription" Type="Text" X="75" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" RightAligned="yes">
-				<Text>Please read the following important information before continuing.</Text>
+				<Text>Please read the following before continuing.</Text>
 			</Control>
 			<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
 		</Dialog>
@@ -681,7 +681,7 @@
 			</Control>
 			<Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
 			<Control Id="DialogDescription" Type="Text" X="75" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" RightAligned="yes">
-				<Text>The [Wizard] is ready to begin the [InstallMode] installation</Text>
+				<Text>[Wizard] is ready to begin [InstallMode] installation.</Text>
 			</Control>
 			<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
 		</Dialog>
@@ -710,7 +710,7 @@
 			</Control>
 			<Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
 			<Control Id="DialogDescription" Type="Text" X="75" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" RightAligned="yes">
-				<Text>You have chosen to remove the program from your computer.</Text>
+				<Text>Remove the program from your computer.</Text>
 			</Control>
 			<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
 		</Dialog>

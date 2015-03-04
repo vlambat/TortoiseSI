@@ -22,7 +22,7 @@
 		</Feature>
 
 		<?if $(var.Platform) = "x64" ?>
-		<Feature Id="F_TSHELL32" Level="1" Title="32-bit TortoiseSI Shell-Extension" Description="The TortoiseGit Shell-Extension for 32-bit applications." TypicalDefault="install" Absent="allow" AllowAdvertise="no">
+		<Feature Id="F_TSHELL32" Level="1" Title="32-bit TortoiseSI Shell-Extension" Description="The TortoiseSI Shell-Extension for 32-bit applications." TypicalDefault="install" Absent="allow" AllowAdvertise="no">
 			<ComponentRef Id="C__TortoiseShell32" />
 			<ComponentRef Id="C__shellregistry32" />
 			<ComponentRef Id="C__machineregistry32" />
