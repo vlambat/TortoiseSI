@@ -20,7 +20,7 @@ if($Env:Platform -eq "Win32")
         # upload language DLLs
 		Push-AppveyorArtifact "$root\bin\Release\bin\TortoiseShell$($code.Key).dll"
         # upload 32-bit language installers
-        Push-AppveyorArtifact "$root\bin\setup\x86\TortoiseGit-LanguagePack-$($code.Value).msi" -FileName "TortoiseGit-LanguagePack-$($code.Value)-x86.msi"
+        Push-AppveyorArtifact "$root\bin\setup\x86\TortoiseSI-LanguagePack-$($code.Value).msi" -FileName "TortoiseSI-LanguagePack-$($code.Value)-x86.msi"
 	}
 	
 	Push-AppveyorArtifact "$root\bin\setup\x86\TortoiseSI.msi" -FileName "TortoiseSI-$($version)-x86.msi"	
@@ -36,8 +36,8 @@ elseif($Env:Platform -eq "x64")
 	Push-AppveyorArtifact "$root\bin\setup\x64\TortoiseSI.msi" -FileName "TortoiseSI-$($version)-x64.msi"
     
     foreach ($code in $countryCodes.GetEnumerator()) {
-        # upload 32-bit language installers
-        Push-AppveyorArtifact "$root\bin\setup\x64\TortoiseGit-LanguagePack-$($code.Value).msi" -FileName "TortoiseGit-LanguagePack-$($code.Value)-x64.msi"
+        # upload 64-bit language installers
+        Push-AppveyorArtifact "$root\bin\setup\x64\TortoiseSI-LanguagePack-$($code.Value).msi" -FileName "TortoiseSI-LanguagePack-$($code.Value)-x64.msi"
 	}
     
 }
