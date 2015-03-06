@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by resourceshell.rc
+// Used by D:\git\TortoiseSI\src\Resources\TortoiseShellENG.rc
 //
 #define IDI_PULL                        5
 #define IDD_PROPPAGE                    107
