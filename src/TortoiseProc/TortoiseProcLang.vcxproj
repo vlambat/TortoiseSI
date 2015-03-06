@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -23,7 +23,7 @@
     <RootNamespace>TortoiseProcLang</RootNamespace>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)TortoiseGit.toolset.props" />
+  <Import Project="$(SolutionDir)TortoiseSI.toolset.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -33,9 +33,9 @@
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  <Import Project="$(SolutionDir)TortoiseGit.common.props" />
-  <Import Project="$(SolutionDir)TortoiseGit.common-dll.props" />
-  <Import Project="$(SolutionDir)TortoiseGit.common-langs.props" />
+  <Import Project="$(SolutionDir)TortoiseSI.common.props" />
+  <Import Project="$(SolutionDir)TortoiseSI.common-dll.props" />
+  <Import Project="$(SolutionDir)TortoiseSI.common-langs.props" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
     <ClInclude Include="resource.h" />

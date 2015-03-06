@@ -1,0 +1,251 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "..\TortoiseShell\resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Neutral resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_PULL                ICON                    "update1.ico"
+IDI_APP                 ICON                    "TortoiseSI.ico"
+IDI_CHECKOUT            ICON                    "menucheckout.ico"
+IDI_UPDATE              ICON                    "menuupdate.ico"
+IDI_COMMIT              ICON                    "menucommit.ico"
+IDI_ADD                 ICON                    "menuadd.ico"
+IDI_REVERT              ICON                    "menurevert.ico"
+IDI_CLEANUP             ICON                    "menucleanup.ico"
+IDI_RESOLVE             ICON                    "menuresolve.ico"
+IDI_SWITCH              ICON                    "menuswitch.ico"
+IDI_MERGE               ICON                    "menumerge.ico"
+IDI_IMPORT              ICON                    "menuimport.ico"
+IDI_EXPORT              ICON                    "menuexport.ico"
+IDI_COPY                ICON                    "menucopy.ico"
+IDI_DELETE              ICON                    "menudelete.ico"
+IDI_RENAME              ICON                    "menurename.ico"
+IDI_DIFF                ICON                    "menucompare.ico"
+IDI_LOG                 ICON                    "menulog.ico"
+IDI_ABOUT               ICON                    "menuabout.ico"
+IDI_SETTINGS            ICON                    "menusettings.ico"
+IDI_CREATEREPOS         ICON                    "menucreaterepos.ico"
+IDI_CONFLICT            ICON                    "menuconflict.ico"
+IDI_RELOCATE            ICON                    "menurelocate.ico"
+IDI_HELP                ICON                    "menuhelp.ico"
+IDI_SHOWCHANGED         ICON                    "menushowchanged.ico"
+IDI_IGNORE              ICON                    "menuignore.ico"
+IDI_REPOBROWSE          ICON                    "menurepobrowse.ico"
+IDI_BLAME               ICON                    "menublame.ico"
+IDI_PATCH               ICON                    "menupatch.ico"
+IDI_CREATEPATCH         ICON                    "menudiff.ico"
+IDI_MENUFILE            ICON                    "tsvnmenufile.ico"
+IDI_MENUFOLDER          ICON                    "tsimenufolder.ico"
+IDI_MENULINK            ICON                    "tsvnmenulink.ico"
+IDI_MENUMULTIPLE        ICON                    "tsvnmenumultiple.ico"
+IDI_PROPERTIES          ICON                    "menuproperties.ico"
+IDI_APPSMALL            ICON                    "TortoiseSmall.ico"
+IDI_CLIPPASTE           ICON                    "clippaste.ico"
+IDI_PUSH                ICON                    "Push.ico"
+IDI_CLONE               ICON                    "checkout.ico"
+IDI_TAG                 ICON                    "Tag.ico"
+IDI_REBASE              ICON                    "menurebase.ico"
+IDI_COMBINE             ICON                    "menucombine.ico"
+IDI_SKIP                ICON                    "menuskip.ico"
+IDI_SQUASH              ICON                    "menusquash.ico"
+IDI_EDIT                ICON                    "menuedit.ico"
+IDI_PICK                ICON                    "menupick.ico"
+IDI_MENUSYNC            ICON                    "menusync.ico"
+IDI_COPYCLIP            ICON                    "copy.ico"
+IDI_THUMB_DOWN          ICON                    "thumb_down.ico"
+IDI_THUMB_UP            ICON                    "thumb_up.ico"
+IDI_REVISIONGRAPH       ICON                    "menurevisiongraph.ico"
+IDI_DAEMON              ICON                    "menudaemon.ico"
+IDI_MERGEABORT          ICON                    "menumergeabort.ico"
+#endif    // Neutral resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_MENUSENDMAIL        ICON                    "menusendmail.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PROPPAGE DIALOGEX 0, 0, 247, 277
+STYLE DS_SETFONT | DS_3DLOOK | DS_FIXEDSYS | WS_CHILD | WS_VISIBLE | WS_CAPTION
+CAPTION "Property Page"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    LTEXT           "Current Branch:",IDC_STATIC,4,9,59,8
+    EDITTEXT        IDC_SHELL_CURRENT_BRANCH,91,9,142,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_TRANSPARENT
+    LTEXT           "Tracked Remote Branch:",IDC_ESCAPEDURLLABEL,4,21,85,8
+    EDITTEXT        IDC_SHELL_REMOTE_BRANCH,91,21,139,14,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    LTEXT           "HEAD:",IDC_STATIC,4,35,76,8
+    EDITTEXT        IDC_HEAD_HASH,80,35,163,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_TRANSPARENT
+    EDITTEXT        IDC_HEAD_SUBJECT,80,47,163,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_TRANSPARENT
+    EDITTEXT        IDC_HEAD_AUTHOR,80,59,163,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_TRANSPARENT
+    EDITTEXT        IDC_HEAD_DATE,80,71,163,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_TRANSPARENT
+    LTEXT           "Last Modified:",IDC_STATIC_LASTMODIFIED,4,97,76,8
+    EDITTEXT        IDC_LAST_HASH,80,97,163,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_TRANSPARENT
+    EDITTEXT        IDC_LAST_SUBJECT,80,108,163,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_TRANSPARENT
+    EDITTEXT        IDC_LAST_AUTHOR,80,121,163,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_TRANSPARENT
+    EDITTEXT        IDC_LAST_DATE,80,132,163,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_TRANSPARENT
+    CONTROL         "Assume valid/unchanged",IDC_ASSUMEVALID,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,145,116,10
+    CONTROL         "Executable (+x)",IDC_EXECUTABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,120,145,116,10
+    CONTROL         "Skip worktree",IDC_SKIPWORKTREE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,157,116,10
+    CONTROL         "Symlink",IDC_SYMLINK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,120,157,116,10
+    GROUPBOX        "Config",IDC_STATIC,4,169,239,66
+    LTEXT           "Auto Crlf:",IDC_STATIC,13,181,76,8
+    EDITTEXT        IDC_CONFIG_AUTOCRLF,98,181,136,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    LTEXT           "Safe Crlf:",IDC_STATIC,13,193,76,8
+    EDITTEXT        IDC_CONFIG_SAFECRLF,98,193,136,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    LTEXT           "User Name:",IDC_STATIC,13,205,76,8
+    EDITTEXT        IDC_CONFIG_USERNAME,98,205,136,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    LTEXT           "User Email:",IDC_STATIC,13,217,76,8
+    EDITTEXT        IDC_CONFIG_USEREMAIL,98,217,136,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    PUSHBUTTON      "Settings",IDC_SHOWSETTINGS,4,249,111,14
+    PUSHBUTTON      "Show &log",IDC_SHOWLOG,132,249,111,14
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE
+BEGIN
+    "..\\TortoiseShell\\resource.h\0"
+END
+
+2 TEXTINCLUDE
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE
+BEGIN
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""TortoiseShell.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_PROPPAGE, DIALOG
+    BEGIN
+        VERTGUIDE, 4
+        VERTGUIDE, 30
+        VERTGUIDE, 80
+        VERTGUIDE, 98
+        VERTGUIDE, 120
+        VERTGUIDE, 243
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_LOADING             "Loading..."
+    IDS_RESYNC              "Resynchronize by Change Package"
+    IDS_RESYNC_ENTIRE_SANDBOX "Resynchronize Entire Sandbox"
+    IDS_DROP_SANDBOX        "Drop Sandbox"
+    IDS_RETARGET_SANDBOX    "Retarget Sandbox"
+    IDS_MULTIPLE_SANDBOXES  "Multiple top level Sandboxes found:"
+    IDS_VIEW_SANDBOX_DESC   "Displays the contents of a Sandbox"
+    IDS_RESYNC_DESC         "Resynchronize Sandbox member files by Change Package"
+    IDS_RESYNC_ENTIRE_SANDBOX_DESC "Resynchronize Sandbox member files"
+    IDS_DROP_SANDBOX_DESC   "Unregister Sandbox from Integrity Client"
+    IDS_RETARGET_SANDBOX_DESC
+                            "Point a Sandbox to a different project configuration"
+    IDS_CREATE_SANDBOX_DESC "Create a new Sandbox"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_VIEW_SANDBOX        "View Sandbox"
+    IDS_CREATE_SANDBOX      "Create Sandbox"
+    IDS_MENU                "Tortoise SI"
+    IDS_SANDBOX_NOTALLOWED1 "Can't create Sandbox here because the following folder(s) already have a Sandbox:"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ETC                 "..."
+    IDS_SHOWING_PARTIAL_RESULTS "(Showing %1!d! of %2!d! only)"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_IGNORE_SUBMENU      "Add to exclude filter"
+    IDS_IGNORE_SUBMENU_DESC "Add selected pattern to Non-Members View Exclude Filter"
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "TortoiseShell.rc2"  // non-Microsoft Visual C++ edited resources
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

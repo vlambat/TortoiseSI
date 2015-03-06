@@ -94,9 +94,9 @@ void LoadLangDll()
 		do
 		{
 			if (bIsWow)
-				_stprintf_s(langDll, _T("%s\\Languages\\TortoiseProc32%lu.dll"), langdir, langId);
+				_stprintf_s(langDll, _T("%s\\Languages\\TortoiseShell32%lu.dll"), langdir, langId);
 			else
-				_stprintf_s(langDll, _T("%s\\Languages\\TortoiseProc%lu.dll"), langdir, langId);
+				_stprintf_s(langDll, _T("%s\\Languages\\TortoiseShell%lu.dll"), langdir, langId);
 			BOOL versionmatch = TRUE;
 
 			struct TRANSARRAY

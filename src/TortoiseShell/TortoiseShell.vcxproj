@@ -139,7 +139,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ShellExt.def" />
-    <None Include="resourceshell.rc2" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Integrity\FileStatus.h" />
@@ -227,6 +226,7 @@
     <Image Include="..\Resources\thumb_down.ico" />
     <Image Include="..\Resources\thumb_up.ico" />
     <Image Include="..\Resources\Tortoise.ico" />
+    <Image Include="..\Resources\TortoiseSI.ico" />
     <Image Include="..\Resources\TortoiseSmall.ico" />
     <Image Include="..\Resources\tsvnmenufile.ico" />
     <Image Include="..\Resources\tsvnmenufolder.ico" />
@@ -235,7 +235,7 @@
     <Image Include="..\Resources\update1.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="resourceshell.rc" />
+    <ResourceCompile Include="..\Resources\TortoiseShellENG.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
