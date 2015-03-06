@@ -226,6 +226,7 @@
     <Image Include="..\Resources\thumb_down.ico" />
     <Image Include="..\Resources\thumb_up.ico" />
     <Image Include="..\Resources\Tortoise.ico" />
+    <Image Include="..\Resources\TortoiseSI.ico" />
     <Image Include="..\Resources\TortoiseSmall.ico" />
     <Image Include="..\Resources\tsvnmenufile.ico" />
     <Image Include="..\Resources\tsvnmenufolder.ico" />

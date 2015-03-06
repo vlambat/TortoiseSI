@@ -384,6 +384,9 @@
     <Image Include="..\Resources\menumergeabort.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\Resources\TortoiseSI.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\Resources\TortoiseShellENG.rc">
