@@ -260,6 +260,58 @@ namespace IntegrityActions {
 
 	}
 
+	/**
+	*  Launch Member History View
+	*/
+	void launchMemberHistoryView(const IntegritySession& session, std::wstring path) {
+		IntegrityCommand command(L"si", L"viewhistory");
+		command.addOption(L"g");
+		command.addSelection(path);
+
+		IntegrityCommand wfCommand = initializeWFExecute(command);
+
+		executeUserCommand(session, wfCommand, nullptr);
+	}
+
+	/**
+	*  Launch Annotated Revision View
+	*/
+	void launchAnnotatedRevisionView(const IntegritySession& session, std::wstring path) {
+		IntegrityCommand command(L"si", L"annotate");
+		command.addOption(L"g");
+		command.addSelection(path);
+
+		IntegrityCommand wfCommand = initializeWFExecute(command);
+
+		executeUserCommand(session, wfCommand, nullptr);
+	}
+
+	/**
+	*  Launch Member Information View
+	*/
+	void launchMemberInfoView(const IntegritySession& session, std::wstring path) {
+		IntegrityCommand command(L"si", L"memberinfo");
+		command.addOption(L"g");
+		command.addSelection(path);
+
+		IntegrityCommand wfCommand = initializeWFExecute(command);
+
+		executeUserCommand(session, wfCommand, nullptr);
+	}
+
+	/**
+	*  Launch Differences View on local member
+	*/
+	void launchLocalChangesDiffView(const IntegritySession& session, std::wstring path) {
+		IntegrityCommand command(L"si", L"diff");
+		command.addOption(L"g");
+		command.addSelection(path);
+
+		IntegrityCommand wfCommand = initializeWFExecute(command);
+
+		executeUserCommand(session, wfCommand, nullptr);
+	}
+
 	std::vector<std::wstring> folders(const IntegritySession& session)
 	{
 		IntegrityCommand command(L"wf", L"folders");
