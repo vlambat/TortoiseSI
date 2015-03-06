@@ -321,15 +321,31 @@ std::vector<MenuInfo> menuInfo =
 				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},
-	{ MenuItem::IgnoreSubMenu, 0, IDS_IGNORE_SUBMENU, IDS_IGNORE_SUBMENU_DESC,
-		nullptr, // CShellExt::InsertIgnoreSubmenus define the actions associated with menu
-		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+	menuSeperator,
+	{ MenuItem::LocalChangesDiff, IDI_DIFF, IDS_LOCAL_CHANGES_DIFF, IDS_LOCAL_CHANGES_DIFF_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring file;
+
+			// First selected file
+			file = selectedItems.front();
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for diff operation");
+				return;
+			}
+
+			IntegrityActions::launchLocalChangesDiffView(getIntegritySession(), file);
+
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
 		{
 			return selectedItems.size() == 1 &&
-				hasFileStatus(selectedItemsStatus, FileStatus::File) && 
-				!hasFileStatus(selectedItemsStatus, FileStatus::Ignored);
+				hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},
+	menuSeperator,
 	{ MenuItem::ViewHistory, IDI_REVISIONGRAPH, IDS_VIEW_HISTORY, IDS_VIEW_HISTORY_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
 		{
@@ -399,29 +415,18 @@ std::vector<MenuInfo> menuInfo =
 				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},
-	{ MenuItem::LocalChangesDiff, IDI_DIFF, IDS_LOCAL_CHANGES_DIFF, IDS_LOCAL_CHANGES_DIFF_DESC,
-	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
-		{
-			std::wstring file;
-
-			// First selected file
-			file = selectedItems.front();
-
-			if (selectedItems.empty()) {
-				EventLog::writeDebug(L"selected items list empty for diff operation");
-				return;
-			}
-
-			IntegrityActions::launchLocalChangesDiffView(getIntegritySession(), file);
-
-		},
-			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+	menuSeperator,
+	{ MenuItem::IgnoreSubMenu, 0, IDS_IGNORE_SUBMENU, IDS_IGNORE_SUBMENU_DESC,
+		nullptr, // CShellExt::InsertIgnoreSubmenus define the actions associated with menu
+		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
 		{
 			return selectedItems.size() == 1 &&
-				hasFileStatus(selectedItemsStatus, FileStatus::File) &&
-				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+				hasFileStatus(selectedItemsStatus, FileStatus::File) && 
+				!hasFileStatus(selectedItemsStatus, FileStatus::Ignored);
 		}
 	},
+	
+	
 
 	
 };
