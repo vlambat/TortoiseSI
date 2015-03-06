@@ -280,6 +280,8 @@ STDMETHODIMP CShellExt::QueryContextMenu_Wrap(HMENU hMenu,
 				{
 					if (InsertIgnoreSubmenus(idCmd, idCmdFirst, subMenu, indexSubMenu, menu))
 						bMenuEntryAdded = true;
+						bMenuEmpty = false;
+
 				}
 				else
 				{
@@ -294,6 +296,8 @@ STDMETHODIMP CShellExt::QueryContextMenu_Wrap(HMENU hMenu,
 					bMenuEmpty = false;
 					bAddSeparator = false;
 				}
+
+					
 			}
 		}
 	}
