@@ -77,8 +77,8 @@
     <UIRef Id="WixUI_LanguagePack" />
     <UIRef Id="WixUI_ErrorProgressText" />
 
-    <WixVariable Id="WixUIBannerBmp" Value="Banner.jpg" />
-    <WixVariable Id="WixUIDialogBmp" Value="Dialog.jpg" />
+    <WixVariable Id="WixUIBannerBmp" Value="..\src\TortoiseSISetup\include\TortoiseSI-banner.jpg" />
+    <WixVariable Id="WixUIDialogBmp" Value="..\src\TortoiseSISetup\include\TortoiseSI-Dialog.jpg" />
 
 
 
