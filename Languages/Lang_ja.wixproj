@@ -36,7 +36,7 @@
     <IntermediateOutputPath>..\obj\$(OutputName)\$(Configuration)64\</IntermediateOutputPath>
     <WixVariables>
     </WixVariables>
-    <DefineConstants>Debug;TSVNHelpFile=0;TMergeHelpFile=0;TSVNMoFile=0;COUNTRYID=1041;LANGNATIVE=Japanese;</DefineConstants>
+    <DefineConstants>TSVNHelpFile=0;TMergeHelpFile=0;TSVNMoFile=0;COUNTRYID=1041;LANGNATIVE=Japanese;</DefineConstants>
     <LinkerAdditionalOptions>-ext WixUIExtension</LinkerAdditionalOptions>
     <SuppressIces>ICE61;ICE82</SuppressIces>
     <Cultures>ja-JP</Cultures>
