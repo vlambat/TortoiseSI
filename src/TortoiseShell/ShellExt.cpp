@@ -62,31 +62,6 @@ CShellExt::~CShellExt()
 
 void LoadLangDll()
 {
-
-	// CODE TESTING
-	/*
-	LCID locale = GetThreadLocale();
-
-	TCHAR buf[MAX_PATH] = { 0 };
-	GetLocaleInfo(locale, LOCALE_SNATIVELANGNAME, buf, _countof(buf));
-	CString sLang = buf;
-	GetLocaleInfo(locale, LOCALE_SNATIVECTRYNAME, buf, _countof(buf));
-	CString country = buf;
-	GetLocaleInfo(locale, LOCALE_SNAME, buf, _countof(buf));
-	CString localeName = buf;
-	LCID lcid = LocaleNameToLCID(buf, 0);
-
-	LCID defaultLCID = GetUserDefaultLCID();
-	LANGID defaultLangID = GetUserDefaultLangID();
-
-	HKL inputLocale = ::GetKeyboardLayout(0);
-	LANGID inputLang = LOWORD(inputLocale);
-	char sCodePage[10];
-	int res = ::GetLocaleInfoA(MAKELCID(inputLang, SORT_DEFAULT),
-		LOCALE_IDEFAULTANSICODEPAGE, sCodePage, sizeof(sCodePage));
-		*/
-	// CODE TESTING
-
 	if ((g_langid != g_ShellCache.GetLangID()) && ((g_langTimeout == 0) || (g_langTimeout < GetTickCount())))
 	{
 		g_langid = g_ShellCache.GetLangID();
@@ -119,10 +94,8 @@ void LoadLangDll()
 		do
 		{
 			if (bIsWow)
-			//	_stprintf_s(langDll, _T("%s\\Languages\\TortoiseProc32%lu.dll"), langdir, langId);
 				_stprintf_s(langDll, _T("%s\\Languages\\TortoiseShell32%lu.dll"), langdir, langId);
 			else
-			//	_stprintf_s(langDll, _T("%s\\Languages\\TortoiseProc%lu.dll"), langdir, langId);
 				_stprintf_s(langDll, _T("%s\\Languages\\TortoiseShell%lu.dll"), langdir, langId);
 			BOOL versionmatch = TRUE;
 

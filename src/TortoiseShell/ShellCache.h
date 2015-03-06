@@ -47,7 +47,8 @@ public:
 		drivetypeticker = GetTickCount();
 		langticker = drivetypeticker;
 
-		langid = CRegStdDWORD(_T("Software\\TortoiseSI\\LanguageID"), 1033);
+		// Retrieve the default display language if no registry entry is found
+		langid = CRegStdDWORD(_T("Software\\TortoiseSI\\DebugLanguageID"), GetUserDefaultUILanguage());
 
 		for (int i = 0; i < 27; ++i)
 		{

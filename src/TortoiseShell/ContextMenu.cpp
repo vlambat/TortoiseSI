@@ -280,6 +280,8 @@ STDMETHODIMP CShellExt::QueryContextMenu_Wrap(HMENU hMenu,
 				{
 					if (InsertIgnoreSubmenus(idCmd, idCmdFirst, subMenu, indexSubMenu, menu))
 						bMenuEntryAdded = true;
+						bMenuEmpty = false;
+
 				}
 				else
 				{
@@ -294,6 +296,8 @@ STDMETHODIMP CShellExt::QueryContextMenu_Wrap(HMENU hMenu,
 					bMenuEmpty = false;
 					bAddSeparator = false;
 				}
+
+					
 			}
 		}
 	}
@@ -325,7 +329,7 @@ STDMETHODIMP CShellExt::QueryContextMenu_Wrap(HMENU hMenu,
 
 	menuiteminfo.fMask = MIIM_FTYPE | MIIM_ID | MIIM_SUBMENU | MIIM_DATA | MIIM_STRING;
 	menuiteminfo.fMask |= MIIM_BITMAP;
-	menuiteminfo.hbmpItem = SysInfo::Instance().IsVistaOrLater() ? m_iconBitmapUtils.IconToBitmapPARGB32(g_hResInst, IDI_APP) : HBMMENU_CALLBACK;
+	menuiteminfo.hbmpItem = SysInfo::Instance().IsVistaOrLater() ? m_iconBitmapUtils.IconToBitmapPARGB32(g_hResInst, IDI_MENUFOLDER) : HBMMENU_CALLBACK;
 	menuiteminfo.hSubMenu = subMenu;
 	menuiteminfo.wID = idCmd++;
 	InsertMenuItem(hMenu, indexMenu++, TRUE, &menuiteminfo);
