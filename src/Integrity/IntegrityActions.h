@@ -59,7 +59,7 @@ namespace IntegrityActions {
 
 	void lockFile(const IntegritySession& session, std::wstring path);
 	void unlockFile(const IntegritySession& session, std::wstring path);
-	void addFile(const IntegritySession& session, std::wstring sandbox, std::wstring path, std::function<void()> onDone);
+	void addFile(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone);
 	void dropPath(const IntegritySession& session, std::wstring path);
 	void moveFile(const IntegritySession& session, std::wstring path);
 	void renameFile(const IntegritySession& session, std::wstring path);

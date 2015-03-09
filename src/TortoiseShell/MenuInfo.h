@@ -58,3 +58,4 @@ struct MenuInfo
 };
 
 extern void updateExcludeFileFilter(const std::vector<std::wstring>& selectedItems, const std::wstring newExclude);
+extern std::wstring getSandboxNameFromFile(std::wstring file);

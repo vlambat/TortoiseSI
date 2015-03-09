@@ -48,14 +48,18 @@ namespace IntegrityActions {
 		executeUserCommand(session, command, onDone);
 	}
 
-	void addFile(const IntegritySession& session, std::wstring sandbox, std::wstring path, std::function<void()> onDone) {
+	void addFile(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone) 
+	{
+		// note this command presumes that the vector of paths (non-members) are in the same sandbox
 		IntegrityCommand command(L"si", L"add");
-
 		command.addOption(L"g");
-		command.addOption(L"S", sandbox);
-		command.addSelection(path);
+		command.addOption(L"sandbox", sandbox);
+		
+		for (std::wstring path : paths) {
+			command.addSelection(path);
+		}
 
-		executeUserCommand(session, initializeWFExecute(command), onDone);
+		executeUserCommand(session, command, onDone);
 
 	}
 

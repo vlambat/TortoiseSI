@@ -147,6 +147,18 @@ std::wstring getTopLevelSandbox(std::wstring path, HWND parentWindow) {
 }
 
 /**
+* Find the sandbox name from a filepath
+*/
+std::wstring getSandboxNameFromFile(std::wstring file) {
+	
+	// Extract folder name from file path
+	std::wstring folder = file.substr(0, file.find_last_of('\\'));
+
+	return IntegrityActions::getSandboxName(getIntegritySession(), folder);
+}
+
+
+/**
 * Get current contents of the exclude filter, add new pattern (if it is not already in the filter), and update the exclude filter
 */
 void updateExcludeFileFilter(const std::vector<std::wstring>& selectedItems, const std::wstring newExclude) {
@@ -423,25 +435,19 @@ std::vector<MenuInfo> menuInfo =
 			std::wstring folder;
 			std::wstring sandboxName;
 			
-			file = selectedItems.front();
-
-			// Extract folder name from file path
-			folder = file.substr(0, file.find_last_of('\\'));
-
 			if (selectedItems.empty()) {
 				EventLog::writeDebug(L"selected items list empty for add operation");
 				return;
 			}
+			
+			file = selectedItems.front();
 
-			sandboxName = IntegrityActions::getSandboxName(getIntegritySession(), folder);
-
-			IntegrityActions::addFile(getIntegritySession(), sandboxName, file,
-				nullptr);
+			IntegrityActions::addFile(getIntegritySession(), getSandboxNameFromFile(file), selectedItems,
+				[folder] {refreshFolder(folder); });
 		},
 			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
 		{
-			return selectedItems.size() == 1 &&
-				hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+			return hasFileStatus(selectedItemsStatus, FileStatus::File) &&
 				hasFileStatus(selectedItemsStatus, FileStatus::Add);
 		}
 	},
