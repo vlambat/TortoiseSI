@@ -416,6 +416,35 @@ std::vector<MenuInfo> menuInfo =
 		}
 	},
 	menuSeperator,
+	{ MenuItem::Add, IDI_ADD, IDS_ADD_NONMEMBER, IDS_ADD_NONMEMBER_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring file;
+			std::wstring folder;
+			std::wstring sandboxName;
+			
+			file = selectedItems.front();
+
+			// Extract folder name from file path
+			folder = file.substr(0, file.find_last_of('\\'));
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for add operation");
+				return;
+			}
+
+			sandboxName = IntegrityActions::getSandboxName(getIntegritySession(), folder);
+
+			IntegrityActions::addFile(getIntegritySession(), sandboxName, file,
+				nullptr);
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Add);
+		}
+	},
 	{ MenuItem::IgnoreSubMenu, 0, IDS_IGNORE_SUBMENU, IDS_IGNORE_SUBMENU_DESC,
 		nullptr, // CShellExt::InsertIgnoreSubmenus define the actions associated with menu
 		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)

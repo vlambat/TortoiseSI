@@ -103,7 +103,9 @@
 #define IDS_VIEW_HISTORY                184
 #define IDS_VIEW_HISTORY_DESC           185
 #define IDS_MENUCONFLICT                186
+#define IDS_ADD_NONMEMBER               186
 #define IDS_MENUDESCCONFLICT            187
+#define IDS_ADD_NONMEMBER_DESC          187
 #define IDS_MENUDESCBISECTSTART         188
 #define IDS_MENUDESCBISECTGOOD          189
 #define IDS_MENUHELP                    190

@@ -241,6 +241,8 @@ BEGIN
                             "Show member information view for selected member"
     IDS_VIEW_HISTORY        "Member History"
     IDS_VIEW_HISTORY_DESC   "Show member history view for selected member"
+    IDS_ADD_NONMEMBER       "Add"
+    IDS_ADD_NONMEMBER_DESC  "Add non-member to sandbox"
 END
 
 #endif    // English (United States) resources
