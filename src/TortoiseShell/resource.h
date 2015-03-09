@@ -289,7 +289,6 @@
 #define IDI_THUMB_UP                    5179
 #define IDI_DAEMON                      5180
 #define IDI_MERGEABORT                  5181
-#define IDI_SSH                         5183
 #define IDI_LOCK                        5183
 #define IDC_CONFIG_AUTOCRLF             11020
 #define IDC_EDITPROPERTIES              11021
