@@ -79,7 +79,7 @@ IDI_THUMB_UP            ICON                    "thumb_up.ico"
 IDI_REVISIONGRAPH       ICON                    "menurevisiongraph.ico"
 IDI_DAEMON              ICON                    "menudaemon.ico"
 IDI_MERGEABORT          ICON                    "menumergeabort.ico"
-IDI_SSH                 ICON                    "ssh.ico"
+IDI_LOCK                ICON                    "ssh.ico"
 #endif    // Neutral resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -247,7 +247,7 @@ BEGIN
     IDS_CHECKOUT            "Check Out"
     IDS_CHECKOUT_DESC       "Check out members into working files in a sandbox"
     IDS_CHECKIN             "Check In"
-    IDS_CHECKIN_DESC        "Chek in members of a sandbox"
+    IDS_CHECKIN_DESC        "Check in members of a sandbox"
 END
 
 STRINGTABLE

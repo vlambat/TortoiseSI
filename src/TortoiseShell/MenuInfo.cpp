@@ -525,7 +525,7 @@ std::vector<MenuInfo> menuInfo =
 				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},
-	{ MenuItem::Lock, IDI_SSH, IDS_LOCK, IDS_LOCK_DESC,
+	{ MenuItem::Lock, IDI_LOCK, IDS_LOCK, IDS_LOCK_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
 		{
 			std::wstring file;
