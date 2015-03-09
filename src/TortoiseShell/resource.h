@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by resourceshell.rc
+// Used by D:\git\TortoiseSI\src\Resources\TortoiseShellENG.rc
 //
 #define IDI_PULL                        5
 #define IDD_PROPPAGE                    107
@@ -91,9 +91,17 @@
 #define IDS_MENUDESCDIFF                177
 #define IDS_IGNORE_SUBMENU_DESC         177
 #define IDS_DROPCOPYADDMENU             178
+#define IDS_LOCAL_CHANGES_DIFF          178
 #define IDS_DROPMOVEMENU                179
+#define IDS_LOCAL_CHANGES_DIFF_DESC     179
 #define IDS_MENULOG                     180
+#define IDS_VIEW_ANNOTATED_REVISION     180
 #define IDS_MENUDESCLOG                 181
+#define IDS_VIEW_ANNOTATED_REVISION_DESC 181
+#define IDS_VIEW_MEMBER_INFO            182
+#define IDS_VIEW_MEMBER_INFO_DESC       183
+#define IDS_VIEW_HISTORY                184
+#define IDS_VIEW_HISTORY_DESC           185
 #define IDS_MENUCONFLICT                186
 #define IDS_MENUDESCCONFLICT            187
 #define IDS_MENUDESCBISECTSTART         188

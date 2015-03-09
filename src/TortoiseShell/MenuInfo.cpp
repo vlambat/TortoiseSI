@@ -321,6 +321,101 @@ std::vector<MenuInfo> menuInfo =
 				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},
+	menuSeperator,
+	{ MenuItem::LocalChangesDiff, IDI_DIFF, IDS_LOCAL_CHANGES_DIFF, IDS_LOCAL_CHANGES_DIFF_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring file;
+
+			// First selected file
+			file = selectedItems.front();
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for diff operation");
+				return;
+			}
+
+			IntegrityActions::launchLocalChangesDiffView(getIntegritySession(), file);
+
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	menuSeperator,
+	{ MenuItem::ViewHistory, IDI_REVISIONGRAPH, IDS_VIEW_HISTORY, IDS_VIEW_HISTORY_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring file;
+
+			// First selected file
+			file = selectedItems.front();
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for view history operation");
+				return;
+			}
+
+			IntegrityActions::launchMemberHistoryView(getIntegritySession(), file);
+
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	{ MenuItem::ViewAnnotatedRevision, IDI_BLAME, IDS_VIEW_ANNOTATED_REVISION, IDS_VIEW_ANNOTATED_REVISION_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring file;
+
+			// First selected file
+			file = selectedItems.front();
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for view annotated revision operation");
+				return;
+			}
+
+			IntegrityActions::launchAnnotatedRevisionView(getIntegritySession(), file);
+
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	{ MenuItem::ViewMemberInfo, IDI_PROPERTIES, IDS_VIEW_MEMBER_INFO, IDS_VIEW_MEMBER_INFO_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring file;
+
+			// First selected file
+			file = selectedItems.front();
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for view member info operation");
+				return;
+			}
+
+			IntegrityActions::launchMemberInfoView(getIntegritySession(), file);
+
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	menuSeperator,
 	{ MenuItem::IgnoreSubMenu, 0, IDS_IGNORE_SUBMENU, IDS_IGNORE_SUBMENU_DESC,
 		nullptr, // CShellExt::InsertIgnoreSubmenus define the actions associated with menu
 		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
@@ -330,6 +425,8 @@ std::vector<MenuInfo> menuInfo =
 				!hasFileStatus(selectedItemsStatus, FileStatus::Ignored);
 		}
 	},
+	
+	
 
 	
 };

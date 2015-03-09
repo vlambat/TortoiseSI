@@ -51,6 +51,7 @@ namespace IntegrityActions {
 	void launchIncomingChangesDiffView(const IntegritySession& session, std::wstring path);
 	void launchAnnotatedRevisionView(const IntegritySession& session, std::wstring path);
 	void launchSubmitChangesView(const IntegritySession& session, std::wstring path);
+	void launchMemberInfoView(const IntegritySession& session, std::wstring path);
 	void launchChangePackageView(const IntegritySession& session);
 	void launchMyChangePackageReviewsView(const IntegritySession& session);
 	void launchPreferencesView(const IntegritySession& session);
@@ -71,5 +72,7 @@ namespace IntegrityActions {
 	void retargetSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 
 	void setExcludeFileFilter(const IntegritySession& session, std::vector<std::wstring> patterns, std::function<void()> onDone);
+
+	IntegrityCommand initializeWFExecute(const IntegrityCommand& command);
 
 }

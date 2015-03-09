@@ -16,24 +16,13 @@
 
 RESTEXT		= $(outdir)ResText.exe
 APPLY		= apply
-LANGDLLS	=	$(outdir)TortoiseProc$(LANGID).dll \
-				$(outdir)TortoiseMerge$(LANGID).dll \
-				$(outdir)TortoiseIdiff$(LANGID).dll \
-				$(outdir)TortoiseGitBlame$(LANGID).dll
+LANGDLLS	=	$(outdir)TortoiseShell$(LANGID).dll
 
 all: $(LANGDLLS)
 
 clean:
 	del $(LANGDLLS)
 
-$(outdir)TortoiseProc$(LANGID).dll: Tortoise_$(ISO).po $(outdir)TortoiseProcLang.dll
-  $(RESTEXT) $(APPLY) $(outdir)TortoiseProcLang.dll $@ Tortoise_$(ISO).po
+$(outdir)TortoiseShell$(LANGID).dll: Tortoise_$(ISO).po $(outdir)TortoiseShellLang.dll
+  $(RESTEXT) $(APPLY) $(outdir)TortoiseShellLang.dll $@ Tortoise_$(ISO).po
 
-$(outdir)TortoiseMerge$(LANGID).dll: Tortoise_$(ISO).po $(outdir)TortoiseMergeLang.dll
-  $(RESTEXT) $(APPLY) $(outdir)TortoiseMergeLang.dll $@ Tortoise_$(ISO).po
-
-$(outdir)TortoiseIDiff$(LANGID).dll: Tortoise_$(ISO).po $(outdir)TortoiseIDiffLang.dll
-  $(RESTEXT) $(APPLY) $(outdir)TortoiseIdiffLang.dll $@ Tortoise_$(ISO).po
-
-$(outdir)TortoiseGitBlame$(LANGID).dll: Tortoise_$(ISO).po $(outdir)TortoiseGitBlameLang.dll
-  $(RESTEXT) $(APPLY) $(outdir)TortoiseGitBlameLang.dll $@ Tortoise_$(ISO).po

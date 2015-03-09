@@ -15,7 +15,7 @@
 		<MajorUpgrade AllowDowngrades="no" Schedule="afterInstallValidate"  DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit."/>
 		<Media Id="1" Cabinet="TSI.cab" EmbedCab="yes" CompressionLevel="high" />
 
-		<Icon Id="TSIIcon" SourceFile="..\Resources\Tortoise.ico" />
+		<Icon Id="TSIIcon" SourceFile="..\Resources\TortoiseSI.ico" />
 
 		<!-- Launch Condition related properties ................................................................................. -->
 		<Property Id="ALLUSERS" Secure="yes">1</Property>
