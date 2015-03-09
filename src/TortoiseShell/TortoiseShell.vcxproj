@@ -228,6 +228,7 @@
     <Image Include="..\Resources\Tortoise.ico" />
     <Image Include="..\Resources\TortoiseSI.ico" />
     <Image Include="..\Resources\TortoiseSmall.ico" />
+    <Image Include="..\Resources\tsimenufolder.ico" />
     <Image Include="..\Resources\tsvnmenufile.ico" />
     <Image Include="..\Resources\tsvnmenufolder.ico" />
     <Image Include="..\Resources\tsvnmenulink.ico" />
