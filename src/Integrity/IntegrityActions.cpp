@@ -59,9 +59,76 @@ namespace IntegrityActions {
 			command.addSelection(path);
 		}
 
-		executeUserCommand(session, command, onDone);
+		executeUserCommand(session, initializeWFExecute(command), onDone);
 
 	}
+
+	void checkoutFile(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone) 
+	{
+		// note this command presumes that the array of files are in the same sandbox
+		IntegrityCommand command(L"si", L"co");
+		command.addOption(L"g");
+		command.addOption(L"sandbox", sandbox);
+
+		for (std::wstring path : paths) {
+			command.addSelection(path);
+		}
+
+		executeUserCommand(session, initializeWFExecute(command), onDone);
+	}
+
+	void checkinFile(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone)
+	{
+		// note this command presumes that the array of files are in the same sandbox
+		IntegrityCommand command(L"si", L"ci");
+		command.addOption(L"g");
+		command.addOption(L"sandbox", sandbox);
+
+		for (std::wstring path : paths) {
+			command.addSelection(path);
+		}
+
+		executeUserCommand(session, initializeWFExecute(command), onDone);
+	}
+
+	void dropPath(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone)
+	{
+		// note this command presumes that the array of files are in the same sandbox
+		IntegrityCommand command(L"si", L"drop");
+		command.addOption(L"g");
+		command.addOption(L"sandbox", sandbox);
+
+		for (std::wstring path : paths) {
+			command.addSelection(path);
+		}
+
+		executeUserCommand(session, initializeWFExecute(command), onDone);
+	}
+
+	void lockFile(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone)
+	{
+		IntegrityCommand command(L"si", L"lock");
+		command.addOption(L"g");
+
+		for (std::wstring path : paths) {
+			command.addSelection(path);
+		}
+
+		executeUserCommand(session, initializeWFExecute(command), onDone);
+	}
+
+	void revertFile(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone)
+	{
+		IntegrityCommand command(L"si", L"revert");
+		command.addOption(L"g");
+
+		for (std::wstring path : paths) {
+			command.addSelection(path);
+		}
+
+		executeUserCommand(session, initializeWFExecute(command), onDone);
+	}
+
 
 	void resyncFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone)
 	{
@@ -74,9 +141,7 @@ namespace IntegrityActions {
 			command.addSelection(path);
 		}
 
-		// Issue found with wf execute command accepting options - don't use it for now
-		// executeUserCommand(session, initializeWFExecute(command), onDone);
-		executeUserCommand(session, command, onDone);
+		executeUserCommand(session, initializeWFExecute(command), onDone);
 	}
 
 	void resyncEntireSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone)
