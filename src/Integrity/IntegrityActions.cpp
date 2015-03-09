@@ -148,7 +148,7 @@ namespace IntegrityActions {
 	{
 		IntegrityCommand command(L"si", L"resync");
 		command.addOption(L"g");
-		command.addOption(L"S", path);
+		command.addOption(L"sandbox", path);
 
 		executeUserCommand(session, command, onDone);
 	}
