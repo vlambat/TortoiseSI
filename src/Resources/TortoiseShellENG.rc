@@ -79,6 +79,7 @@ IDI_THUMB_UP            ICON                    "thumb_up.ico"
 IDI_REVISIONGRAPH       ICON                    "menurevisiongraph.ico"
 IDI_DAEMON              ICON                    "menudaemon.ico"
 IDI_MERGEABORT          ICON                    "menumergeabort.ico"
+IDI_LOCK                ICON                    "ssh.ico"
 #endif    // Neutral resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -241,6 +242,22 @@ BEGIN
                             "Show member information view for selected member"
     IDS_VIEW_HISTORY        "Member History"
     IDS_VIEW_HISTORY_DESC   "Show member history view for selected member"
+    IDS_ADD_NONMEMBER       "Add"
+    IDS_ADD_NONMEMBER_DESC  "Add non-members to sandbox"
+    IDS_CHECKOUT            "Check Out"
+    IDS_CHECKOUT_DESC       "Check out members into working files in a sandbox"
+    IDS_CHECKIN             "Check In"
+    IDS_CHECKIN_DESC        "Check in members of a sandbox"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DROP                "Drop"
+    IDS_DROP_DESC           "Drop a member from a project"
+    IDS_LOCK                "Lock"
+    IDS_LOCK_DESC           "Lock project members"
+    IDS_REVERT              "Revert"
+    IDS_REVERT_DESC         "Overwrite a sandbox file with a fresh copy of the working file, discarding changes"
 END
 
 #endif    // English (United States) resources

@@ -37,7 +37,14 @@ enum MenuItem {
 	ViewHistory,
 	ViewAnnotatedRevision,
 	ViewMemberInfo,
-	LocalChangesDiff
+	LocalChangesDiff,
+
+	Add,
+	CheckOut,
+	Drop,
+	Lock,
+	CheckIn,
+	Revert
 };
 
 struct MenuInfo
