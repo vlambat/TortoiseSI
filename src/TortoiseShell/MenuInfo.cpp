@@ -435,7 +435,7 @@ std::vector<MenuInfo> menuInfo =
 
 			sandboxName = IntegrityActions::getSandboxName(getIntegritySession(), folder);
 
-			IntegrityActions::addFile(getIntegritySession(), sandboxName, selectedItems,
+			IntegrityActions::addFiles(getIntegritySession(), sandboxName, selectedItems,
 				[folder] {refreshFolder(folder); });
 		},
 			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
@@ -462,7 +462,7 @@ std::vector<MenuInfo> menuInfo =
 
 			sandboxName = IntegrityActions::getSandboxName(getIntegritySession(), folder);
 
-			IntegrityActions::checkoutFile(getIntegritySession(), sandboxName, selectedItems,
+			IntegrityActions::checkoutFiles(getIntegritySession(), sandboxName, selectedItems,
 				[folder] {refreshFolder(folder); });
 		},
 			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
@@ -489,7 +489,7 @@ std::vector<MenuInfo> menuInfo =
 
 			sandboxName = IntegrityActions::getSandboxName(getIntegritySession(), folder);
 
-			IntegrityActions::checkinFile(getIntegritySession(), sandboxName, selectedItems,
+			IntegrityActions::checkinFiles(getIntegritySession(), sandboxName, selectedItems,
 				[folder] {refreshFolder(folder); });
 		},
 			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
@@ -516,7 +516,7 @@ std::vector<MenuInfo> menuInfo =
 
 			sandboxName = IntegrityActions::getSandboxName(getIntegritySession(), folder);
 
-			IntegrityActions::dropPath(getIntegritySession(), sandboxName, selectedItems,
+			IntegrityActions::dropPaths(getIntegritySession(), sandboxName, selectedItems,
 				[folder] {refreshFolder(folder); });
 		},
 			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
@@ -540,7 +540,7 @@ std::vector<MenuInfo> menuInfo =
 
 			folder = file.substr(0, file.find_last_of('\\'));
 
-			IntegrityActions::lockFile(getIntegritySession(), selectedItems,
+			IntegrityActions::lockFiles(getIntegritySession(), selectedItems,
 				[folder] {refreshFolder(folder); });
 		},
 			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
@@ -564,7 +564,7 @@ std::vector<MenuInfo> menuInfo =
 
 			folder = file.substr(0, file.find_last_of('\\'));
 
-			IntegrityActions::revertFile(getIntegritySession(), selectedItems,
+			IntegrityActions::revertFiles(getIntegritySession(), selectedItems,
 				[folder] {refreshFolder(folder); });
 		},
 			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)

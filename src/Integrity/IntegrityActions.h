@@ -57,15 +57,15 @@ namespace IntegrityActions {
 	void launchPreferencesView(const IntegritySession& session);
 	void launchIntegrityGUI(const IntegritySession& session);
 
-	void lockFile(const IntegritySession& session, std::vector<std::wstring> path, std::function<void()> onDone);
+	void lockFiles(const IntegritySession& session, std::vector<std::wstring> path, std::function<void()> onDone);
 	void unlockFile(const IntegritySession& session, std::wstring path);
-	void addFile(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone);
-	void dropPath(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> path, std::function<void()> onDone);
+	void addFiles(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone);
+	void dropPaths(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> path, std::function<void()> onDone);
 	void moveFile(const IntegritySession& session, std::wstring path);
 	void renameFile(const IntegritySession& session, std::wstring path);
-	void revertFile(const IntegritySession& session, std::vector<std::wstring> path, std::function<void()> onDone);
-	void checkoutFile(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> path, std::function<void()> onDone);
-	void checkinFile(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> path, std::function<void()> onDone);
+	void revertFiles(const IntegritySession& session, std::vector<std::wstring> path, std::function<void()> onDone);
+	void checkoutFiles(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> path, std::function<void()> onDone);
+	void checkinFiles(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> path, std::function<void()> onDone);
 
 	void createSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 	void dropSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);

@@ -48,7 +48,7 @@ namespace IntegrityActions {
 		executeUserCommand(session, command, onDone);
 	}
 
-	void addFile(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone) 
+	void addFiles(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone) 
 	{
 		// note this command presumes that the vector of paths (non-members) are in the same sandbox
 		IntegrityCommand command(L"si", L"add");
@@ -63,7 +63,7 @@ namespace IntegrityActions {
 
 	}
 
-	void checkoutFile(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone) 
+	void checkoutFiles(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone) 
 	{
 		// note this command presumes that the array of files are in the same sandbox
 		IntegrityCommand command(L"si", L"co");
@@ -77,7 +77,7 @@ namespace IntegrityActions {
 		executeUserCommand(session, initializeWFExecute(command), onDone);
 	}
 
-	void checkinFile(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone)
+	void checkinFiles(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone)
 	{
 		// note this command presumes that the array of files are in the same sandbox
 		IntegrityCommand command(L"si", L"ci");
@@ -91,7 +91,7 @@ namespace IntegrityActions {
 		executeUserCommand(session, initializeWFExecute(command), onDone);
 	}
 
-	void dropPath(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone)
+	void dropPaths(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone)
 	{
 		// note this command presumes that the array of files are in the same sandbox
 		IntegrityCommand command(L"si", L"drop");
@@ -105,7 +105,7 @@ namespace IntegrityActions {
 		executeUserCommand(session, initializeWFExecute(command), onDone);
 	}
 
-	void lockFile(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone)
+	void lockFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone)
 	{
 		IntegrityCommand command(L"si", L"lock");
 		command.addOption(L"g");
@@ -117,7 +117,7 @@ namespace IntegrityActions {
 		executeUserCommand(session, initializeWFExecute(command), onDone);
 	}
 
-	void revertFile(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone)
+	void revertFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone)
 	{
 		IntegrityCommand command(L"si", L"revert");
 		command.addOption(L"g");
