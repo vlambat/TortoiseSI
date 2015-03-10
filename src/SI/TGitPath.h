@@ -345,6 +345,7 @@ class CTGitPathList
 public:
 	CTGitPathList();
 	// A constructor which allows a path list to be easily built with one initial entry in
+	// and does not allow implicit conversions using this constructor
 	explicit CTGitPathList(const CTGitPath& firstEntry);
 	int m_Action;
 

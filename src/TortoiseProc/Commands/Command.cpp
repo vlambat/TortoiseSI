@@ -23,6 +23,7 @@
 #include "AboutCommand.h"
 #include "AutoTextTestCommand.h"
 #include "CommitCommand.h"
+#include "SICommitComment.h"
 #include "LogCommand.h"
 
 #include "CreateRepositoryCommand.h"
@@ -78,28 +79,6 @@
 #include "ShowCompareCommand.h"
 #include "DaemonCommand.h"
 
-#if 0
-
-
-#include "CopyCommand.h"
-#include "CrashCommand.h"
-
-
-
-
-
-#include "PropertiesCommand.h"
-#include "RebuildIconCacheCommand.h"
-#include "RemoveCommand.h"
-
-
-
-#include "RevertCommand.h"
-#include "RTFMCommand.h"
-
-#include "UnIgnoreCommand.h"
-
-#endif
 typedef enum
 {
 	cmdAbout,
@@ -111,6 +90,7 @@ typedef enum
 	cmdCleanup,
 	cmdClone,
 	cmdCommit,
+	cmdSICommit,
 	cmdConflictEditor,
 	cmdCopy,
 	cmdCrash,
@@ -185,6 +165,7 @@ static const struct CommandInfo
 	{	cmdCleanup,			_T("cleanup")			},
 	{	cmdClone,			_T("clone")				},
 	{	cmdCommit,			_T("commit")			},
+	{   cmdSICommit,        _T("sicommit")          },
 	{	cmdConflictEditor,	_T("conflicteditor")	},
 	{	cmdCopy,			_T("copy")				},
 	{	cmdCrash,			_T("crash")				},
@@ -270,6 +251,8 @@ Command * CommandServer::GetCommand(const CString& sCmd)
 		return new AutoTextTestCommand;
 	case cmdCommit:
 		return new CommitCommand;
+	case cmdSICommit:
+		return new SICommitCommand;
 	case cmdLog:
 		return new LogCommand;
 	case cmdRepoCreate:

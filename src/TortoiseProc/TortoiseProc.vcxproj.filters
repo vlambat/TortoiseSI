@@ -161,9 +161,6 @@
     <Filter Include="Commands\SVN\SVNRebse">
       <UniqueIdentifier>{19b3c758-4213-45fb-9bcf-77434d31a440}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SI">
-      <UniqueIdentifier>{39afaa06-d8ee-454d-8484-9ee27c5cee21}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Common">
       <UniqueIdentifier>{6fc76284-658e-4a39-b3fc-3df116e5f1f8}</UniqueIdentifier>
     </Filter>
@@ -200,9 +197,6 @@
     <Filter Include="General">
       <UniqueIdentifier>{de003b35-fab6-4c15-9e1f-f8c0748dd5fd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UI">
-      <UniqueIdentifier>{a80023ec-988c-4322-bf9d-e2745f2e459c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Commands\Help">
       <UniqueIdentifier>{5337cf11-8601-49a1-bd82-0a3a02a5829a}</UniqueIdentifier>
     </Filter>
@@ -218,19 +212,28 @@
     <Filter Include="Commands\Resolve">
       <UniqueIdentifier>{07a8a5ca-5a50-40a2-879e-7b3a766b8aef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Commands\SI Commit">
+      <UniqueIdentifier>{a6b9c478-66cc-42bb-a14f-90f9e25c7a01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SI">
+      <UniqueIdentifier>{a7b7e76e-125a-4b4d-9a4c-a2563c6d689a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\MiscUI">
+      <UniqueIdentifier>{a80023ec-988c-4322-bf9d-e2745f2e459c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Utils\MiscUI\HorizontalResizableStandAloneDialog.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\LinkControl.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\SciEdit.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\StandAloneDlg.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="Commands\Command.cpp">
       <Filter>Commands</Filter>
@@ -281,55 +284,55 @@
       <Filter>General</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\BrowseFolder.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\FilterEdit.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\HintListCtrl.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\HistoryCombo.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\HTMLFormatter.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\HyperLink.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\IconBitmapUtils.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\IconMenu.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\MenuButton.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\MessageBox.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\Picture.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\SplitterControl.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\SVG.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\SysProgressDlg.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\Tooltip.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\WaterEffect.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\MyGraph.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\ShellUpdater.cpp">
       <Filter>General</Filter>
@@ -347,7 +350,7 @@
       <Filter>General</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\DIB.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\BugTraqAssociations.cpp">
       <Filter>General</Filter>
@@ -365,10 +368,10 @@
       <Filter>General</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\RegexEdit.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\BufferDC.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\SysImageList.cpp">
       <Filter>General</Filter>
@@ -377,7 +380,7 @@
       <Filter>General</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\FileDropEdit.cpp">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Utils\Graphviz.cpp">
       <Filter>General</Filter>
@@ -390,15 +393,6 @@
     </ClCompile>
     <ClCompile Include="..\Utils\ReaderWriterLock.cpp">
       <Filter>General</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SI\GitStatusListCtrl.cpp">
-      <Filter>SI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SI\GitDiff.cpp">
-      <Filter>SI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SI\GitStatusListCtrlHelpers.cpp">
-      <Filter>SI</Filter>
     </ClCompile>
     <ClCompile Include="Common\PatchListCtrl.cpp">
       <Filter>Common</Filter>
@@ -445,29 +439,11 @@
     <ClCompile Include="Common\Colors.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\SI\Git.cpp">
-      <Filter>SI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SI\GitAdminDir.cpp">
-      <Filter>SI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SI\GitIndex.cpp">
-      <Filter>SI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SI\GitRev.cpp">
-      <Filter>SI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SI\GitStatus.cpp">
-      <Filter>SI</Filter>
-    </ClCompile>
     <ClCompile Include="Common\LogFile.cpp">
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="Common\MassiveGitTask.cpp">
       <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SI\MassiveGitTaskBase.cpp">
-      <Filter>SI</Filter>
     </ClCompile>
     <ClCompile Include="Common\Patch.cpp">
       <Filter>Common\AppUtils</Filter>
@@ -475,10 +451,6 @@
     <ClCompile Include="Common\ProjectProperties.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\SI\TGitPath.cpp">
-      <Filter>SI</Filter>
-    </ClCompile>
-    <ClCompile Include="TortoiseProc.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Commands\AboutCommand.cpp">
       <Filter>Commands\About</Filter>
@@ -945,25 +917,95 @@
     <ClCompile Include="Commands\UpdateListCtrl.cpp">
       <Filter>Commands\UpdateCheck</Filter>
     </ClCompile>
+    <ClCompile Include="TortoiseProc.cpp" />
+    <ClCompile Include="Commands\SICommitCommand.cpp">
+      <Filter>Commands\SI Commit</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\SICommitDlg.cpp">
+      <Filter>Commands\SI Commit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SI\Git.cpp">
+      <Filter>SI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SI\GitAdminDir.cpp">
+      <Filter>SI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SI\GitDiff.cpp">
+      <Filter>SI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SI\GitFolderStatus.cpp">
+      <Filter>SI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SI\GitIndex.cpp">
+      <Filter>SI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SI\GitPatch.cpp">
+      <Filter>SI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SI\GitRev.cpp">
+      <Filter>SI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SI\GitStatus.cpp">
+      <Filter>SI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SI\GitStatusListCtrl.cpp">
+      <Filter>SI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SI\GitStatusListCtrlHelpers.cpp">
+      <Filter>SI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SI\MassiveGitTaskBase.cpp">
+      <Filter>SI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SI\TGitPath.cpp">
+      <Filter>SI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utils\TreePropSheet\PropPageFrame.cpp">
+      <Filter>Utils\TreePropSheet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utils\TreePropSheet\PropPageFrameDefault.cpp">
+      <Filter>Utils\TreePropSheet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utils\MiscUI\BaseDialog.cpp">
+      <Filter>Utils\MiscUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utils\MiscUI\BaseWindow.cpp">
+      <Filter>Utils\MiscUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utils\MiscUI\FileDlgEventHandler.cpp">
+      <Filter>Utils\MiscUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utils\MiscUI\Gradient.cpp">
+      <Filter>Utils\MiscUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utils\MiscUI\hyperlink_base.cpp">
+      <Filter>Utils\MiscUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utils\MiscUI\ScrollTool.cpp">
+      <Filter>Utils\MiscUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Utils\MiscUI\WaitCursorEx.cpp">
+      <Filter>Utils\MiscUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Utils\MiscUI\HorizontalResizableStandAloneDialog.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\LinkControl.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\SciEdit.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\StandAloneDlg.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="Commands\Command.h">
       <Filter>Commands</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\ControlsBridge.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\CmdLineParser.h">
       <Filter>General</Filter>
@@ -1020,55 +1062,55 @@
       <Filter>General</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\BrowseFolder.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\FilterEdit.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\HintListCtrl.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\HistoryCombo.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\HTMLFormatter.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\HyperLink.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\IconBitmapUtils.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\IconMenu.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\MenuButton.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\MessageBox.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\Picture.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\SplitterControl.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\SVG.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\SysProgressDlg.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\Tooltip.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\WaterEffect.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\MyGraph.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\ShellUpdater.h">
       <Filter>General</Filter>
@@ -1086,7 +1128,7 @@
       <Filter>General</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\DIB.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\BugTraqAssociations.h">
       <Filter>General</Filter>
@@ -1104,10 +1146,10 @@
       <Filter>General</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\RegexEdit.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\BufferDC.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\SysImageList.h">
       <Filter>General</Filter>
@@ -1116,7 +1158,7 @@
       <Filter>General</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\FileDropEdit.h">
-      <Filter>UI</Filter>
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\Graphviz.h">
       <Filter>General</Filter>
@@ -1132,12 +1174,6 @@
     </ClInclude>
     <ClInclude Include="..\Utils\CertificateValidationHelper.h">
       <Filter>General</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SI\GitStatusListCtrl.h">
-      <Filter>SI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SI\GitDiff.h">
-      <Filter>SI</Filter>
     </ClInclude>
     <ClInclude Include="Common\PatchListCtrl.h">
       <Filter>Common</Filter>
@@ -1187,35 +1223,11 @@
     <ClInclude Include="Common\Colors.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\SI\Git.h">
-      <Filter>SI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SI\GitAdminDir.h">
-      <Filter>SI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SI\GitForWindows.h">
-      <Filter>SI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SI\GitHash.h">
-      <Filter>SI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SI\GitIndex.h">
-      <Filter>SI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SI\GitRev.h">
-      <Filter>SI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SI\GitStatus.h">
-      <Filter>SI</Filter>
-    </ClInclude>
     <ClInclude Include="Common\LogFile.h">
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="Common\MassiveGitTask.h">
       <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SI\MassiveGitTaskBase.h">
-      <Filter>SI</Filter>
     </ClInclude>
     <ClInclude Include="Common\Patch.h">
       <Filter>Common\AppUtils</Filter>
@@ -1223,16 +1235,8 @@
     <ClInclude Include="Common\ProjectProperties.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\SI\TGitPath.h">
-      <Filter>SI</Filter>
-    </ClInclude>
-    <ClInclude Include="TortoiseProc.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="..\SI\gittype.h">
-      <Filter>SI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TortoiseShell\resource.h" />
     <ClInclude Include="Commands\AboutCommand.h">
       <Filter>Commands\About</Filter>
     </ClInclude>
@@ -1715,6 +1719,106 @@
     </ClInclude>
     <ClInclude Include="Commands\UpdateListCtrl.h">
       <Filter>Commands\UpdateCheck</Filter>
+    </ClInclude>
+    <ClInclude Include="TortoiseProc.h" />
+    <ClInclude Include="Commands\SICommitCommand.h">
+      <Filter>Commands\SI Commit</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\SICommitDlg.h">
+      <Filter>Commands\SI Commit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SI\Git.h">
+      <Filter>SI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SI\GitAdminDir.h">
+      <Filter>SI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SI\GitDiff.h">
+      <Filter>SI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SI\GitFolderStatus.h">
+      <Filter>SI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SI\GitForWindows.h">
+      <Filter>SI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SI\GitHash.h">
+      <Filter>SI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SI\GitIndex.h">
+      <Filter>SI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SI\GitPatch.h">
+      <Filter>SI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SI\GitRev.h">
+      <Filter>SI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SI\GitStatus.h">
+      <Filter>SI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SI\GitStatusListCtrl.h">
+      <Filter>SI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SI\gittype.h">
+      <Filter>SI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SI\MassiveGitTaskBase.h">
+      <Filter>SI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SI\TGitPath.h">
+      <Filter>SI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils\TreePropSheet\PropPageFrame.h">
+      <Filter>Utils\TreePropSheet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils\TreePropSheet\PropPageFrameDefault.h">
+      <Filter>Utils\TreePropSheet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils\MiscUI\BaseDialog.h">
+      <Filter>Utils\MiscUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils\MiscUI\BaseWindow.h">
+      <Filter>Utils\MiscUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils\MiscUI\Cursor.h">
+      <Filter>Utils\MiscUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils\MiscUI\DlgTemplate.h">
+      <Filter>Utils\MiscUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils\MiscUI\ExtTextOutFL.h">
+      <Filter>Utils\MiscUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils\MiscUI\FileDlgEventHandler.h">
+      <Filter>Utils\MiscUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils\MiscUI\Gradient.h">
+      <Filter>Utils\MiscUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils\MiscUI\HighColorTab.hpp">
+      <Filter>Utils\MiscUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils\MiscUI\hyperlink_base.h">
+      <Filter>Utils\MiscUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils\MiscUI\LineColors.h">
+      <Filter>Utils\MiscUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils\MiscUI\MyMemDC.h">
+      <Filter>Utils\MiscUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils\MiscUI\ResString.h">
+      <Filter>Utils\MiscUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils\MiscUI\ScrollTool.h">
+      <Filter>Utils\MiscUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils\MiscUI\TripleClick.h">
+      <Filter>Utils\MiscUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils\MiscUI\WaitCursorEx.h">
+      <Filter>Utils\MiscUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

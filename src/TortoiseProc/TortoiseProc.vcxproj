@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -40,7 +40,7 @@
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir);..\Resources;$InputDir;..\..\ext\ResizableLib;..\Git;..\Utils;..\..\ext\hunspell;..\..\ext\scintilla\include;..\Utils\TreePropSheet;..\Utils\MiscUI;..\TortoiseShell;..\..\ext\gitdll;..\..\ext\libgit2\include;..\..\ext\zlib;..\..\ext\OGDF;..\AsyncFramework;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Common;$(ProjectDir)\Commands;..\Resources;$InputDir;..\Git;..\Utils;..\SI;..\Utils\TreePropSheet;..\Utils\MiscUI;..\TortoiseShell;..\..\ext\gitdll;..\..\ext\libgit2\include;..\..\ext\ResizableLib;..\..\ext\hunspell;..\..\ext\scintilla\include;..\..\ext\zlib;..\..\ext\OGDF;..\..\ext\AsyncFramework;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>HUNSPELL_STATIC;THESAURUS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
@@ -55,7 +55,9 @@
     <ClCompile Include="..\SI\Git.cpp" />
     <ClCompile Include="..\SI\GitAdminDir.cpp" />
     <ClCompile Include="..\SI\GitDiff.cpp" />
+    <ClCompile Include="..\SI\GitFolderStatus.cpp" />
     <ClCompile Include="..\SI\GitIndex.cpp" />
+    <ClCompile Include="..\SI\GitPatch.cpp" />
     <ClCompile Include="..\SI\GitRev.cpp" />
     <ClCompile Include="..\SI\GitStatus.cpp" />
     <ClCompile Include="..\SI\GitStatusListCtrl.cpp" />
@@ -78,15 +80,20 @@
     <ClCompile Include="..\Utils\JumpListHelpers.cpp" />
     <ClCompile Include="..\Utils\LangDll.cpp" />
     <ClCompile Include="..\Utils\MailMsg.cpp" />
+    <ClCompile Include="..\Utils\MiscUI\BaseDialog.cpp" />
+    <ClCompile Include="..\Utils\MiscUI\BaseWindow.cpp" />
     <ClCompile Include="..\Utils\MiscUI\BrowseFolder.cpp" />
     <ClCompile Include="..\Utils\MiscUI\BufferDC.cpp" />
     <ClCompile Include="..\Utils\MiscUI\DIB.cpp" />
+    <ClCompile Include="..\Utils\MiscUI\FileDlgEventHandler.cpp" />
     <ClCompile Include="..\Utils\MiscUI\FileDropEdit.cpp" />
     <ClCompile Include="..\Utils\MiscUI\FilterEdit.cpp" />
+    <ClCompile Include="..\Utils\MiscUI\Gradient.cpp" />
     <ClCompile Include="..\Utils\MiscUI\HintListCtrl.cpp" />
     <ClCompile Include="..\Utils\MiscUI\HistoryCombo.cpp" />
     <ClCompile Include="..\Utils\MiscUI\HTMLFormatter.cpp" />
     <ClCompile Include="..\Utils\MiscUI\HyperLink.cpp" />
+    <ClCompile Include="..\Utils\MiscUI\hyperlink_base.cpp" />
     <ClCompile Include="..\Utils\MiscUI\IconBitmapUtils.cpp" />
     <ClCompile Include="..\Utils\MiscUI\IconMenu.cpp" />
     <ClCompile Include="..\Utils\MiscUI\MenuButton.cpp" />
@@ -94,10 +101,12 @@
     <ClCompile Include="..\Utils\MiscUI\MyGraph.cpp" />
     <ClCompile Include="..\Utils\MiscUI\Picture.cpp" />
     <ClCompile Include="..\Utils\MiscUI\RegexEdit.cpp" />
+    <ClCompile Include="..\Utils\MiscUI\ScrollTool.cpp" />
     <ClCompile Include="..\Utils\MiscUI\SplitterControl.cpp" />
     <ClCompile Include="..\Utils\MiscUI\SVG.cpp" />
     <ClCompile Include="..\Utils\MiscUI\SysProgressDlg.cpp" />
     <ClCompile Include="..\Utils\MiscUI\Tooltip.cpp" />
+    <ClCompile Include="..\Utils\MiscUI\WaitCursorEx.cpp" />
     <ClCompile Include="..\Utils\MiscUI\WaterEffect.cpp" />
     <ClCompile Include="..\Utils\PathUtils.cpp" />
     <ClCompile Include="..\Utils\PathWatcher.cpp" />
@@ -111,6 +120,8 @@
     <ClCompile Include="..\Utils\SysInfo.cpp" />
     <ClCompile Include="..\Utils\TaskbarUUID.cpp" />
     <ClCompile Include="..\Utils\TempFile.cpp" />
+    <ClCompile Include="..\Utils\TreePropSheet\PropPageFrame.cpp" />
+    <ClCompile Include="..\Utils\TreePropSheet\PropPageFrameDefault.cpp" />
     <ClCompile Include="..\Utils\TreePropSheet\TreePropSheet.cpp" />
     <ClCompile Include="..\Utils\UnicodeUtils.cpp" />
     <ClCompile Include="Commands\AboutCommand.cpp" />
@@ -122,6 +133,8 @@
     <ClCompile Include="Commands\BisectStartDlg.cpp" />
     <ClCompile Include="Commands\BlameCommand.cpp" />
     <ClCompile Include="Commands\BranchCommand.cpp" />
+    <ClCompile Include="Commands\SICommitCommand.cpp" />
+    <ClCompile Include="Commands\SICommitDlg.cpp" />
     <ClCompile Include="Commands\TagCommand.cpp" />
     <ClCompile Include="Commands\CatCommand.cpp" />
     <ClCompile Include="Commands\CleanTypeDlg.cpp" />
@@ -302,9 +315,11 @@
     <ClInclude Include="..\SI\Git.h" />
     <ClInclude Include="..\SI\GitAdminDir.h" />
     <ClInclude Include="..\SI\GitDiff.h" />
+    <ClInclude Include="..\SI\GitFolderStatus.h" />
     <ClInclude Include="..\SI\GitForWindows.h" />
     <ClInclude Include="..\SI\GitHash.h" />
     <ClInclude Include="..\SI\GitIndex.h" />
+    <ClInclude Include="..\SI\GitPatch.h" />
     <ClInclude Include="..\SI\GitRev.h" />
     <ClInclude Include="..\SI\GitStatus.h" />
     <ClInclude Include="..\SI\GitStatusListCtrl.h" />
@@ -330,27 +345,42 @@
     <ClInclude Include="..\Utils\LangDll.h" />
     <ClInclude Include="..\Utils\Libraries.h" />
     <ClInclude Include="..\Utils\MailMsg.h" />
+    <ClInclude Include="..\Utils\MiscUI\BaseDialog.h" />
+    <ClInclude Include="..\Utils\MiscUI\BaseWindow.h" />
     <ClInclude Include="..\Utils\MiscUI\BrowseFolder.h" />
     <ClInclude Include="..\Utils\MiscUI\BufferDC.h" />
     <ClInclude Include="..\Utils\MiscUI\ControlsBridge.h" />
+    <ClInclude Include="..\Utils\MiscUI\Cursor.h" />
     <ClInclude Include="..\Utils\MiscUI\DIB.h" />
+    <ClInclude Include="..\Utils\MiscUI\DlgTemplate.h" />
+    <ClInclude Include="..\Utils\MiscUI\ExtTextOutFL.h" />
+    <ClInclude Include="..\Utils\MiscUI\FileDlgEventHandler.h" />
     <ClInclude Include="..\Utils\MiscUI\FileDropEdit.h" />
     <ClInclude Include="..\Utils\MiscUI\FilterEdit.h" />
+    <ClInclude Include="..\Utils\MiscUI\Gradient.h" />
+    <ClInclude Include="..\Utils\MiscUI\HighColorTab.hpp" />
     <ClInclude Include="..\Utils\MiscUI\HintListCtrl.h" />
     <ClInclude Include="..\Utils\MiscUI\HistoryCombo.h" />
     <ClInclude Include="..\Utils\MiscUI\HTMLFormatter.h" />
     <ClInclude Include="..\Utils\MiscUI\HyperLink.h" />
+    <ClInclude Include="..\Utils\MiscUI\hyperlink_base.h" />
     <ClInclude Include="..\Utils\MiscUI\IconBitmapUtils.h" />
     <ClInclude Include="..\Utils\MiscUI\IconMenu.h" />
+    <ClInclude Include="..\Utils\MiscUI\LineColors.h" />
     <ClInclude Include="..\Utils\MiscUI\MenuButton.h" />
     <ClInclude Include="..\Utils\MiscUI\MessageBox.h" />
     <ClInclude Include="..\Utils\MiscUI\MyGraph.h" />
+    <ClInclude Include="..\Utils\MiscUI\MyMemDC.h" />
     <ClInclude Include="..\Utils\MiscUI\Picture.h" />
     <ClInclude Include="..\Utils\MiscUI\RegexEdit.h" />
+    <ClInclude Include="..\Utils\MiscUI\ResString.h" />
+    <ClInclude Include="..\Utils\MiscUI\ScrollTool.h" />
     <ClInclude Include="..\Utils\MiscUI\SplitterControl.h" />
     <ClInclude Include="..\Utils\MiscUI\SVG.h" />
     <ClInclude Include="..\Utils\MiscUI\SysProgressDlg.h" />
     <ClInclude Include="..\Utils\MiscUI\Tooltip.h" />
+    <ClInclude Include="..\Utils\MiscUI\TripleClick.h" />
+    <ClInclude Include="..\Utils\MiscUI\WaitCursorEx.h" />
     <ClInclude Include="..\Utils\MiscUI\WaterEffect.h" />
     <ClInclude Include="..\Utils\PathUtils.h" />
     <ClInclude Include="..\Utils\PathWatcher.h" />
@@ -365,6 +395,8 @@
     <ClInclude Include="..\Utils\SysInfo.h" />
     <ClInclude Include="..\Utils\TaskbarUUID.h" />
     <ClInclude Include="..\Utils\TempFile.h" />
+    <ClInclude Include="..\Utils\TreePropSheet\PropPageFrame.h" />
+    <ClInclude Include="..\Utils\TreePropSheet\PropPageFrameDefault.h" />
     <ClInclude Include="..\Utils\TreePropSheet\TreePropSheet.h" />
     <ClInclude Include="..\Utils\UnicodeUtils.h" />
     <ClInclude Include="..\Utils\Win7.h" />
@@ -378,6 +410,8 @@
     <ClInclude Include="Commands\BisectStartDlg.h" />
     <ClInclude Include="Commands\BlameCommand.h" />
     <ClInclude Include="Commands\BranchCommand.h" />
+    <ClInclude Include="Commands\SICommitCommand.h" />
+    <ClInclude Include="Commands\SICommitDlg.h" />
     <ClInclude Include="Commands\TagCommand.h" />
     <ClInclude Include="Commands\CatCommand.h" />
     <ClInclude Include="Commands\CleanTypeDlg.h" />
@@ -549,7 +583,6 @@
     <ClInclude Include="Common\ResetDlg.h" />
     <ClInclude Include="Common\SinglePropSheetDlg.h" />
     <ClInclude Include="Common\UserPassword.h" />
-    <ClInclude Include="..\TortoiseShell\resource.h" />
     <ClInclude Include="..\Utils\MiscUI\HorizontalResizableStandAloneDialog.h" />
     <ClInclude Include="..\Utils\MiscUI\LinkControl.h" />
     <ClInclude Include="..\Utils\MiscUI\SciEdit.h" />
@@ -733,4 +766,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="\GitHub\TortoiseSI\src\Resources\TortoiseProcENG.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

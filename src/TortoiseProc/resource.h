@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by d:\TortoiseGit\src\Resources\TortoiseProcENG.rc
+// Used by D:\GitHub\TortoiseSI\src\Resources\TortoiseProcENG.rc
 //
 #define IDR_MAINFRAME                   1
 #define IDD_SETTINGSPROXY               102
@@ -1544,6 +1544,9 @@
 #define IDC_BUTTON_UPDATE2              1825
 #define IDC_BUTTON_UPDATE3              1826
 #define IDC_REBASE_SPLIT_COMMIT         1827
+#define IDC_SUBMIT_TO_CP_LABEL          1832
+#define IDC_CREATE_CP_BUTTON            1833
+#define IDC_SUBMIT_CP_BUTTON            1834
 #define IDS_LOG_FILTER_BY               1850
 #define IDS_LOG_FILTER_PATHS            1851
 #define IDS_LOG_FILTER_AUTHORS          1852
@@ -1825,6 +1828,7 @@
 #define IDD_SETTINGSDIALOGS3            4593
 #define IDD_CERTCHECK                   4594
 #define IDD_RESOLVESUBMODULECONFLICT    4595
+#define IDD_SICOMMITDLG                 4596
 #define IDC_COMBOBOXEX_LOCAL_BRANCH     5000
 #define IDC_COMBOBOXEX_REMOTE_BRANCH    5001
 #define IDC_COMBOBOXEX_BAD              5001
@@ -1945,6 +1949,8 @@
 #define ID_VIEW_SHOWOVERVIEW            32813
 #define ID_VIEW_TOPDOWN                 32814
 #define ID_URL_FOCUS                    32814
+#define IDC_SUBMIT_TO_CP_COMBOBOX       32814
+#define IDC_SUBMIT_CP_COMBOBOX          32814
 #define ID_VIEW_SHOWHEAD                32815
 #define ID_VIEW_SHOWDIFFPATHS           32816
 #define ID_VIEW_SHOWALLREVISIONS        32817
@@ -1994,14 +2000,15 @@
 #define ID_GO_BACKWARD_SELECT           32871
 #define ID_GO_FORWARD_SELECT            32872
 #define ID_SELECT_SEARCHFIELD           32873
+#define IDR_ACC_SICOMMITDLG             32876
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        358
-#define _APS_NEXT_COMMAND_VALUE         32874
-#define _APS_NEXT_CONTROL_VALUE         1828
+#define _APS_NEXT_RESOURCE_VALUE        360
+#define _APS_NEXT_COMMAND_VALUE         32878
+#define _APS_NEXT_CONTROL_VALUE         1835
 #define _APS_NEXT_SYMED_VALUE           201
 #endif
 #endif
