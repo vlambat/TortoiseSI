@@ -49,6 +49,7 @@ public:
 
 		// Retrieve the default display language if no registry entry is found
 		langid = CRegStdDWORD(_T("Software\\TortoiseSI\\DebugLanguageID"), GetUserDefaultUILanguage());
+		langid.read();
 
 		for (int i = 0; i < 27; ++i)
 		{
