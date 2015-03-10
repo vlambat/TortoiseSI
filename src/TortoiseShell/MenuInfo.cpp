@@ -146,6 +146,7 @@ std::wstring getTopLevelSandbox(std::wstring path, HWND parentWindow) {
 	return topLevel;
 }
 
+
 /**
 * Get current contents of the exclude filter, add new pattern (if it is not already in the filter), and update the exclude filter
 */
@@ -412,6 +413,163 @@ std::vector<MenuInfo> menuInfo =
 		{
 			return selectedItems.size() == 1 &&
 				hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	menuSeperator,
+	{ MenuItem::Add, IDI_ADD, IDS_ADD_NONMEMBER, IDS_ADD_NONMEMBER_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring file;
+			std::wstring folder;
+			std::wstring sandboxName;
+			
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for add operation");
+				return;
+			}
+			
+			file = selectedItems.front();
+
+			folder = file.substr(0, file.find_last_of('\\'));
+
+			sandboxName = IntegrityActions::getSandboxName(getIntegritySession(), folder);
+
+			IntegrityActions::addFiles(getIntegritySession(), sandboxName, selectedItems,
+				[folder] {refreshFolder(folder); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Add);
+		}
+	},
+	{ MenuItem::CheckOut, IDI_CHECKOUT, IDS_CHECKOUT, IDS_CHECKOUT_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring file;
+			std::wstring folder;
+			std::wstring sandboxName;
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for checkout operation");
+				return;
+			}
+
+			file = selectedItems.front();
+
+			folder = file.substr(0, file.find_last_of('\\'));
+
+			sandboxName = IntegrityActions::getSandboxName(getIntegritySession(), folder);
+
+			IntegrityActions::checkoutFiles(getIntegritySession(), sandboxName, selectedItems,
+				[folder] {refreshFolder(folder); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	{ MenuItem::CheckIn, IDI_IMPORT, IDS_CHECKIN, IDS_CHECKIN_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring file;
+			std::wstring folder;
+			std::wstring sandboxName;
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for checkin operation");
+				return;
+			}
+
+			file = selectedItems.front();
+
+			folder = file.substr(0, file.find_last_of('\\'));
+
+			sandboxName = IntegrityActions::getSandboxName(getIntegritySession(), folder);
+
+			IntegrityActions::checkinFiles(getIntegritySession(), sandboxName, selectedItems,
+				[folder] {refreshFolder(folder); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	{ MenuItem::Drop, IDI_DELETE, IDS_DROP, IDS_DROP_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring file;
+			std::wstring folder;
+			std::wstring sandboxName;
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for drop operation");
+				return;
+			}
+
+			file = selectedItems.front();
+
+			folder = file.substr(0, file.find_last_of('\\'));
+
+			sandboxName = IntegrityActions::getSandboxName(getIntegritySession(), folder);
+
+			IntegrityActions::dropPaths(getIntegritySession(), sandboxName, selectedItems,
+				[folder] {refreshFolder(folder); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	{ MenuItem::Lock, IDI_LOCK, IDS_LOCK, IDS_LOCK_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring file;
+			std::wstring folder;
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for lock operation");
+				return;
+			}
+
+			file = selectedItems.front();
+
+			folder = file.substr(0, file.find_last_of('\\'));
+
+			IntegrityActions::lockFiles(getIntegritySession(), selectedItems,
+				[folder] {refreshFolder(folder); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	{ MenuItem::Revert, IDI_REVERT, IDS_REVERT, IDS_REVERT_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring file;
+			std::wstring folder;
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for revert operation");
+				return;
+			}
+
+			file = selectedItems.front();
+
+			folder = file.substr(0, file.find_last_of('\\'));
+
+			IntegrityActions::revertFiles(getIntegritySession(), selectedItems,
+				[folder] {refreshFolder(folder); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return hasFileStatus(selectedItemsStatus, FileStatus::File) &&
 				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},
