@@ -326,6 +326,7 @@ STDMETHODIMP CShellExt::QueryContextMenu_Wrap(HMENU hMenu,
 	menuiteminfo.cbSize = sizeof(menuiteminfo);
 	menuiteminfo.fType = MFT_STRING;
 	menuiteminfo.dwTypeData = (LPWSTR)menuName.c_str();
+	menuiteminfo.dwItemData = (ULONG_PTR)g_MenuIDString;
 
 	menuiteminfo.fMask = MIIM_FTYPE | MIIM_ID | MIIM_SUBMENU | MIIM_DATA | MIIM_STRING;
 	menuiteminfo.fMask |= MIIM_BITMAP;
