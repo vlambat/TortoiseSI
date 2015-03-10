@@ -79,6 +79,7 @@ IDI_THUMB_UP            ICON                    "thumb_up.ico"
 IDI_REVISIONGRAPH       ICON                    "menurevisiongraph.ico"
 IDI_DAEMON              ICON                    "menudaemon.ico"
 IDI_MERGEABORT          ICON                    "menumergeabort.ico"
+IDI_LOCK                ICON                    "ssh.ico"
 #endif    // Neutral resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -147,18 +148,18 @@ END
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE
+1 TEXTINCLUDE 
 BEGIN
     "..\\TortoiseShell\\resource.h\0"
 END
 
-2 TEXTINCLUDE
+2 TEXTINCLUDE 
 BEGIN
     "#include ""winres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE
+3 TEXTINCLUDE 
 BEGIN
     "LANGUAGE 9, 1\r\n"
     "#pragma code_page(1252)\r\n"
@@ -207,7 +208,7 @@ BEGIN
     IDS_RESYNC_DESC         "Resynchronize Sandbox member files by Change Package"
     IDS_RESYNC_ENTIRE_SANDBOX_DESC "Resynchronize Sandbox member files"
     IDS_DROP_SANDBOX_DESC   "Unregister Sandbox from Integrity Client"
-    IDS_RETARGET_SANDBOX_DESC
+    IDS_RETARGET_SANDBOX_DESC 
                             "Point a Sandbox to a different project configuration"
     IDS_CREATE_SANDBOX_DESC "Create a new Sandbox"
 END
@@ -230,6 +231,33 @@ STRINGTABLE
 BEGIN
     IDS_IGNORE_SUBMENU      "Add to exclude filter"
     IDS_IGNORE_SUBMENU_DESC "Add selected pattern to Non-Members View Exclude Filter"
+    IDS_LOCAL_CHANGES_DIFF  "Member Differences"
+    IDS_LOCAL_CHANGES_DIFF_DESC 
+                            "Show member differences view for selected member"
+    IDS_VIEW_ANNOTATED_REVISION "Annotated Revision"
+    IDS_VIEW_ANNOTATED_REVISION_DESC 
+                            "Show annotated revision view for selected member"
+    IDS_VIEW_MEMBER_INFO    "Member Information"
+    IDS_VIEW_MEMBER_INFO_DESC 
+                            "Show member information view for selected member"
+    IDS_VIEW_HISTORY        "Member History"
+    IDS_VIEW_HISTORY_DESC   "Show member history view for selected member"
+    IDS_ADD_NONMEMBER       "Add"
+    IDS_ADD_NONMEMBER_DESC  "Add non-members to sandbox"
+    IDS_CHECKOUT            "Check Out"
+    IDS_CHECKOUT_DESC       "Check out members into working files in a sandbox"
+    IDS_CHECKIN             "Check In"
+    IDS_CHECKIN_DESC        "Check in members of a sandbox"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DROP                "Drop"
+    IDS_DROP_DESC           "Drop a member from a project"
+    IDS_LOCK                "Lock"
+    IDS_LOCK_DESC           "Lock project members"
+    IDS_REVERT              "Revert"
+    IDS_REVERT_DESC         "Overwrite a sandbox file with a fresh copy of the working file, discarding changes"
 END
 
 #endif    // English (United States) resources

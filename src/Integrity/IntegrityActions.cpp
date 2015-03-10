@@ -48,6 +48,88 @@ namespace IntegrityActions {
 		executeUserCommand(session, command, onDone);
 	}
 
+	void addFiles(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone) 
+	{
+		// note this command presumes that the vector of paths (non-members) are in the same sandbox
+		IntegrityCommand command(L"si", L"add");
+		command.addOption(L"g");
+		command.addOption(L"sandbox", sandbox);
+		
+		for (std::wstring path : paths) {
+			command.addSelection(path);
+		}
+
+		executeUserCommand(session, initializeWFExecute(command), onDone);
+
+	}
+
+	void checkoutFiles(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone) 
+	{
+		// note this command presumes that the array of files are in the same sandbox
+		IntegrityCommand command(L"si", L"co");
+		command.addOption(L"g");
+		command.addOption(L"sandbox", sandbox);
+
+		for (std::wstring path : paths) {
+			command.addSelection(path);
+		}
+
+		executeUserCommand(session, initializeWFExecute(command), onDone);
+	}
+
+	void checkinFiles(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone)
+	{
+		// note this command presumes that the array of files are in the same sandbox
+		IntegrityCommand command(L"si", L"ci");
+		command.addOption(L"g");
+		command.addOption(L"sandbox", sandbox);
+
+		for (std::wstring path : paths) {
+			command.addSelection(path);
+		}
+
+		executeUserCommand(session, initializeWFExecute(command), onDone);
+	}
+
+	void dropPaths(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone)
+	{
+		// note this command presumes that the array of files are in the same sandbox
+		IntegrityCommand command(L"si", L"drop");
+		command.addOption(L"g");
+		command.addOption(L"sandbox", sandbox);
+
+		for (std::wstring path : paths) {
+			command.addSelection(path);
+		}
+
+		executeUserCommand(session, initializeWFExecute(command), onDone);
+	}
+
+	void lockFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone)
+	{
+		IntegrityCommand command(L"si", L"lock");
+		command.addOption(L"g");
+
+		for (std::wstring path : paths) {
+			command.addSelection(path);
+		}
+
+		executeUserCommand(session, initializeWFExecute(command), onDone);
+	}
+
+	void revertFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone)
+	{
+		IntegrityCommand command(L"si", L"revert");
+		command.addOption(L"g");
+
+		for (std::wstring path : paths) {
+			command.addSelection(path);
+		}
+
+		executeUserCommand(session, initializeWFExecute(command), onDone);
+	}
+
+
 	void resyncFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone)
 	{
 		IntegrityCommand command(L"si", L"resync");
@@ -59,16 +141,14 @@ namespace IntegrityActions {
 			command.addSelection(path);
 		}
 
-		// Issue found with wf execute command accepting options - don't use it for now
-		// executeUserCommand(session, initializeWFExecute(command), onDone);
-		executeUserCommand(session, command, onDone);
+		executeUserCommand(session, initializeWFExecute(command), onDone);
 	}
 
 	void resyncEntireSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone)
 	{
 		IntegrityCommand command(L"si", L"resync");
 		command.addOption(L"g");
-		command.addOption(L"S", path);
+		command.addOption(L"sandbox", path);
 
 		executeUserCommand(session, command, onDone);
 	}
@@ -186,7 +266,6 @@ namespace IntegrityActions {
 		return sandboxName;
 	}
 	
-
 	/**
 	*  Retrieve a list of all sandboxes using the 'sandboxes' command
 	*/
@@ -258,6 +337,58 @@ namespace IntegrityActions {
 		return filterContents;
 
 
+	}
+
+	/**
+	*  Launch Member History View
+	*/
+	void launchMemberHistoryView(const IntegritySession& session, std::wstring path) {
+		IntegrityCommand command(L"si", L"viewhistory");
+		command.addOption(L"g");
+		command.addSelection(path);
+
+		IntegrityCommand wfCommand = initializeWFExecute(command);
+
+		executeUserCommand(session, wfCommand, nullptr);
+	}
+
+	/**
+	*  Launch Annotated Revision View
+	*/
+	void launchAnnotatedRevisionView(const IntegritySession& session, std::wstring path) {
+		IntegrityCommand command(L"si", L"annotate");
+		command.addOption(L"g");
+		command.addSelection(path);
+
+		IntegrityCommand wfCommand = initializeWFExecute(command);
+
+		executeUserCommand(session, wfCommand, nullptr);
+	}
+
+	/**
+	*  Launch Member Information View
+	*/
+	void launchMemberInfoView(const IntegritySession& session, std::wstring path) {
+		IntegrityCommand command(L"si", L"memberinfo");
+		command.addOption(L"g");
+		command.addSelection(path);
+
+		IntegrityCommand wfCommand = initializeWFExecute(command);
+
+		executeUserCommand(session, wfCommand, nullptr);
+	}
+
+	/**
+	*  Launch Differences View on local member
+	*/
+	void launchLocalChangesDiffView(const IntegritySession& session, std::wstring path) {
+		IntegrityCommand command(L"si", L"diff");
+		command.addOption(L"g");
+		command.addSelection(path);
+
+		IntegrityCommand wfCommand = initializeWFExecute(command);
+
+		executeUserCommand(session, wfCommand, nullptr);
 	}
 
 	std::vector<std::wstring> folders(const IntegritySession& session)

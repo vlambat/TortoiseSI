@@ -32,7 +32,19 @@ enum MenuItem {
 	ResyncFile,
 	ResyncEntireSandbox,
 	DropSandbox,
-	RetargetSandbox
+	RetargetSandbox,
+
+	ViewHistory,
+	ViewAnnotatedRevision,
+	ViewMemberInfo,
+	LocalChangesDiff,
+
+	Add,
+	CheckOut,
+	Drop,
+	Lock,
+	CheckIn,
+	Revert
 };
 
 struct MenuInfo

@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by resourceshell.rc
+// Used by D:\git\TortoiseSI\src\Resources\TortoiseShellENG.rc
 //
 #define IDI_PULL                        5
 #define IDD_PROPPAGE                    107
@@ -91,21 +91,41 @@
 #define IDS_MENUDESCDIFF                177
 #define IDS_IGNORE_SUBMENU_DESC         177
 #define IDS_DROPCOPYADDMENU             178
+#define IDS_LOCAL_CHANGES_DIFF          178
 #define IDS_DROPMOVEMENU                179
+#define IDS_LOCAL_CHANGES_DIFF_DESC     179
 #define IDS_MENULOG                     180
+#define IDS_VIEW_ANNOTATED_REVISION     180
 #define IDS_MENUDESCLOG                 181
+#define IDS_VIEW_ANNOTATED_REVISION_DESC 181
+#define IDS_VIEW_MEMBER_INFO            182
+#define IDS_VIEW_MEMBER_INFO_DESC       183
+#define IDS_VIEW_HISTORY                184
+#define IDS_VIEW_HISTORY_DESC           185
 #define IDS_MENUCONFLICT                186
+#define IDS_ADD_NONMEMBER               186
 #define IDS_MENUDESCCONFLICT            187
+#define IDS_ADD_NONMEMBER_DESC          187
 #define IDS_MENUDESCBISECTSTART         188
+#define IDS_CHECKOUT                    188
 #define IDS_MENUDESCBISECTGOOD          189
+#define IDS_CHECKOUT_DESC               189
 #define IDS_MENUHELP                    190
+#define IDS_CHECKIN                     190
 #define IDS_MENUDESCHELP                191
+#define IDS_CHECKIN_DESC                191
 #define IDS_MENUSHOWCHANGED             192
+#define IDS_DROP                        192
 #define IDS_MENUDESCSHOWCHANGED         193
+#define IDS_DROP_DESC                   193
 #define IDS_MENUIGNORE                  194
+#define IDS_LOCK                        194
 #define IDS_MENUDESCIGNORE              195
+#define IDS_LOCK_DESC                   195
 #define IDS_STATUSINCOMPLETE            196
+#define IDS_REVERT                      196
 #define IDS_STATUSIGNORED               197
+#define IDS_REVERT_DESC                 197
 #define IDS_DROPCOPYMENU                198
 #define IDS_PROPWAITCANCEL              199
 #define IDS_SETPROPTITLE                200
@@ -269,6 +289,7 @@
 #define IDI_THUMB_UP                    5179
 #define IDI_DAEMON                      5180
 #define IDI_MERGEABORT                  5181
+#define IDI_LOCK                        5183
 #define IDC_CONFIG_AUTOCRLF             11020
 #define IDC_EDITPROPERTIES              11021
 #define IDC_REPOURLUNESCAPED            11022
@@ -293,7 +314,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        5182
+#define _APS_NEXT_RESOURCE_VALUE        5184
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         11032
 #define _APS_NEXT_SYMED_VALUE           5101

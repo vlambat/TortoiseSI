@@ -51,18 +51,21 @@ namespace IntegrityActions {
 	void launchIncomingChangesDiffView(const IntegritySession& session, std::wstring path);
 	void launchAnnotatedRevisionView(const IntegritySession& session, std::wstring path);
 	void launchSubmitChangesView(const IntegritySession& session, std::wstring path);
+	void launchMemberInfoView(const IntegritySession& session, std::wstring path);
 	void launchChangePackageView(const IntegritySession& session);
 	void launchMyChangePackageReviewsView(const IntegritySession& session);
 	void launchPreferencesView(const IntegritySession& session);
 	void launchIntegrityGUI(const IntegritySession& session);
 
-	void lockFile(const IntegritySession& session, std::wstring path);
-	void unlockFile(const IntegritySession& session, std::wstring path);
-	void addFile(const IntegritySession& session, std::wstring path);
-	void dropPath(const IntegritySession& session, std::wstring path);
-	void moveFile(const IntegritySession& session, std::wstring path);
-	void renameFile(const IntegritySession& session, std::wstring path);
-	void revertFile(const IntegritySession& session, std::wstring path);
+	void lockFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone);
+	void unlockFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone);
+	void addFiles(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone);
+	void dropPaths(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone);
+	void moveFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone);
+	void renameFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone);
+	void revertFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone);
+	void checkoutFiles(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone);
+	void checkinFiles(const IntegritySession& session, std::wstring sandbox, std::vector<std::wstring> paths, std::function<void()> onDone);
 
 	void createSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 	void dropSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
@@ -71,5 +74,7 @@ namespace IntegrityActions {
 	void retargetSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 
 	void setExcludeFileFilter(const IntegritySession& session, std::vector<std::wstring> patterns, std::function<void()> onDone);
+
+	IntegrityCommand initializeWFExecute(const IntegrityCommand& command);
 
 }
