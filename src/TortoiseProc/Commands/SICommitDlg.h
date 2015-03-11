@@ -20,33 +20,19 @@
 #pragma once
 
 #include "StandAloneDlg.h"
+#include "ServerConnections.h"
+#include "IntegritySession.h"
 #include "registry.h"
-#include "SciEdit.h"
 #include "Tooltip.h"
-#include "Git.h"
+//#include "Git.h"
 
 #include <regex>
-
-#define ENDDIALOGTIMER	100
-#define REFRESHTIMER	101
-#define FILLPATCHVTIMER	102
-
-typedef enum
-{
-	GIT_POSTCOMMIT_CMD_NOTHING,
-	GIT_POSTCOMMIT_CMD_RECOMMIT,
-	GIT_POSTCOMMIT_CMD_PUSH,
-	GIT_POSTCOMMIT_CMD_DCOMMIT,
-	GIT_POSTCOMMIT_CMD_PULL,
-	GIT_POSTCOMMIT_CMD_CREATETAG,
-} GIT_POSTCOMMIT_CMD;
-
 
 /**
  * \ingroup TortoiseSIProc
  * Dialog to commit change package
  */
-class CSICommitDlg : public CResizableStandAloneDialog, public CSciEditContextMenuInterface
+class CSICommitDlg : public CResizableStandAloneDialog
 {
 	DECLARE_DYNAMIC(CSICommitDlg)
 
@@ -55,8 +41,6 @@ public:
 	virtual ~CSICommitDlg();
 
 private:
-	static UINT StatusThreadEntry(LPVOID pVoid);
-	UINT StatusThread();
 	void SetDlgTitle();
 
 	enum { IDD = IDD_SICOMMITDLG };
@@ -66,9 +50,6 @@ protected:
 
 private:
 	CRect         m_DlgOrigRect;
-
-	volatile LONG m_bThreadRunning;
-	volatile LONG m_bRunThread;
 	CToolTips     m_tooltips;
 	CString	      m_sWindowTitle;
 	static UINT   WM_AUTOLISTREADY;
@@ -76,36 +57,31 @@ private:
 	static UINT   WM_UPDATEDATAFALSE;
 	HACCEL        m_hAccelerator;
 
-protected:
-	// DDX/DDV support
-	virtual void    DoDataExchange(CDataExchange* pDX);
+	std::unique_ptr<ServerConnections> m_serverConnectionsCache;
+	std::unique_ptr<IntegritySession>  m_integritySession;
 
+	int getIntegrationPort();
+
+protected:
+	virtual void    DoDataExchange(CDataExchange* pDX);
 	virtual BOOL    OnInitDialog();
-	virtual void    OnOK();
-	virtual void    OnCancel();
 	virtual BOOL    PreTranslateMessage(MSG* pMsg);
 	virtual LRESULT DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 
-	// CSciEditContextMenuInterface
-	virtual void InsertMenuItems(CMenu& mPopup, int& nCmd);
-	virtual bool HandleMenuItemClick(int cmd, CSciEdit * pSciEdit);
-
 	void DoSize(int delta);
-	void RunStartCommitHook();
 
 public:
-	afx_msg void    OnScnUpdateUI(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void    OnMoving(UINT fwSide, LPRECT pRect);
-	afx_msg void    OnSizing(UINT fwSide, LPRECT pRect);
-	afx_msg void    OnFocusMessage();
-	afx_msg LRESULT OnUpdateOKButton(WPARAM, LPARAM);
 	afx_msg void    OnSize(UINT nType, int cx, int cy);
+	afx_msg void    OnSizing(UINT fwSide, LPRECT pRect);
+	afx_msg void    OnMove(int x, int y);
+	afx_msg void    OnMoving(UINT fwSide, LPRECT pRect);
 
-	afx_msg void OnBnClickedCreateCpButton();
-	afx_msg void OnBnClickedSubmitCpButton();
-	afx_msg void OnCbnSelchangeSubmitToCpCombobox();
-	afx_msg void OnBnClickedCancel();
+	afx_msg void    OnCbnSelchangeSubmitCpCombobox();
+
+	afx_msg void    OnBnClickedCreateCpButton();
+	afx_msg void    OnBnClickedSubmitCpButton();
+	afx_msg void    OnBnClickedCancel();
+
 
 	DECLARE_MESSAGE_MAP()
-	afx_msg void OnCbnSelchangeSubmitCpCombobox();
 };

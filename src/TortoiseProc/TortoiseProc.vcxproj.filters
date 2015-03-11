@@ -221,6 +221,9 @@
     <Filter Include="Utils\MiscUI">
       <UniqueIdentifier>{a80023ec-988c-4322-bf9d-e2745f2e459c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Integrity">
+      <UniqueIdentifier>{74f17f91-70ee-49cc-a9f3-6872fdbb2266}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Utils\MiscUI\HorizontalResizableStandAloneDialog.cpp">
@@ -986,6 +989,15 @@
     </ClCompile>
     <ClCompile Include="..\Utils\MiscUI\WaitCursorEx.cpp">
       <Filter>Utils\MiscUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Integrity\IntegrityActions.cpp">
+      <Filter>Integrity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Integrity\IntegrityResponse.cpp">
+      <Filter>Integrity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Integrity\IntegritySession.cpp">
+      <Filter>Integrity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1819,6 +1831,18 @@
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\WaitCursorEx.h">
       <Filter>Utils\MiscUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Integrity\FileStatus.h">
+      <Filter>Integrity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Integrity\IntegrityActions.h">
+      <Filter>Integrity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Integrity\IntegrityResponse.h">
+      <Filter>Integrity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Integrity\IntegritySession.h">
+      <Filter>Integrity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -40,7 +40,7 @@
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Common;$(ProjectDir)\Commands;..\Resources;$InputDir;..\Git;..\Utils;..\SI;..\Utils\TreePropSheet;..\Utils\MiscUI;..\TortoiseShell;..\..\ext\gitdll;..\..\ext\libgit2\include;..\..\ext\ResizableLib;..\..\ext\hunspell;..\..\ext\scintilla\include;..\..\ext\zlib;..\..\ext\OGDF;..\..\ext\AsyncFramework;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Common;$(ProjectDir)\Commands;..\Resources;$InputDir;..\Git;..\Utils;..\SI;..\Integrity;..\Utils\TreePropSheet;..\Utils\MiscUI;..\TortoiseShell;..\..\ext\gitdll;..\..\ext\libgit2\include;..\..\ext\ResizableLib;..\..\ext\hunspell;..\..\ext\scintilla\include;..\..\ext\zlib;..\..\ext\OGDF;..\..\ext\AsyncFramework;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>HUNSPELL_STATIC;THESAURUS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
@@ -52,6 +52,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Integrity\IntegrityActions.cpp" />
+    <ClCompile Include="..\Integrity\IntegrityResponse.cpp" />
+    <ClCompile Include="..\Integrity\IntegritySession.cpp" />
     <ClCompile Include="..\SI\Git.cpp" />
     <ClCompile Include="..\SI\GitAdminDir.cpp" />
     <ClCompile Include="..\SI\GitDiff.cpp" />
@@ -312,6 +315,10 @@
     <ClCompile Include="TortoiseProc.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Integrity\FileStatus.h" />
+    <ClInclude Include="..\Integrity\IntegrityActions.h" />
+    <ClInclude Include="..\Integrity\IntegrityResponse.h" />
+    <ClInclude Include="..\Integrity\IntegritySession.h" />
     <ClInclude Include="..\SI\Git.h" />
     <ClInclude Include="..\SI\GitAdminDir.h" />
     <ClInclude Include="..\SI\GitDiff.h" />
