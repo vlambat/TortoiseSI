@@ -18,7 +18,7 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //
 #include "stdafx.h"
-#include "TortoiseProc.h"
+#include "TortoiseSIProc.h"
 #include "SICommitDlg.h"
 #include "EventLog.h"
 
