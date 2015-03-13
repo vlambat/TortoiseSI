@@ -217,7 +217,7 @@ STRINGTABLE
 BEGIN
     IDS_VIEW_SANDBOX        "View Sandbox"
     IDS_CREATE_SANDBOX      "Create Sandbox"
-    IDS_MENU                "Tortoise SI"
+    IDS_MENU                "TortoiseSI"
     IDS_SANDBOX_NOTALLOWED1 "Can't create Sandbox here because the following folder(s) already have a Sandbox:"
 END
 
