@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TortoiseGit\n"
 "Report-Msgid-Bugs-To: https://github.com/PTC-ALM/TortoiseSI/issues\n"
 "POT-Creation-Date: 1900-01-01 00:00+0000\n"
-"PO-Revision-Date: 2015-03-06 15:10-0500\n"
+"PO-Revision-Date: 2015-03-13 14:07-0500\n"
 "Last-Translator: Blaise Leskowsky <bleskowsky@ptc.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -40,8 +40,8 @@ msgid "Create Sandbox"
 msgstr ""
 
 #. Resource IDs: (174)
-msgid "Tortoise SI"
-msgstr "[GERMAN] Tortoise SI"
+msgid "TortoiseSI"
+msgstr "[GERMAN] TortoiseSI"
 
 #. Resource IDs: (175)
 msgid ""
