@@ -48,10 +48,7 @@
  ****************************************************************************/
 // The only CTortoiseSIProcApp object
 CTortoiseSIProcApp theApp;
-HWND hWndExplorer;
 
-CString sOrigCWD;
-CString g_sGroupingUUID;
 CString g_sGroupingIcon;
 bool g_bGroupingRemoveIcon = false;
 
@@ -101,301 +98,32 @@ BOOL CTortoiseSIProcApp::InitInstance()
 	Gdiplus::GdiplusStartupInput gdiplusStartupInput;
 	Gdiplus::GdiplusStartup(&m_gdiplusToken, &gdiplusStartupInput, NULL);
 
-	// Set the resource dll for the required language
-	CRegDWORD loc = CRegDWORD(_T("Software\\TortoiseSI\\LanguageID"), 1033);
+	LoadLanguageDLL();
 
-	long langId = loc;
-	{
-		CString langStr;
-		langStr.Format(_T("%ld"), langId);
-	}
+	SetHelpFile();
 
-	CString langDll;
-	CStringA langpath = CStringA(CPathUtils::GetAppParentDirectory());
-	langpath += "Languages";
-	do
-	{
-		langDll.Format(_T("%sLanguages\\TortoiseProc%ld.dll"), (LPCTSTR)CPathUtils::GetAppParentDirectory(), langId);
-
-		CString sVer = _T(STRPRODUCTVER);
-		CString sFileVer = CPathUtils::GetVersionFromFile(langDll);
-		if (sFileVer == sVer)
-		{
-			HINSTANCE hInst = LoadLibrary(langDll);
-			if (hInst != NULL)
-			{
-				CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) _T(": Load Language DLL %s\n"), langDll);
-				AfxSetResourceHandle(hInst);
-				break;
-			}
-		}
-		{
-			DWORD lid = SUBLANGID(langId);
-			lid--;
-			if (lid > 0)
-			{
-				langId = MAKELANGID(PRIMARYLANGID(langId), lid);
-			}
-			else
-				langId = 0;
-		}
-	} while (langId != 0);
-	TCHAR buf[6] = { 0 };
-	_tcscpy_s(buf, _T("en"));
-	langId = loc;
-	// MFC uses a help file with the same name as the application by default,
-	// which means we have to change that default to our language specific help files
-	CString sHelppath = CPathUtils::GetAppDirectory() + _T("TortoiseGit_en.chm");
-	free((void*)m_pszHelpFilePath);
-	m_pszHelpFilePath=_tcsdup(sHelppath);
-	sHelppath = CPathUtils::GetAppParentDirectory() + _T("Languages\\TortoiseGit_en.chm");
-	do
-	{
-		CString sLang = _T("_");
-		if (GetLocaleInfo(MAKELCID(langId, SORT_DEFAULT), LOCALE_SISO639LANGNAME, buf, _countof(buf)))
-		{
-			sLang += buf;
-			sHelppath.Replace(_T("_en"), sLang);
-			if (PathFileExists(sHelppath))
-			{
-				free((void*)m_pszHelpFilePath);
-				m_pszHelpFilePath=_tcsdup(sHelppath);
-				break;
-			}
-		}
-		sHelppath.Replace(sLang, _T("_en"));
-		if (GetLocaleInfo(MAKELCID(langId, SORT_DEFAULT), LOCALE_SISO3166CTRYNAME, buf, _countof(buf)))
-		{
-			sLang += _T("_");
-			sLang += buf;
-			sHelppath.Replace(_T("_en"), sLang);
-			if (PathFileExists(sHelppath))
-			{
-				free((void*)m_pszHelpFilePath);
-				m_pszHelpFilePath=_tcsdup(sHelppath);
-				break;
-			}
-		}
-		sHelppath.Replace(sLang, _T("_en"));
-
-		DWORD lid = SUBLANGID(langId);
-		lid--;
-		if (lid > 0)
-		{
-			langId = MAKELANGID(PRIMARYLANGID(langId), lid);
-		}
-		else
-			langId = 0;
-	} while (langId);
-	CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) _T(": Set Help Filename %s\n"), m_pszHelpFilePath);
 	setlocale(LC_ALL, "");
 
-	if (!g_Git.CheckMsysGitDir())
-	{
-		UINT ret = CMessageBox::Show(NULL, IDS_PROC_NOMSYSGIT, IDS_APPNAME, 3, IDI_HAND, IDS_PROC_SETMSYSGITPATH, IDS_PROC_GOTOMSYSGITWEBSITE, IDS_ABORTBUTTON);
-		if(ret == 2)
-		{
-			ShellExecute(NULL, _T("open"), _T("https://msysgit.github.io/"), NULL, NULL, SW_SHOW);
-		}
-		else if(ret == 1)
-		{
-			// open settings dialog
-			CSinglePropSheetDlg(CString(MAKEINTRESOURCE(IDS_PROC_SETTINGS_TITLE)), new CSetMainPage(), this->GetMainWnd()).DoModal();
-		}
-		return FALSE;
-	}
-	if (CAppUtils::GetMsysgitVersion() < 0x01090500)
-	{
-		int ret = CMessageBox::ShowCheck(NULL, IDS_PROC_OLDMSYSGIT, IDS_APPNAME, 1, IDI_EXCLAMATION, IDS_PROC_GOTOMSYSGITWEBSITE, IDS_ABORTBUTTON, IDS_IGNOREBUTTON, _T("OldMsysgitVersionWarning"), IDS_PROC_NOTSHOWAGAINIGNORE);
-		if (ret == 1)
-		{
-			CMessageBox::RemoveRegistryKey(_T("OldMsysgitVersionWarning")); // only store answer if it is "Ignore"
-			ShellExecute(NULL, _T("open"), _T("https://msysgit.github.io/"), NULL, NULL, SW_SHOW);
-			return FALSE;
-		}
-		else if (ret == 2)
-		{
-			CMessageBox::RemoveRegistryKey(_T("OldMsysgitVersionWarning")); // only store answer if it is "Ignore"
-			return FALSE;
-		}
-	}
+    // TODO: Check that TortoiseSI exists? For now we assume it does
 
-	{
-		CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) _T(": Registering Crash Report ...\n"));
-		CCrashReport::Instance().AddUserInfoToReport(L"msysGitDir", CGit::ms_LastMsysGitDir);
-		CString versionString;
-		versionString.Format(_T("%d"), CGit::ms_LastMsysGitVersion);
-		CCrashReport::Instance().AddUserInfoToReport(L"msysGitVersion", versionString);
-	}
+	// TODO: Check that we have the minimum required version of TortoiseSI
 
-	CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) _T(": Initializing UI components ...\n"));
-	// InitCommonControls() is required on Windows XP if an application
-	// manifest specifies use of ComCtl32.dll version 6 or later to enable
-	// visual styles.  Otherwise, any window creation will fail.
+	InitializeUIComponents();
 
-	INITCOMMONCONTROLSEX used = {
-		sizeof(INITCOMMONCONTROLSEX),
-			ICC_ANIMATE_CLASS | ICC_BAR_CLASSES | ICC_COOL_CLASSES | ICC_DATE_CLASSES |
-			ICC_HOTKEY_CLASS | ICC_INTERNET_CLASSES | ICC_LISTVIEW_CLASSES |
-			ICC_NATIVEFNTCTL_CLASS | ICC_PAGESCROLLER_CLASS | ICC_PROGRESS_CLASS |
-			ICC_TAB_CLASSES | ICC_TREEVIEW_CLASSES | ICC_UPDOWN_CLASS |
-			ICC_USEREX_CLASSES | ICC_WIN95_CLASSES
-	};
-	InitCommonControlsEx(&used);
-	AfxOleInit();
-	AfxEnableControlContainer();
-	AfxInitRichEdit5();
 	CWinAppEx::InitInstance();
-	SetRegistryKey(_T("TortoiseGit"));
-	AfxGetApp()->m_pszProfileName = _tcsdup(_T("TortoiseProc")); // w/o this ResizableLib will store data under TortoiseGitProc which is not compatible with older versions
 
-	CCmdLineParser parser(AfxGetApp()->m_lpCmdLine);
+	// Application settings to be stored in registry instead of INI files.
+	// This also sets m_pszRegistryKey
+	SetRegistryKey(_T("TortoiseSIProc"));
 
-	hWndExplorer = NULL;
-	CString sVal = parser.GetVal(_T("hwnd"));
-	if (!sVal.IsEmpty())
-		hWndExplorer = (HWND)_wcstoui64(sVal, nullptr, 16);
 
-	while (GetParent(hWndExplorer)!=NULL)
-		hWndExplorer = GetParent(hWndExplorer);
-	if (!IsWindow(hWndExplorer))
-	{
-		hWndExplorer = NULL;
-	}
-
-	// if HKCU\Software\TortoiseGit\Debug is not 0, show our command line
-	// in a message box
-	if (CRegDWORD(_T("Software\\TortoiseGit\\Debug"), FALSE)==TRUE)
-		AfxMessageBox(AfxGetApp()->m_lpCmdLine, MB_OK | MB_ICONINFORMATION);
-
-	if (parser.HasKey(_T("urlhandler")))
-	{
-		CString url = parser.GetVal(_T("urlhandler"));
-		if (url.Find(_T("tgit://clone/")) == 0)
-		{
-			url = url.Mid(13); // 21 = "tgit://clone/".GetLength()
-		}
-		else if (url.Find(_T("github-windows://openRepo/")) == 0)
-		{
-			url = url.Mid(26); // 26 = "github-windows://openRepo/".GetLength()
-			int questioMark = url.Find('?');
-			if (questioMark > 0)
-				url = url.Left(questioMark);
-		}
-		else if (url.Find(_T("smartgit://cloneRepo/")) == 0)
-		{
-			url = url.Mid(21); // 21 = "smartgit://cloneRepo/".GetLength()
-		}
-		else
-		{
-			CMessageBox::Show(NULL, IDS_ERR_INVALIDPATH, IDS_APPNAME, MB_ICONERROR);
-			return FALSE;
-		}
-		CString newCmd;
-		newCmd.Format(_T("/command:clone /url:\"%s\" /hasurlhandler"), url);
-		parser = CCmdLineParser(newCmd);
-	}
-
-	if ( parser.HasKey(_T("path")) && parser.HasKey(_T("pathfile")))
-	{
-		CMessageBox::Show(NULL, IDS_ERR_INVALIDPATH, IDS_APPNAME, MB_ICONERROR);
+	if (!ProcessCommandLine()) {
 		return FALSE;
 	}
 
-	CTGitPath cmdLinePath;
-	CTGitPathList pathList;
-	if (g_sGroupingUUID.IsEmpty())
-		g_sGroupingUUID = parser.GetVal(L"groupuuid");
-	if ( parser.HasKey(_T("pathfile")) )
-	{
 
-		CString sPathfileArgument = CPathUtils::GetLongPathname(parser.GetVal(_T("pathfile")));
 
-		cmdLinePath.SetFromUnknown(sPathfileArgument);
-		if (pathList.LoadFromFile(cmdLinePath)==false)
-			return FALSE;		// no path specified!
-		if ( parser.HasKey(_T("deletepathfile")) )
-		{
-			// We can delete the temporary path file, now that we've loaded it
-			::DeleteFile(cmdLinePath.GetWinPath());
-		}
-		// This was a path to a temporary file - it's got no meaning now, and
-		// anybody who uses it again is in for a problem...
-		cmdLinePath.Reset();
-
-	}
-	else
-	{
-
-		CString sPathArgument = CPathUtils::GetLongPathname(parser.GetVal(_T("path")));
-		if (parser.HasKey(_T("expaths")))
-		{
-			// an /expaths param means we're started via the buttons in our Win7 library
-			// and that means the value of /expaths is the current directory, and
-			// the selected paths are then added as additional parameters but without a key, only a value
-
-			// because of the "strange treatment of quotation marks and backslashes by CommandLineToArgvW"
-			// we have to escape the backslashes first. Since we're only dealing with paths here, that's
-			// a save bet.
-			// Without this, a command line like:
-			// /command:commit /expaths:"D:\" "D:\Utils"
-			// would fail because the "D:\" is treated as the backslash being the escape char for the quotation
-			// mark and we'd end up with:
-			// argv[1] = /command:commit
-			// argv[2] = /expaths:D:" D:\Utils
-			// See here for more details: http://blogs.msdn.com/b/oldnewthing/archive/2010/09/17/10063629.aspx
-			CString cmdLine = GetCommandLineW();
-			cmdLine.Replace(L"\\", L"\\\\");
-			int nArgs = 0;
-			LPWSTR *szArglist = CommandLineToArgvW(cmdLine, &nArgs);
-			if (szArglist)
-			{
-				// argument 0 is the process path, so start with 1
-				for (int i = 1; i < nArgs; ++i)
-				{
-					if (szArglist[i][0] != '/')
-					{
-						if (!sPathArgument.IsEmpty())
-							sPathArgument += '*';
-						sPathArgument += szArglist[i];
-					}
-				}
-				sPathArgument.Replace(L"\\\\", L"\\");
-			}
-			LocalFree(szArglist);
-		}
-		if (sPathArgument.IsEmpty() && parser.HasKey(L"path"))
-		{
-			CMessageBox::Show(hWndExplorer, IDS_ERR_INVALIDPATH, IDS_APPNAME, MB_ICONERROR);
-			return FALSE;
-		}
-		int asterisk = sPathArgument.Find('*');
-		cmdLinePath.SetFromUnknown(asterisk >= 0 ? sPathArgument.Left(asterisk) : sPathArgument);
-		pathList.LoadFromAsteriskSeparatedString(sPathArgument);
-	}
-
-	if (pathList.IsEmpty()) {
-		pathList.AddPath(CTGitPath::CTGitPath(g_Git.m_CurrentDir));
-	}
-
-	// Set CWD to temporary dir, and restore it later
-	{
-		DWORD len = GetCurrentDirectory(0, NULL);
-		if (len)
-		{
-			std::unique_ptr<TCHAR[]> originalCurrentDirectory(new TCHAR[len]);
-			if (GetCurrentDirectory(len, originalCurrentDirectory.get()))
-			{
-				sOrigCWD = originalCurrentDirectory.get();
-				sOrigCWD = CPathUtils::GetLongPathname(sOrigCWD);
-			}
-		}
-		TCHAR pathbuf[MAX_PATH] = {0};
-		GetTortoiseGitTempPath(MAX_PATH, pathbuf);
-		SetCurrentDirectory(pathbuf);
-	}
-
-	CAutoGeneralHandle TGitMutex = ::CreateMutex(NULL, FALSE, _T("TortoiseGitProc.exe"));
+	CAutoGeneralHandle TGitMutex = ::CreateMutex(NULL, FALSE, _T("TortoiseSIProc.exe"));
 	if (!g_Git.SetCurrentDir(cmdLinePath.GetWinPathString(), parser.HasKey(_T("submodule")) == TRUE))
 	{
 		for (int i = 0; i < pathList.GetCount(); ++i)
@@ -409,7 +137,7 @@ BOOL CTortoiseSIProcApp::InitInstance()
 		SetCurrentDirectory(g_Git.m_CurrentDir);
 	}
 
-	if (g_sGroupingUUID.IsEmpty())
+	if (m_sGroupingUUID.IsEmpty())
 	{
 		CRegStdDWORD groupSetting = CRegStdDWORD(_T("Software\\TortoiseGit\\GroupTaskbarIconsPerRepo"), 3);
 		switch (DWORD(groupSetting))
@@ -552,4 +280,304 @@ int CTortoiseSIProcApp::ExitInstance()
 	if (m_bRetSuccess)
 		return 0;
 	return -1;
+}
+
+void CTortoiseSIProcApp::LoadLanguageDLL()
+{
+	CRegDWORD regLangId = CRegDWORD(_T("Software\\TortoiseSI\\LanguageID"), 1033);
+	long langId = regLangId;
+
+	CString langDll;
+
+	do
+	{
+		langDll.Format(_T("%sLanguages\\TortoiseProc%ld.dll"), (LPCTSTR)CPathUtils::GetAppParentDirectory(), langId);
+
+		CString sVer = _T(STRPRODUCTVER);
+		CString sFileVer = CPathUtils::GetVersionFromFile(langDll);
+
+		if (sFileVer == sVer)
+		{
+			// Language DLL version matches TortoiseSIProc version, so load language DLL
+			HINSTANCE hInst = LoadLibrary(langDll);
+
+			if (hInst != NULL)
+			{
+				CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) _T(": Loaded Language DLL %s\n"), langDll);
+
+				// Tell the application that this is the default resources for the application
+				AfxSetResourceHandle(hInst);
+				break;
+			}
+
+		} 
+
+		DWORD lid = SUBLANGID(langId) - 1;
+
+		if (lid > 0) {
+			langId = MAKELANGID(PRIMARYLANGID(langId), lid);
+		} else {
+			langId = 0;
+		}
+
+	} while (langId != 0);
+
+}
+
+void CTortoiseSIProcApp::SetHelpFile()
+{
+	CRegDWORD regLangId = CRegDWORD(_T("Software\\TortoiseSI\\LanguageID"), 1033);
+	TCHAR buf[6] = { 0 };
+	long langId;
+
+	_tcscpy_s(buf, _T("en"));
+	langId = regLangId;
+
+	// MFC uses a help file with the same name as the application by default,
+	// which means we have to change that default to our language specific help files
+	CString sHelpPath = CPathUtils::GetAppDirectory() + _T("TortoiseSI_en.chm");
+
+	free((void*)m_pszHelpFilePath);
+
+	m_pszHelpFilePath = _tcsdup(sHelpPath);
+
+	sHelpPath = CPathUtils::GetAppParentDirectory() + _T("Languages\\TortoiseSI_en.chm");
+
+	do
+	{
+		CString sLang = _T("_");
+
+		if (GetLocaleInfo(MAKELCID(langId, SORT_DEFAULT), LOCALE_SISO639LANGNAME, buf, _countof(buf)))
+		{
+			sLang += buf;
+			sHelpPath.Replace(_T("_en"), sLang);
+			if (PathFileExists(sHelpPath))
+			{
+				free((void*)m_pszHelpFilePath);
+				m_pszHelpFilePath = _tcsdup(sHelpPath);
+				break;
+			}
+		}
+
+		sHelpPath.Replace(sLang, _T("_en"));
+
+		if (GetLocaleInfo(MAKELCID(langId, SORT_DEFAULT), LOCALE_SISO3166CTRYNAME, buf, _countof(buf)))
+		{
+			sLang += _T("_");
+			sLang += buf;
+			sHelpPath.Replace(_T("_en"), sLang);
+			if (PathFileExists(sHelpPath))
+			{
+				free((void*)m_pszHelpFilePath);
+				m_pszHelpFilePath = _tcsdup(sHelpPath);
+				break;
+			}
+		}
+
+		sHelpPath.Replace(sLang, _T("_en"));
+
+		DWORD lid = SUBLANGID(langId) - 1;
+
+		if (lid > 0) {
+			langId = MAKELANGID(PRIMARYLANGID(langId), lid);
+		} else {
+			langId = 0;
+		}
+
+	} while (langId);
+
+	CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) _T(": Set Help Filename %s\n"), m_pszHelpFilePath);
+}
+
+void CTortoiseSIProcApp::InitializeUIComponents()
+{
+	CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) _T(": Initializing UI components ...\n"));
+
+	// InitCommonControls() is required on Windows XP if an application manifest 
+	// specifies use of ComCtl32.dll version 6 or later to enable visual styles.
+	// Otherwise, any window creation will fail.
+
+	INITCOMMONCONTROLSEX used = {
+		sizeof(INITCOMMONCONTROLSEX),
+		ICC_ANIMATE_CLASS | ICC_BAR_CLASSES | ICC_COOL_CLASSES | ICC_DATE_CLASSES |
+		ICC_HOTKEY_CLASS | ICC_INTERNET_CLASSES | ICC_LISTVIEW_CLASSES |
+		ICC_NATIVEFNTCTL_CLASS | ICC_PAGESCROLLER_CLASS | ICC_PROGRESS_CLASS |
+		ICC_TAB_CLASSES | ICC_TREEVIEW_CLASSES | ICC_UPDOWN_CLASS |
+		ICC_USEREX_CLASSES | ICC_WIN95_CLASSES
+	};
+
+	// Ensures that the common control DLL (Comctl32.dll) is loaded and registers
+	// the specified common control classes from the DLL.  This must be called
+	// before creating a common control.
+	InitCommonControlsEx(&used);
+
+	// Initialize OLE support
+	AfxOleInit();
+
+	// Initialize support for containment of OLE controls
+	AfxEnableControlContainer();
+
+	// Initialize Rich Edit Controls version 5.0 and later
+	AfxInitRichEdit5();
+}
+
+BOOL CTortoiseSIProcApp::ProcessCommandLine()
+{
+	CCmdLineParser parser(AfxGetApp()->m_lpCmdLine);
+
+	CString sVal = parser.GetVal(_T("hwnd"));
+
+	if (!sVal.IsEmpty()) {
+		m_hWndExplorer = (HWND)_wcstoui64(sVal, nullptr, 16);
+	}
+
+	while (GetParent(m_hWndExplorer) != NULL) {
+		m_hWndExplorer = GetParent(m_hWndExplorer);
+	}
+
+	if (!IsWindow(m_hWndExplorer))
+	{
+		m_hWndExplorer = NULL;
+	}
+
+#if _DEBUG
+	if (CRegDWORD(_T("Software\\TortoiseSI\\Debug"), FALSE) == TRUE) {
+		AfxMessageBox(AfxGetApp()->m_lpCmdLine, MB_OK | MB_ICONINFORMATION);
+	}
+#endif
+
+	// The path and pathfile arguments are mutually exclusive
+	if (parser.HasKey(_T("path")) && parser.HasKey(_T("pathfile")))
+	{
+		CMessageBox::Show(NULL, IDS_ERR_INVALIDPATH, IDS_APPNAME, MB_ICONERROR);
+		return FALSE;
+	}
+
+	if (m_sGroupingUUID.IsEmpty()) {
+		m_sGroupingUUID = parser.GetVal(L"groupuuid");
+	}
+
+	CTGitPath cmdLinePath;
+	CTGitPathList pathList;
+
+	if (parser.HasKey(_T("pathfile")))
+	{
+		// Process /pathfile argument
+
+		CString sPathFileArgument = CPathUtils::GetLongPathname(parser.GetVal(_T("pathfile")));
+
+		cmdLinePath.SetFromUnknown(sPathFileArgument);
+
+		if (pathList.LoadFromFile(cmdLinePath) == false) {
+			// no path specified!
+			return FALSE;		
+	    }
+
+		if (parser.HasKey(_T("deletepathfile")))
+		{
+			// We can delete the temporary path file, now that we've loaded it
+			::DeleteFile(cmdLinePath.GetWinPath());
+		}
+
+		// This was a path to a temporary file - it's got no meaning now, and
+		// anybody who uses it again is in for a problem...
+		cmdLinePath.Reset();
+
+	} else {
+
+		// Process /path and /expaths argument
+		// Build-uo /path value as /path:<value>*<arg1>*<arg2>...
+		// Where <arg1>, <arg2> etc are extracted from /expath arguments.
+		// Since all arguments are passed in the form of /parameter:<argument>
+		// We process only those arguments which are not preceded by a /parameter:
+		// This only includes arguments specified following /expaths (See comments below)
+
+		CString sPathArgument = CPathUtils::GetLongPathname(parser.GetVal(_T("path")));
+
+		if (parser.HasKey(_T("expaths")))
+		{
+			// An /expaths param means we are started via the buttons in our Win7 library
+			// and that means the value of /expaths is the current directory and
+			// the selected paths are then added as additional parameters but without a key, only a value
+			//
+			//     e.g. /expaths:"D:\" "D:\Utils"
+			//
+			// Because of the "strange treatment of quotation marks and backslashes by CommandLineToArgvW",
+			// we have to escape the backslashes first.  Since we're only dealing with paths here, that's
+			// a safe bet.  Without this, a command line like:
+			//
+			//     /command:commit /expaths:"D:\" "D:\Utils"
+			// 
+			// would fail because the "D:\" is treated as the backslash being the escape char for the quotation
+			// mark and we'd end up with:
+			//
+			//     argv[1] = /command:commit
+			//     argv[2] = /expaths:D:" D:\Utils
+			//
+			// See here for more details: http://blogs.msdn.com/b/oldnewthing/archive/2010/09/17/10063629.aspx
+
+			CString cmdLine = GetCommandLineW();
+
+			// Escape backslashes
+			cmdLine.Replace(L"\\", L"\\\\");
+
+			int nArgs = 0;
+			LPWSTR *szArgList = CommandLineToArgvW(cmdLine, &nArgs);
+
+			if (szArgList)
+			{
+				// Argument 0 is the process path, so start with 1
+				for (int i = 1; i < nArgs; i++)
+				{
+					if (szArgList[i][0] != '/')
+					{
+						if (!sPathArgument.IsEmpty()) {
+							sPathArgument += '*';
+						}
+						sPathArgument += szArgList[i];
+					}
+				}
+
+				sPathArgument.Replace(L"\\\\", L"\\");
+			}
+
+			LocalFree(szArgList);
+		}
+
+		if (sPathArgument.IsEmpty() && parser.HasKey(L"path"))
+		{
+			CMessageBox::Show(m_hWndExplorer, IDS_ERR_INVALIDPATH, IDS_APPNAME, MB_ICONERROR);
+			return FALSE;
+		}
+
+		int asterisk = sPathArgument.Find('*');
+		cmdLinePath.SetFromUnknown(asterisk >= 0 ? sPathArgument.Left(asterisk) : sPathArgument);
+		pathList.LoadFromAsteriskSeparatedString(sPathArgument);
+	}
+
+	if (pathList.IsEmpty()) {
+		pathList.AddPath(CTGitPath::CTGitPath(g_Git.m_CurrentDir));
+	}
+
+	// Set CWD to temporary dir, and restore it later
+	{
+		DWORD len = GetCurrentDirectory(0, NULL);
+
+		if (len)
+		{
+			std::unique_ptr<TCHAR[]> originalCurrentDirectory(new TCHAR[len]);
+
+			if (GetCurrentDirectory(len, originalCurrentDirectory.get()))
+			{
+				m_sOrigCWD = originalCurrentDirectory.get();
+				m_sOrigCWD = CPathUtils::GetLongPathname(m_sOrigCWD);
+			}
+		}
+
+		TCHAR pathbuf[MAX_PATH] = { 0 };
+		GetTortoiseGitTempPath(MAX_PATH, pathbuf);
+		SetCurrentDirectory(pathbuf);
+	}
+
+	return TRUE;
 }

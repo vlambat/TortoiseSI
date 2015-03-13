@@ -50,14 +50,20 @@ public:
 	virtual int ExitInstance();
 
 	ULONG_PTR m_gdiplusToken;
+	HWND m_hWndExplorer = NULL;
+	CString m_sGroupingUUID;
+	CString m_sOrigCWD;
 
 private:
+	void LoadLanguageDLL();
+	void SetHelpFile();
+	void InitializeUIComponents();
+	BOOL ProcessCommandLine();
+
 	bool m_bRetSuccess;
+
 	DECLARE_MESSAGE_MAP()
 };
 
 extern CTortoiseSIProcApp theApp;
-extern CString g_sGroupingUUID;
-extern HWND hWndExplorer;
-extern CString sOrigCWD;
 
