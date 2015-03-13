@@ -86,7 +86,7 @@ BOOL CCheckForUpdatesDlg::OnInitDialog()
 	CAppUtils::MarkWindowAsUnpinnable(m_hWnd);
 
 	CString temp;
-	temp.Format(IDS_CHECKNEWER_YOURVERSION, TGIT_VERMAJOR, TGIT_VERMINOR, TGIT_VERMICRO, TGIT_VERBUILD);
+	temp.Format(IDS_CHECKNEWER_YOURVERSION, TSI_VERMAJOR, TSI_VERMINOR, TSI_VERMICRO, TSI_VERBUILD);
 	SetDlgItemText(IDC_YOURVERSION, temp);
 
 	DialogEnableWindow(IDOK, FALSE);
@@ -285,13 +285,13 @@ UINT CCheckForUpdatesDlg::CheckThread()
 		BOOL bNewer = FALSE;
 		if (m_bForce)
 			bNewer = TRUE;
-		else if (major > TGIT_VERMAJOR)
+		else if (major > TSI_VERMAJOR)
 			bNewer = TRUE;
-		else if ((minor > TGIT_VERMINOR) && (major == TGIT_VERMAJOR))
+		else if ((minor > TSI_VERMINOR) && (major == TSI_VERMAJOR))
 			bNewer = TRUE;
-		else if ((micro > TGIT_VERMICRO) && (minor == TGIT_VERMINOR) && (major == TGIT_VERMAJOR))
+		else if ((micro > TSI_VERMICRO) && (minor == TSI_VERMINOR) && (major == TSI_VERMAJOR))
 			bNewer = TRUE;
-		else if ((build > TGIT_VERBUILD) && (micro == TGIT_VERMICRO) && (minor == TGIT_VERMINOR) && (major == TGIT_VERMAJOR))
+		else if ((build > TSI_VERBUILD) && (micro == TSI_VERMICRO) && (minor == TSI_VERMINOR) && (major == TSI_VERMAJOR))
 			bNewer = TRUE;
 
 		CString versionstr;
@@ -505,7 +505,7 @@ void CCheckForUpdatesDlg::FillChangelog(CAutoConfig& versioncheck, bool official
 	else
 	{
 		CString tmp(sChangelogURL);
-		sChangelogURL.FormatMessage(tmp, TGIT_VERMAJOR, TGIT_VERMINOR, TGIT_VERMICRO, m_updateDownloader->m_sWindowsPlatform, m_updateDownloader->m_sWindowsVersion, m_updateDownloader->m_sWindowsServicePack);
+		sChangelogURL.FormatMessage(tmp, TSI_VERMAJOR, TSI_VERMINOR, TSI_VERMICRO, m_updateDownloader->m_sWindowsPlatform, m_updateDownloader->m_sWindowsVersion, m_updateDownloader->m_sWindowsServicePack);
 	}
 
 	CString tempchangelogfile = CTempFiles::Instance().GetTempFilePath(true).GetWinPathString();

@@ -920,7 +920,6 @@
     <ClCompile Include="Commands\UpdateListCtrl.cpp">
       <Filter>Commands\UpdateCheck</Filter>
     </ClCompile>
-    <ClCompile Include="TortoiseProc.cpp" />
     <ClCompile Include="Commands\SICommitCommand.cpp">
       <Filter>Commands\SI Commit</Filter>
     </ClCompile>
@@ -999,6 +998,7 @@
     <ClCompile Include="..\Integrity\IntegritySession.cpp">
       <Filter>Integrity</Filter>
     </ClCompile>
+    <ClCompile Include="TortoiseSIProc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Utils\MiscUI\HorizontalResizableStandAloneDialog.h">
@@ -1732,7 +1732,6 @@
     <ClInclude Include="Commands\UpdateListCtrl.h">
       <Filter>Commands\UpdateCheck</Filter>
     </ClInclude>
-    <ClInclude Include="TortoiseProc.h" />
     <ClInclude Include="Commands\SICommitCommand.h">
       <Filter>Commands\SI Commit</Filter>
     </ClInclude>
@@ -1844,6 +1843,7 @@
     <ClInclude Include="..\Integrity\IntegritySession.h">
       <Filter>Integrity</Filter>
     </ClInclude>
+    <ClInclude Include="TortoiseSIProc.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Resources\actionadded.ico">

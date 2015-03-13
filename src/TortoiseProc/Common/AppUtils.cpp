@@ -18,7 +18,7 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //
 #include "stdafx.h"
-#include "TortoiseProc.h"
+#include "TortoiseSIProc.h"
 #include "PathUtils.h"
 #include "AppUtils.h"
 #include "StringUtils.h"
@@ -316,6 +316,7 @@ BOOL CAppUtils::StartExtMerge(
 			if (bDeleteBaseTheirsMineOnClose)
 				com += _T(" /deletebasetheirsmineonclose");
 		}
+		
 		if (!g_sGroupingUUID.IsEmpty())
 		{
 			com += L" /groupuuid:\"";
