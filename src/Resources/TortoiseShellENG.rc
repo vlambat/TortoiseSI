@@ -258,6 +258,10 @@ BEGIN
     IDS_LOCK_DESC           "Lock project members"
     IDS_REVERT              "Revert"
     IDS_REVERT_DESC         "Overwrite a sandbox file with a fresh copy of the working file, discarding changes"
+    IDS_RENAME              "Rename"
+    IDS_RENAME_DESC         "Rename an existing project member"
+    IDS_MOVE                "Move"
+    IDS_MOVE_DESC           "Move one or more project members between projects, or between directories in a single project"
 END
 
 #endif    // English (United States) resources
