@@ -69,6 +69,7 @@ namespace IntegrityActions {
 		IntegrityCommand command(L"si", L"co");
 		command.addOption(L"g");
 		command.addOption(L"sandbox", sandbox);
+		command.addOption(L"revision", L":working");
 
 		for (std::wstring path : paths) {
 			command.addSelection(path);
@@ -108,6 +109,7 @@ namespace IntegrityActions {
 	void lockFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone)
 	{
 		IntegrityCommand command(L"si", L"lock");
+		command.addOption(L"revision", L":working");
 		command.addOption(L"g");
 
 		for (std::wstring path : paths) {
