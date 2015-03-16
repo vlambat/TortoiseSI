@@ -26,7 +26,7 @@ First-time install dialog sequence:      Maintenance dialog sequence:
       <DialogRef Id="FilesInUse" />
       <DialogRef Id="MsiRMFilesInUse" />
       <DialogRef Id="PrepareDlg" />
-      <DialogRef Id="ProgressDlg" />
+      <DialogRef Id="ProgressDlgLang" />
       <DialogRef Id="ResumeDlg" />
       <DialogRef Id="UserExit" />
       <DialogRef Id="WelcomeDlg" />
