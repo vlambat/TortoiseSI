@@ -573,7 +573,7 @@ std::vector<MenuInfo> menuInfo =
 				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},
-	{ MenuItem::Move, IDI_REBASE, IDS_MOVE, IDS_MOVE_DESC,
+	{ MenuItem::Move, IDI_RELOCATE, IDS_MOVE, IDS_MOVE_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
 		{
 			std::wstring file;
