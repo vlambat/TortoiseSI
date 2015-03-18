@@ -43,6 +43,7 @@ namespace IntegrityActions {
 	{
 		IntegrityCommand command(L"si", L"createsandbox");
 		command.addOption(L"g");
+		command.addOption(L"noOpenView");
 		command.addSelection(path);
 
 		executeUserCommand(session, command, onDone);
