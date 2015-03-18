@@ -210,12 +210,6 @@ namespace IntegrityActions {
 		if (status != std::future_status::ready) {
 			EventLog::writeWarning(L"get status timeout for " + file);
 
-			// need to call get so that the unique_ptr will exisit somewhere and go out of 
-			// scope and delete the command runner / response
-			std::async(std::launch::async, [&]{ 
-					std::unique_ptr<IntegrityResponse> response = responseFuture.get(); 
-				});
-
 			return (FileStatusFlags)FileStatus::TimeoutError;
 		}
 
