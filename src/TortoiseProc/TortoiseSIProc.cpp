@@ -20,19 +20,12 @@
 #include "stdafx.h"
 #include "TortoiseSIProc.h"
 #include "CmdLineParser.h"
-#include "Common\AppUtils.h"
 #include "PathUtils.h"
-#include "StringUtils.h"
-#include "UnicodeUtils.h"
 #include "MessageBox.h"
 #include "DirFileEnum.h"
 #include "SmartHandle.h"
 #include "Commands\Command.h"
 #include "..\version.h"
-#include "Common\SinglePropSheetDlg.h"
-#include "commands\setmainpage.h"
-#include "Libraries.h"
-#include "TaskbarUUID.h"
 #include <math.h>
 
 #define STRUCT_IOVEC_DEFINED
@@ -48,9 +41,6 @@
  ****************************************************************************/
 // The only CTortoiseSIProcApp object
 CTortoiseSIProcApp theApp;
-
-CString g_sGroupingIcon;
-bool g_bGroupingRemoveIcon = false;
 
 BEGIN_MESSAGE_MAP(CTortoiseSIProcApp, CWinAppEx)
 	ON_COMMAND(ID_HELP, CWinAppEx::OnHelp)
@@ -116,115 +106,27 @@ BOOL CTortoiseSIProcApp::InitInstance()
 	// This also sets m_pszRegistryKey
 	SetRegistryKey(_T("TortoiseSIProc"));
 
+	/* 
+	 * Create a named mutex to limit application to a single instance.
+	 * TODO: Create a randomly named mutex and store the name so that it can only be obtained
+	 *       by an authorized user to prevent a malicious application from creating the
+	 *       named mutex before us and purposely preventing our application from running.
+	 *       Alternatively, create a locked file in the users profile directory.
+	 */
+	CAutoGeneralHandle TGitMutex = ::CreateMutex(NULL, FALSE, _T("TortoiseSIProc.exe"));
 
 	if (!ProcessCommandLine()) {
 		return FALSE;
 	}
 
+	//EnsureGitLibrary(false);
 
 
-	CAutoGeneralHandle TGitMutex = ::CreateMutex(NULL, FALSE, _T("TortoiseSIProc.exe"));
-	if (!g_Git.SetCurrentDir(cmdLinePath.GetWinPathString(), parser.HasKey(_T("submodule")) == TRUE))
-	{
-		for (int i = 0; i < pathList.GetCount(); ++i)
-			if(g_Git.SetCurrentDir(pathList[i].GetWinPath()))
-				break;
-	}
-
-	if(!g_Git.m_CurrentDir.IsEmpty())
-	{
-		sOrigCWD = g_Git.m_CurrentDir;
-		SetCurrentDirectory(g_Git.m_CurrentDir);
-	}
-
-	if (m_sGroupingUUID.IsEmpty())
-	{
-		CRegStdDWORD groupSetting = CRegStdDWORD(_T("Software\\TortoiseGit\\GroupTaskbarIconsPerRepo"), 3);
-		switch (DWORD(groupSetting))
-		{
-		case 1:
-		case 2:
-			// implemented differently to TortoiseSVN atm
-			break;
-		case 3:
-		case 4:
-			{
-				CString wcroot;
-				if (g_GitAdminDir.HasAdminDir(g_Git.m_CurrentDir, true, &wcroot))
-				{
-					git_oid oid;
-					CStringA wcRootA(wcroot + CPathUtils::GetAppDirectory());
-					if (!git_odb_hash(&oid, wcRootA, wcRootA.GetLength(), GIT_OBJ_BLOB))
-					{
-						CStringA hash;
-						git_oid_tostr(hash.GetBufferSetLength(GIT_OID_HEXSZ + 1), GIT_OID_HEXSZ + 1, &oid);
-						hash.ReleaseBuffer();
-						g_sGroupingUUID = hash;
-					}
-					ProjectProperties pp;
-					pp.ReadProps();
-					CString icon = pp.sIcon;
-					icon.Replace('/', '\\');
-					if (icon.IsEmpty())
-						g_bGroupingRemoveIcon = true;
-					g_sGroupingIcon = icon;
-				}
-			}
-		}
-	}
-
-	CString sAppID = GetTaskIDPerUUID(g_sGroupingUUID).c_str();
-	EnsureGitLibrary(false);
-
-	{
-		CString err;
-		try
-		{
-			// requires CWD to be set
-			CGit::m_LogEncode = CAppUtils::GetLogOutputEncode();
-
-			// make sure all config files are read in order to check that none contains an error
-			g_Git.GetConfigValue(_T("doesnot.exist"));
-		}
-		catch (char* msg)
-		{
-			err = CString(msg);
-		}
-
-		if (!err.IsEmpty())
-		{
-			UINT choice = CMessageBox::Show(hWndExplorer, err, _T("TortoiseGit"), 1, IDI_ERROR, CString(MAKEINTRESOURCE(IDS_PROC_EDITLOCALGITCONFIG)), CString(MAKEINTRESOURCE(IDS_PROC_EDITGLOBALGITCONFIG)), CString(MAKEINTRESOURCE(IDS_ABORTBUTTON)));
-			if (choice == 1)
-			{
-				// open the config file with alternative editor
-				CAppUtils::LaunchAlternativeEditor(g_Git.GetGitLocalConfig());
-			}
-			else if (choice == 2)
-			{
-				// open the global config file with alternative editor
-				CAppUtils::LaunchAlternativeEditor(g_Git.GetGitGlobalConfig());
-			}
-			return FALSE;
-		}
-	}
-
-	// execute the requested command
-	CommandServer server;
-	Command * cmd = server.GetCommand(parser.GetVal(_T("command")));
-	if (cmd)
-	{
-		cmd->SetExplorerHwnd(hWndExplorer);
-
-		cmd->SetParser(parser);
-		cmd->SetPaths(pathList, cmdLinePath);
-
-		m_bRetSuccess = cmd->Execute();
-		delete cmd;
-	}
-
-	// Look for temporary files left around by TortoiseSVN and
-	// remove them. But only delete 'old' files because some
-	// apps might still be needing the recent ones.
+	/* 
+	 *Look for temporary files left around by TortoiseSVN and
+	 * remove them. But only delete 'old' files because some
+	 * apps might still be needing the recent ones.
+	 */
 	{
 		DWORD len = GetTortoiseGitTempPath(0, NULL);
 		std::unique_ptr<TCHAR[]> path(new TCHAR[len + 100]);
@@ -263,8 +165,10 @@ BOOL CTortoiseSIProcApp::InitInstance()
 		}
 	}
 
-	// Since the dialog has been closed, return FALSE so that we exit the
-	// application, rather than start the application's message pump.
+	/* 
+	 *Since the dialog has been closed, return FALSE so that we exit the
+	 * application, rather than start the application's message pump.
+	 */
 	return FALSE;
 }
 
@@ -453,10 +357,6 @@ BOOL CTortoiseSIProcApp::ProcessCommandLine()
 		return FALSE;
 	}
 
-	if (m_sGroupingUUID.IsEmpty()) {
-		m_sGroupingUUID = parser.GetVal(L"groupuuid");
-	}
-
 	CTGitPath cmdLinePath;
 	CTGitPathList pathList;
 
@@ -577,6 +477,34 @@ BOOL CTortoiseSIProcApp::ProcessCommandLine()
 		TCHAR pathbuf[MAX_PATH] = { 0 };
 		GetTortoiseGitTempPath(MAX_PATH, pathbuf);
 		SetCurrentDirectory(pathbuf);
+	}
+
+	// Set the current working directory
+	if (!g_Git.SetCurrentDir(cmdLinePath.GetWinPathString(), parser.HasKey(_T("submodule")) == TRUE))
+	{
+		for (int i = 0; i < pathList.GetCount(); ++i)
+			if (g_Git.SetCurrentDir(pathList[i].GetWinPath()))
+				break;
+	}
+
+	if (!g_Git.m_CurrentDir.IsEmpty())
+	{
+		m_sOrigCWD = g_Git.m_CurrentDir;
+		SetCurrentDirectory(m_sOrigCWD);
+	}
+
+	// Execute the requested command
+	CommandServer server;
+
+	Command *cmd = server.GetCommand(parser.GetVal(_T("command")));
+
+	if (cmd)
+	{
+		cmd->SetExplorerHwnd(m_hWndExplorer);
+		cmd->SetParser(parser);
+		cmd->SetPaths(pathList, cmdLinePath);
+		m_bRetSuccess = cmd->Execute();
+		delete cmd;
 	}
 
 	return TRUE;

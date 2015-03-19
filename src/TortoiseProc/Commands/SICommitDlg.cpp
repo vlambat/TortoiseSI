@@ -96,7 +96,7 @@ BOOL CSICommitDlg::OnInitDialog()
 	//TODO: GORD: Register tool tips against controls
 	//m_tooltips.AddTool(IDC_EXTERNALWARNING, IDS_COMMITDLG_EXTERNALS);
 
-	//TODO: GORD: Set any dynamic control text, e.g. labels
+	//TODO: GORD: Set any dynamic control text, e.g. dynamic labels
 	//SetDlgItemText(ID_RESOURCEID, _T(""));
 
 	//TODO: GORD: Initially enable or diable any controls
@@ -144,8 +144,8 @@ BOOL CSICommitDlg::OnInitDialog()
 	EnableSaveRestore(_T("SICommitDlg"));
 
 	// Center dialog in Windows explorer (if its window handle was pass as parameter)
-	if (hWndExplorer)
-		CenterWindow(CWnd::FromHandle(hWndExplorer));
+	if (theApp.m_hWndExplorer)
+		CenterWindow(CWnd::FromHandle(theApp.m_hWndExplorer));
 
 	/***************************************************************************
 	 * Establish Integrity server connection
