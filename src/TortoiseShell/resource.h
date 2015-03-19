@@ -127,9 +127,13 @@
 #define IDS_STATUSIGNORED               197
 #define IDS_REVERT_DESC                 197
 #define IDS_DROPCOPYMENU                198
+#define IDS_RENAME                      198
 #define IDS_PROPWAITCANCEL              199
+#define IDS_RENAME_DESC                 199
 #define IDS_SETPROPTITLE                200
+#define IDS_MOVE                        200
 #define IDS_MENUDESCBISECTBAD           201
+#define IDS_MOVE_DESC                   201
 #define IDS_MENUDESCBISECTRESET         202
 #define IDS_MENUBLAME                   203
 #define IDS_STATUSEXTERNAL              204

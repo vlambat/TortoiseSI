@@ -132,6 +132,29 @@ namespace IntegrityActions {
 		executeUserCommand(session, initializeWFExecute(command), onDone);
 	}
 
+	void moveFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone) 
+	{
+		IntegrityCommand command(L"si", L"move");
+		command.addOption(L"g");
+		
+		for (std::wstring path : paths) {
+			command.addSelection(path);
+		}
+
+		executeUserCommand(session, initializeWFExecute(command), onDone);
+	}
+
+	void renameFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone) 
+	{
+		IntegrityCommand command(L"si", L"rename");
+		command.addOption(L"g");
+
+		for (std::wstring path : paths) {
+			command.addSelection(path);
+		}
+
+		executeUserCommand(session, initializeWFExecute(command), onDone);
+	}
 
 	void resyncFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone)
 	{
