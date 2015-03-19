@@ -51,7 +51,6 @@ public:
 
 	ULONG_PTR m_gdiplusToken;
 	HWND m_hWndExplorer = NULL;
-	CString m_sGroupingUUID;
 	CString m_sOrigCWD;
 
 private:
