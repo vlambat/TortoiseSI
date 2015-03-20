@@ -106,7 +106,6 @@ IDI_FILE                ICON                    "file.ico"
 IDI_CODE                ICON                    "code.ico"
 IDI_SNIPPET             ICON                    "snippet.ico"
 IDI_CERTCHECK           ICON                    "certcheck.ico"
-//IDI_TORTOISEUDIFF       ICON                    "..\\TortoiseUDiff\\TortoiseUDiff.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -130,7 +129,7 @@ IDC_PANCURDOWN          CURSOR                  "pandown.cur"
 
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
@@ -214,11 +213,11 @@ BEGIN
     CONTROL         "",IDC_DATETO,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,207,7,55,15
     EDITTEXT        IDC_SEARCHEDIT,264,7,45,14,ES_MULTILINE | ES_AUTOHSCROLL | ES_WANTRETURN
     COMBOBOX        IDC_LOG_JUMPTYPE,312,7,70,64,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "",IDC_LOG_JUMPUP,385,7,14,14,WS_TABSTOP | BS_ICON
-    PUSHBUTTON      "",IDC_LOG_JUMPDOWN,400,7,14,14,WS_TABSTOP | BS_ICON
+    PUSHBUTTON      "",IDC_LOG_JUMPUP,385,7,14,14,BS_ICON
+    PUSHBUTTON      "",IDC_LOG_JUMPDOWN,400,7,14,14,BS_ICON
     CONTROL         "",IDC_LOGLIST,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_OWNERDATA | WS_BORDER | WS_TABSTOP,7,24,407,57
     CONTROL         "",IDC_SPLITTERTOP,"Static",SS_BLACKFRAME,7,81,407,5
-    CONTROL         "",IDC_MSGVIEW,"RichEdit50W",ES_MULTILINE | ES_READONLY | ES_WANTRETURN | WS_BORDER | WS_VSCROLL | WS_TABSTOP,7,86,407,96
+    CONTROL         "",IDC_MSGVIEW,"RichEdit50W",WS_BORDER | WS_VSCROLL | WS_TABSTOP | 0x1804,7,86,407,96
     CONTROL         "",IDC_PIC_AUTHOR,"Static",SS_BLACKFRAME,361,86,53,49
     CONTROL         "",IDC_SPLITTERBOTTOM,"Static",SS_BLACKFRAME,7,182,407,4
     CONTROL         "",IDC_LOGMSG,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,187,407,83
@@ -251,7 +250,7 @@ BEGIN
     CONTROL         "Scintilla",IDC_LOGMESSAGE,"Scintilla",WS_TABSTOP,13,32,331,72,WS_EX_STATICEDGE
     CONTROL         "Amend &Last Commit",IDC_COMMIT_AMEND,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,14,111,135,10
     CONTROL         "Show diff to last commit",IDC_COMMIT_AMENDDIFF,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,212,110,132,10
-    CONTROL         "Set author &date",IDC_COMMIT_SETDATETIME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,125,102,10
+    CONTROL         "IDC",IDC_COMMIT_SETDATETIME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,125,102,10
     CONTROL         "",IDC_COMMIT_DATEPICKER,"SysDateTimePick32",DTS_RIGHTALIGN | NOT WS_VISIBLE | WS_TABSTOP,123,123,66,13,WS_EX_RIGHT
     CONTROL         "",IDC_COMMIT_TIMEPICKER,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | NOT WS_VISIBLE | WS_TABSTOP | 0x8,195,123,61,13
     CONTROL         "Set au&thor",IDC_COMMIT_SETAUTHOR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,139,102,10
@@ -284,7 +283,7 @@ BEGIN
     GROUPBOX        "&Message:",IDC_MESSAGEGROUP,6,19,346,135
     GROUPBOX        "Changes made (double-click on file for diff):",IDC_LISTGROUP,6,162,346,113
     LTEXT           "",IDC_TEXT_INFO,299,105,45,8,0,WS_EX_RIGHT
-    ICON            IDI_MERGEACTIVE,IDC_MERGEACTIVE,167,285,21,20,SS_NOTIFY | SS_REALSIZEIMAGE | NOT WS_VISIBLE,WS_EX_TRANSPARENT
+    ICON            IDI_MERGEACTIVE,IDC_MERGEACTIVE,167,285,20,20,SS_NOTIFY | SS_REALSIZEIMAGE | NOT WS_VISIBLE,WS_EX_TRANSPARENT
 END
 
 IDD_PROMPT DIALOGEX 0, 0, 241, 54
@@ -1449,7 +1448,7 @@ FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     LTEXT           "&Branch:",IDC_REBASE_STATIC_BRANCH,10,9,34,8
     CONTROL         "",IDC_REBASE_COMBOXEX_BRANCH,"ComboBoxEx32",CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP,48,7,130,140
-    PUSHBUTTON      "",IDC_BUTTON_REVERSE,178,6,19,15,WS_TABSTOP | BS_ICON
+    PUSHBUTTON      "",IDC_BUTTON_REVERSE,178,6,19,15,BS_ICON
     LTEXT           "&Upstream:",IDC_REBASE_STATIC_UPSTREAM,200,8,41,8
     CONTROL         "",IDC_REBASE_COMBOXEX_UPSTREAM,"ComboBoxEx32",CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP,244,7,145,140
     PUSHBUTTON      "...",IDC_BUTTON_BROWSE,390,6,19,15
@@ -2108,6 +2107,18 @@ BEGIN
     PUSHBUTTON      "Show log",IDC_LOG3,306,151,60,12
     LTEXT           "Subject:",IDC_STATIC_SUBJECT3,15,185,33,8
     EDITTEXT        IDC_THEIRSSUBJECT,52,185,314,12,ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+END
+
+IDD_SICOMMITDLG DIALOGEX 0, 0, 359, 119
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "Commit"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Submit CP",IDC_SUBMIT_CP_BUTTON,249,98,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,303,98,50,14
+    COMBOBOX        IDC_SUBMIT_CP_COMBOBOX,106,7,193,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Submit to Change Package",IDC_SUBMIT_TO_CP_LABEL,6,9,86,8
+    PUSHBUTTON      "Create CP",IDC_CREATE_CP_BUTTON,302,6,50,14
 END
 
 
@@ -3019,6 +3030,19 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 202
     END
+
+    IDD_SICOMMITDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 6
+        RIGHTMARGIN, 352
+        VERTGUIDE, 51
+        VERTGUIDE, 149
+        VERTGUIDE, 299
+        VERTGUIDE, 344
+        TOPMARGIN, 6
+        BOTTOMMARGIN, 112
+        HORZGUIDE, 57
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -3662,13 +3686,13 @@ BEGIN
     IDS_ENCRYPT_NONE        "none"
     IDS_ENCRYPT_STARTTLS    "STARTTLS"
     IDS_ENCRYPT_SSL         "SSL"
-    IDS_SETTINGS_DELFILE    "Deleting file"
-    IDS_SETTINGS_DELCACHE   "Deleting cached data"
     IDS_COMMIT_MESSAGEONLY_TT 
                             "Allows to create an empty commit which only has a commit message and no files (cf. git commit --allow-empty)."
     IDS_DISABLEUPDATECHECKSBUTTON "Disable update checks"
     IDS_DISABLEUPDATECHECKS "Do you really want to disable automatic update checks for TortoiseGit?\r\n\r\nAutomatic update checks can be re-enabled in TortoiseGit settings on the General page."
+    IDS_SETTINGS_DELFILE    "Deleting file"
     IDS_REMINDMELATER       "&Remind me later"
+    IDS_SETTINGS_DELCACHE   "Deleting cached data"
     IDS_PROC_RENAME         "Rename %s"
     IDS_PROC_NEWNAME        "New name for %s"
 END
@@ -4041,8 +4065,7 @@ END
 STRINGTABLE
 BEGIN
     IDS_LOG_FILTER_BUGIDS   "Bug-IDs"
-    IDS_LOG_FILTER_CASESENSITIVE
-                            "Case-sensitive"
+    IDS_LOG_FILTER_CASESENSITIVE "Case-sensitive"
     IDS_LOG_FILTER_REGEX_TT "Regular expressions filter:\r\n.   : any character\r\nc+   : match character c one or more times\r\nc*   : match character c zero or more times\r\n^   : start of line\r\n$   : end of line\r\n(string){n} : match string n times\r\n(abcd)   : subexpression\r\n[aei0-9]   : match a,e,i and 0..9\r\n[^aei0-9] : anything but a,e,i and 0..9\r\n\r\n\\w   : matches a-z,A-Z,0-9 and _\r\n\\W   : any non-alphanumeric character\r\n\\d   : digits 0-9\r\n\\s   : whitespaces"
 END
 
@@ -4633,7 +4656,7 @@ BEGIN
                             "Show long format even if a tag is exactly on that commit"
 END
 
-#endif    // English (U.S.) resources
+#endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

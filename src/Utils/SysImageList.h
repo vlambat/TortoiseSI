@@ -27,7 +27,7 @@ class CTGitPath;
  *
  * \note This class is implemented as a singleton.
  * The singleton instance is created when first accessed. See SYS_IMAGE_LIST() function
- * easy access of the singleton instance. All
+ * 
  */
 class CSysImageList : public CImageList
 {
