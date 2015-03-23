@@ -18,7 +18,7 @@
 //
 #include "stdafx.h"
 #include "WaitCursorEx.h"
-#include "TortoiseProc.h"
+#include "TortoiseSIProc.h"
 
 
 CWaitCursorEx::CWaitCursorEx(bool start_visible) :

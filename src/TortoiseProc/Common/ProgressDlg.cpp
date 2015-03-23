@@ -20,7 +20,7 @@
 //
 
 #include "stdafx.h"
-#include "TortoiseProc.h"
+#include "TortoiseSIProc.h"
 #include "ProgressDlg.h"
 #include "Git.h"
 #include "atlconv.h"
