@@ -24,6 +24,8 @@
 #include "CrashReport.h"
 #include "DebugEventLog.h"
 #include <sstream>
+#include <chrono>
+#include <future>
 
 namespace IntegrityActions {
 	void displayException(const IntegrityResponse& response);
@@ -255,7 +257,7 @@ namespace IntegrityActions {
 		for (mksWorkItem item : *response) {
 			int status = getIntegerFieldValue(item, L"status", NO_STATUS);
 
-			EventLog::writeDebug(std::wstring(L"wf fileInfo ") + file + L" has status " +  std::to_wstring(status));
+			EventLog::writeInformation(std::wstring(L"wf fileInfo ") + file + L" has status " +  std::to_wstring(status));
 			return status;
 		}
 		return NO_STATUS;

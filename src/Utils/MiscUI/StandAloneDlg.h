@@ -267,7 +267,7 @@ private:
 
 	afx_msg LRESULT OnTaskbarButtonCreated(WPARAM /*wParam*/, LPARAM /*lParam*/)
 	{
-		SetUUIDOverlayIcon(m_hWnd);
+		//SetUUIDOverlayIcon(m_hWnd);
 		return 0;
 	}
 

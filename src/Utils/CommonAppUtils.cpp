@@ -18,21 +18,17 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //
 #include "stdafx.h"
-#include "..\Resources\LoglistCommonResource.h"
 #include "CommonAppUtils.h"
+#include "TortoiseSIProc.h"
 #include "PathUtils.h"
 #include "StringUtils.h"
 #include "CreateProcessHelper.h"
-#include "FormatMessageWrapper.h"
 #include "registry.h"
 #include "SelectFileFilter.h"
 
-extern CString sOrigCWD;
-extern CString g_sGroupingUUID;
-
 bool CCommonAppUtils::LaunchApplication(const CString& sCommandLine, UINT idErrMessageFormat, bool bWaitForStartup, CString *cwd, bool uac)
 {
-	CString theCWD = sOrigCWD;
+	CString theCWD = theApp.m_sOrigCWD;
 	if (cwd != NULL)
 		theCWD = *cwd;
 
@@ -63,7 +59,7 @@ bool CCommonAppUtils::LaunchApplication(const CString& sCommandLine, UINT idErrM
 				{
 					CString temp;
 					temp.Format(idErrMessageFormat, CFormatMessageWrapper());
-					MessageBox(NULL, temp, _T("TortoiseGit"), MB_OK | MB_ICONINFORMATION);
+					MessageBox(NULL, temp, _T("TortoiseSI"), MB_OK | MB_ICONINFORMATION);
 				}
 				return false;
 			}
@@ -89,7 +85,7 @@ bool CCommonAppUtils::LaunchApplication(const CString& sCommandLine, UINT idErrM
 			{
 				CString temp;
 				temp.Format(idErrMessageFormat, (CString)CFormatMessageWrapper());
-				MessageBox(NULL, temp, _T("TortoiseGit"), MB_OK | MB_ICONINFORMATION);
+				MessageBox(NULL, temp, _T("TortoiseSI"), MB_OK | MB_ICONINFORMATION);
 			}
 			return false;
 		}
@@ -117,7 +113,7 @@ bool CCommonAppUtils::LaunchApplication(const CString& sCommandLine, UINT idErrM
 			{
 				CString temp;
 				temp.Format(idErrMessageFormat, (CString)CFormatMessageWrapper());
-				MessageBox(NULL, temp, _T("TortoiseGit"), MB_OK | MB_ICONINFORMATION);
+				MessageBox(NULL, temp, _T("TortoiseSI"), MB_OK | MB_ICONINFORMATION);
 			}
 			return false;
 		}
@@ -135,9 +131,9 @@ bool CCommonAppUtils::LaunchApplication(const CString& sCommandLine, UINT idErrM
 	return true;
 }
 
-bool CCommonAppUtils::RunTortoiseGitProc(const CString& sCommandLine, bool uac, bool includeGroupingUUID)
+bool CCommonAppUtils::RunTortoiseSIProc(const CString& sCommandLine, bool uac, bool /*includeGroupingUUID*/)
 {
-	CString pathToExecutable = CPathUtils::GetAppDirectory() + _T("TortoiseGitProc.exe");
+	CString pathToExecutable = CPathUtils::GetAppDirectory() + _T("TortoiseSIProc.exe");
 	CString sCmd;
 	sCmd.Format(_T("\"%s\" %s"), (LPCTSTR)pathToExecutable, (LPCTSTR)sCommandLine);
 	if (AfxGetMainWnd()->GetSafeHwnd() && (sCommandLine.Find(L"/hwnd:") < 0))
@@ -145,12 +141,6 @@ bool CCommonAppUtils::RunTortoiseGitProc(const CString& sCommandLine, bool uac, 
 		CString sCmdLine;
 		sCmdLine.Format(L"%s /hwnd:%p", (LPCTSTR)sCommandLine, (void*)AfxGetMainWnd()->GetSafeHwnd());
 		sCmd.Format(_T("\"%s\" %s"), (LPCTSTR)pathToExecutable, (LPCTSTR)sCmdLine);
-	}
-	if (!g_sGroupingUUID.IsEmpty() && includeGroupingUUID)
-	{
-		sCmd += L" /groupuuid:\"";
-		sCmd += g_sGroupingUUID;
-		sCmd += L"\"";
 	}
 
 	return LaunchApplication(sCmd, NULL, false, NULL, uac);
@@ -176,7 +166,7 @@ bool CCommonAppUtils::IsAdminLogin()
 
 bool CCommonAppUtils::SetListCtrlBackgroundImage(HWND hListCtrl, UINT nID, int width /* = 128 */, int height /* = 128 */)
 {
-	if ((((DWORD)CRegStdDWORD(_T("Software\\TortoiseGit\\ShowListBackgroundImage"), TRUE)) == FALSE))
+	if ((((DWORD)CRegStdDWORD(_T("Software\\TortoiseSI\\ShowListBackgroundImage"), TRUE)) == FALSE))
 		return false;
 	ListView_SetTextBkColor(hListCtrl, CLR_NONE);
 	COLORREF bkColor = ListView_GetBkColor(hListCtrl);
@@ -297,8 +287,8 @@ bool CCommonAppUtils::FileOpenSave(CString& path, int * filterindex, UINT title,
 	{
 		bRet = !!GetSaveFileName(&ofn);
 	}
-	SetCurrentDirectory(sOrigCWD.GetBuffer());
-	sOrigCWD.ReleaseBuffer();
+	SetCurrentDirectory(theApp.m_sOrigCWD.GetBuffer());
+	theApp.m_sOrigCWD.ReleaseBuffer();
 	if (bRet)
 	{
 		path = CString(ofn.lpstrFile);

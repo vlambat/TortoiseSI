@@ -53,7 +53,7 @@ CSICommitDlg::~CSICommitDlg()
 
 int CSICommitDlg::getIntegrationPort()
 {
-	CRegStdDWORD integrationPointKey(L"Software\\TortoiseSI\\IntegrationPoint", -1);
+	CRegStdDWORD integrationPointKey(L"Software\\TortoiseSI\\IntegrationPoint", (DWORD)-1);
 	integrationPointKey.read();
 
 	int port = (DWORD)integrationPointKey;
@@ -63,7 +63,7 @@ int CSICommitDlg::getIntegrationPort()
 void CSICommitDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CResizableStandAloneDialog::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_SUBMIT_CP_COMBOBOX, m_ctrlChangePackageComboBox)
+	DDX_Control(pDX, IDC_SUBMIT_CP_COMBOBOX, m_ctrlChangePackageComboBox);
 }
 
 BEGIN_MESSAGE_MAP(CSICommitDlg, CResizableStandAloneDialog)
@@ -150,20 +150,20 @@ BOOL CSICommitDlg::OnInitDialog()
 	/***************************************************************************
 	 * Establish Integrity server connection
 	 ***************************************************************************/
-	int port = getIntegrationPort();
-
-	if (port > 0 && port <= std::numeric_limits<unsigned short>::max()) {
-		EventLog::writeInformation(L"SICommitDLg connecting to Integrity client via localhost:" + std::to_wstring(port));
-
-		m_integritySession = std::unique_ptr<IntegritySession>(new IntegritySession("localhost", port));
-
-	}  else {
-		EventLog::writeInformation(L"SICommitDlg connecting to Integrity client via localintegration point");
-
-		m_integritySession = std::unique_ptr<IntegritySession>(new IntegritySession());
-	}
-
-	m_serverConnectionsCache = std::unique_ptr<ServerConnections>(new ServerConnections(*m_integritySession));
+	//int port = getIntegrationPort();
+	//
+	//if (port > 0 && port <= std::numeric_limits<unsigned short>::max()) {
+	//	EventLog::writeInformation(L"SICommitDlg connecting to Integrity client via localhost:" + std::to_wstring(port));
+	//
+	//	m_integritySession = std::unique_ptr<IntegritySession>(new IntegritySession("localhost", port));
+	//
+	//}  else {
+	//	EventLog::writeInformation(L"SICommitDlg connecting to Integrity client via localintegration point");
+	//
+	//	m_integritySession = std::unique_ptr<IntegritySession>(new IntegritySession());
+	//}
+	//
+	//m_serverConnectionsCache = std::unique_ptr<ServerConnections>(new ServerConnections(*m_integritySession));
 
 	//TODO: GORD: Determine the users active change packages and add them to the combobox
 	// Should store cp number as additional data to comboxbox items
@@ -188,7 +188,7 @@ LRESULT CSICommitDlg::DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 	return __super::DefWindowProc(message, wParam, lParam);
 }
 
-void CSICommitDlg::DoSize(int delta)
+void CSICommitDlg::DoSize(int /*delta*/)
 {
 	RemoveAnchor(IDC_SUBMIT_TO_CP_LABEL);
 	RemoveAnchor(IDC_SUBMIT_CP_COMBOBOX);

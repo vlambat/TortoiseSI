@@ -21,7 +21,6 @@
 #include "TortoiseSIProc.h"
 #include "CmdLineParser.h"
 #include "TGitPath.h"
-#include "Git.h"
 
 /**
  * \ingroup TortoiseSIProc

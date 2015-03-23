@@ -25,13 +25,13 @@
 #include "SettingsCommand.h"
 #include "HelpCommand.h"
 #include "MessageBox.h"
+#include "Git.h"
 
 typedef enum
 {
 	cmdAbout,
 	cmdSICommit,
-	cmdHelp,
-	cmdSettings
+	cmdHelp
 } TortoiseSICommand;
 
 static const struct CommandInfo
@@ -42,8 +42,7 @@ static const struct CommandInfo
 {
 	{	cmdAbout,			_T("about")				},
 	{   cmdSICommit,        _T("sicommit")          },
-	{	cmdHelp,			_T("help")				},
-	{	cmdSettings,		_T("settings")			}
+	{	cmdHelp,			_T("help")				}
 };
 
 Command * CommandServer::GetCommand(const CString& sCmd)
@@ -72,8 +71,6 @@ Command * CommandServer::GetCommand(const CString& sCmd)
 		return new AboutCommand;
 	case cmdSICommit:
 		return new SICommitCommand; 
-	case cmdSettings:
-		return new SettingsCommand;
 	case cmdHelp:
 		return new HelpCommand;
 	default:
