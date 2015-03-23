@@ -30,11 +30,12 @@
 #include <afxcontrolbars.h>     // MFC support for ribbons and control bars
 
 #include <atlbase.h>
+#include <atlstr.h>
 
-#pragma warning(push)
-#include "git2.h"
-#pragma warning(pop)
-#include "SmartLibgit2Ref.h"
+//#pragma warning(push)
+//#include "git2.h"
+//#pragma warning(pop)
+//#include "SmartLibgit2Ref.h"
 
 #include <string>
 #include <vector>

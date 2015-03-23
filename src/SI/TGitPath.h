@@ -19,10 +19,6 @@
 //
 
 #pragma once
-#include "gittype.h"
-
-#define PARENT_MASK   0xFFFFFF
-#define MERGE_MASK	(0x1000000)
 
 class CTGitPath
 {
@@ -30,41 +26,16 @@ public:
 	CTGitPath(void);
 	~CTGitPath(void);
 	CTGitPath(const CString& sUnknownPath);
+
 	int m_Stage;
 	int m_ParentNo;
+
 public:
-#pragma warning(push)
-#pragma warning(disable: 4480)	// nonstandard extension used: specifying underlying type for enum 'enum'
-	enum : unsigned int
-	{
-		LOGACTIONS_ADDED	= 0x00000001,
-		LOGACTIONS_MODIFIED	= 0x00000002,
-		LOGACTIONS_REPLACED	= 0x00000004,
-		LOGACTIONS_DELETED	= 0x00000008,
-		LOGACTIONS_UNMERGED = 0x00000010,
-		LOGACTIONS_CACHE	= 0x00000020,
-		LOGACTIONS_COPY		= 0x00000040,
-		LOGACTIONS_MERGED   = 0x00000080,
-		LOGACTIONS_FORWORD  = 0x00000100,
-		LOGACTIONS_ASSUMEVALID = 0x00000200,
-		LOGACTIONS_SKIPWORKTREE = 0x00000400,
-		LOGACTIONS_UNVER	= 0x80000000,
-		LOGACTIONS_IGNORE	= 0x40000000,
-		//LOGACTIONS_CONFLICT = 0x20000000,
-
-		// For log filter only
-		LOGACTIONS_HIDE		= 0x20000000,
-		LOGACTIONS_GRAY		= 0x10000000,
-	};
-#pragma warning(pop)
-
 	CString m_StatAdd;
 	CString m_StatDel;
 	unsigned int		m_Action;
 	bool    m_Checked;
-	int	ParserAction(BYTE action);
-	CString GetActionName();
-	static CString GetActionName(int action);
+
 	/**
 	 * Set the path as an UTF8 string with forward slashes
 	 */
@@ -354,8 +325,6 @@ public:
 	bool LoadFromFile(const CTGitPath& filename);
 	bool WriteToFile(const CString& sFilename, bool bANSI = false) const;
 	CTGitPath * LookForGitPath(CString path);
-	int	ParserFromLog(BYTE_VECTOR &log, bool parseDeletes = false);
-	int ParserFromLsFile(BYTE_VECTOR &out,bool staged=true);
 	int FillUnRev(unsigned int Action, CTGitPathList *list = nullptr, CString *err = nullptr);
 	int FillBasedOnIndexFlags(unsigned short flag, CTGitPathList* list = nullptr);
 	int GetAction();

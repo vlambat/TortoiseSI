@@ -25,6 +25,7 @@
 #include "DirFileEnum.h"
 #include "SmartHandle.h"
 #include "Commands\Command.h"
+#include "Git.h"
 #include "..\version.h"
 #include <math.h>
 
@@ -120,50 +121,6 @@ BOOL CTortoiseSIProcApp::InitInstance()
 	}
 
 	//EnsureGitLibrary(false);
-
-
-	/* 
-	 *Look for temporary files left around by TortoiseSVN and
-	 * remove them. But only delete 'old' files because some
-	 * apps might still be needing the recent ones.
-	 */
-	{
-		DWORD len = GetTortoiseGitTempPath(0, NULL);
-		std::unique_ptr<TCHAR[]> path(new TCHAR[len + 100]);
-		len = GetTortoiseGitTempPath (len + 100, path.get());
-		if (len != 0)
-		{
-			CDirFileEnum finder(path.get());
-			FILETIME systime_;
-			::GetSystemTimeAsFileTime(&systime_);
-			__int64 systime = (((_int64)systime_.dwHighDateTime)<<32) | ((__int64)systime_.dwLowDateTime);
-			bool isDir;
-			CString filepath;
-			while (finder.NextFile(filepath, &isDir))
-			{
-				HANDLE hFile = ::CreateFile(filepath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, isDir ? FILE_FLAG_BACKUP_SEMANTICS : NULL, NULL);
-				if (hFile != INVALID_HANDLE_VALUE)
-				{
-					FILETIME createtime_;
-					if (::GetFileTime(hFile, &createtime_, NULL, NULL))
-					{
-						::CloseHandle(hFile);
-						__int64 createtime = (((_int64)createtime_.dwHighDateTime)<<32) | ((__int64)createtime_.dwLowDateTime);
-						if ((createtime + 864000000000) < systime)		//only delete files older than a day
-						{
-							::SetFileAttributes(filepath, FILE_ATTRIBUTE_NORMAL);
-							if (isDir)
-								::RemoveDirectory(filepath);
-							else
-								::DeleteFile(filepath);
-						}
-					}
-					else
-						::CloseHandle(hFile);
-				}
-			}
-		}
-	}
 
 	/* 
 	 *Since the dialog has been closed, return FALSE so that we exit the
@@ -477,14 +434,6 @@ BOOL CTortoiseSIProcApp::ProcessCommandLine()
 		TCHAR pathbuf[MAX_PATH] = { 0 };
 		GetTortoiseGitTempPath(MAX_PATH, pathbuf);
 		SetCurrentDirectory(pathbuf);
-	}
-
-	// Set the current working directory
-	if (!g_Git.SetCurrentDir(cmdLinePath.GetWinPathString(), parser.HasKey(_T("submodule")) == TRUE))
-	{
-		for (int i = 0; i < pathList.GetCount(); ++i)
-			if (g_Git.SetCurrentDir(pathList[i].GetWinPath()))
-				break;
 	}
 
 	if (!g_Git.m_CurrentDir.IsEmpty())

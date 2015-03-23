@@ -26,9 +26,6 @@ public:
 	GitAdminDir(void);
 	~GitAdminDir(void);
 
-	/// Returns true if the path points to or below an admin directory
-	bool IsAdminDirPath(const CString& path) const;
-
 	/// Returns true if the path points is a bare repository
 	bool IsBareRepo(const CString& path) const;
 

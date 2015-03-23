@@ -24,7 +24,6 @@
 #include "propertypage.h"
 #include "UnicodeUtils.h"
 #include "PathUtils.h"
-#include "UnicodeUtils.h"
 #include "CreateProcessHelper.h"
 #include "FormatMessageWrapper.h"
 
