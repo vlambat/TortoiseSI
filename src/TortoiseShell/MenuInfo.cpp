@@ -617,7 +617,8 @@ std::vector<MenuInfo> menuInfo =
 		},
 			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
 		{
-			return hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::File) &&
 				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},
