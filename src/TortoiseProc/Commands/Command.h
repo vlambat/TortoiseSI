@@ -18,16 +18,13 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //
 #pragma once
-#include "TortoiseProc.h"
+#include "TortoiseSIProc.h"
 #include "CmdLineParser.h"
 #include "TGitPath.h"
-#include "Git.h"
-
-
 
 /**
- * \ingroup TortoiseProc
- * Interface for all command line commands TortoiseProc can execute.
+ * \ingroup TortoiseSIProc
+ * Interface for all command line commands TortoiseSIProc can execute.
  */
 class Command
 {
@@ -35,67 +32,31 @@ public:
 	/**
 	 * Executes the command.
 	 */
-	virtual bool			Execute() = 0;
+	virtual bool Execute() = 0;
 
-	// allow sub-classes to execute code during destruction
+	// Allow sub-classes to execute code during destruction
 	virtual ~Command() {};
 
-	void					SetParser(const CCmdLineParser& p) {parser = p;}
-	void					SetPaths(const CTGitPathList& plist, const CTGitPath &path)
-							{
-								orgCmdLinePath = path;
-								CString WinPath=path.GetWinPath();
-								if(WinPath.Left(g_Git.m_CurrentDir.GetLength())==g_Git.m_CurrentDir)
-								{
-									if(g_Git.m_CurrentDir[g_Git.m_CurrentDir.GetLength()-1] == _T('\\'))
-									{
-										cmdLinePath.SetFromWin( WinPath.Right(WinPath.GetLength()-g_Git.m_CurrentDir.GetLength()));
-									}
-									else
-									{
-										cmdLinePath.SetFromWin( WinPath.Right(WinPath.GetLength()-g_Git.m_CurrentDir.GetLength()-1));
-									}
-								}
-								orgPathList = plist;
-								for (int i = 0; i < plist.GetCount(); ++i)
-								{
-									WinPath=plist[i].GetWinPath();
-									CTGitPath p;
-									if(WinPath.Left(g_Git.m_CurrentDir.GetLength())==g_Git.m_CurrentDir)
-									{
-										if(g_Git.m_CurrentDir[g_Git.m_CurrentDir.GetLength()-1] == _T('\\'))
-										{
-											p.SetFromWin( WinPath.Right(WinPath.GetLength()-g_Git.m_CurrentDir.GetLength()));
-										}
-										else
-										{
-											p.SetFromWin( WinPath.Right(WinPath.GetLength()-g_Git.m_CurrentDir.GetLength()-1));
-										}
-									}
-									else
-										p=plist[i];
-									pathList.AddPath(p);
+	void SetParser(const CCmdLineParser& p);
+	void SetPaths(const CTGitPathList& plist, const CTGitPath &path);
+	void SetExplorerHwnd(HWND hWnd);
 
-								}
-							}
-	void					SetExplorerHwnd(HWND hWnd) {hwndExplorer = hWnd;}
 protected:
-	CCmdLineParser			parser;
-	CTGitPathList			pathList;
-	CTGitPathList			orgPathList;
-	CTGitPath				cmdLinePath;
-	CTGitPath				orgCmdLinePath;
-	HWND					hwndExplorer;
+	CCmdLineParser	parser;
+	CTGitPathList	pathList;
+	CTGitPathList	orgPathList;
+	CTGitPath		cmdLinePath;
+	CTGitPath		orgCmdLinePath;
+	HWND			hwndExplorer;
 };
 
 /**
- * \ingroup TortoiseProc
+ * \ingroup TortoiseSIProc
  * Factory for the different commands which TortoiseProc executes from the
  * command line.
  */
 class CommandServer
 {
 public:
-
-	Command *				GetCommand(const CString& sCmd);
+	Command *GetCommand(const CString& sCmd);
 };

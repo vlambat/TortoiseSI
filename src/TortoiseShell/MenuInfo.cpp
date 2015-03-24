@@ -573,6 +573,55 @@ std::vector<MenuInfo> menuInfo =
 				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},
+	{ MenuItem::Move, IDI_RELOCATE, IDS_MOVE, IDS_MOVE_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring file;
+			std::wstring folder;
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for move operation");
+				return;
+			}
+
+			file = selectedItems.front();
+
+			folder = file.substr(0, file.find_last_of('\\'));
+
+			IntegrityActions::moveFiles(getIntegritySession(), selectedItems,
+				[folder] {refreshFolder(folder); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	{ MenuItem::Rename, IDI_RENAME, IDS_RENAME, IDS_RENAME_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring file;
+			std::wstring folder;
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for rename operation");
+				return;
+			}
+
+			file = selectedItems.front();
+
+			folder = file.substr(0, file.find_last_of('\\'));
+
+			IntegrityActions::renameFiles(getIntegritySession(), selectedItems,
+				[folder] {refreshFolder(folder); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
 	menuSeperator,
 	{ MenuItem::IgnoreSubMenu, 0, IDS_IGNORE_SUBMENU, IDS_IGNORE_SUBMENU_DESC,
 		nullptr, // CShellExt::InsertIgnoreSubmenus define the actions associated with menu

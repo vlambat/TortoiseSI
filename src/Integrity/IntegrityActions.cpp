@@ -24,6 +24,8 @@
 #include "CrashReport.h"
 #include "DebugEventLog.h"
 #include <sstream>
+#include <chrono>
+#include <future>
 
 namespace IntegrityActions {
 	void displayException(const IntegrityResponse& response);
@@ -43,6 +45,7 @@ namespace IntegrityActions {
 	{
 		IntegrityCommand command(L"si", L"createsandbox");
 		command.addOption(L"g");
+		command.addOption(L"noOpenView");
 		command.addSelection(path);
 
 		executeUserCommand(session, command, onDone);
@@ -131,6 +134,29 @@ namespace IntegrityActions {
 		executeUserCommand(session, initializeWFExecute(command), onDone);
 	}
 
+	void moveFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone) 
+	{
+		IntegrityCommand command(L"si", L"move");
+		command.addOption(L"g");
+		
+		for (std::wstring path : paths) {
+			command.addSelection(path);
+		}
+
+		executeUserCommand(session, initializeWFExecute(command), onDone);
+	}
+
+	void renameFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone) 
+	{
+		IntegrityCommand command(L"si", L"rename");
+		command.addOption(L"g");
+
+		for (std::wstring path : paths) {
+			command.addSelection(path);
+		}
+
+		executeUserCommand(session, initializeWFExecute(command), onDone);
+	}
 
 	void resyncFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone)
 	{
@@ -231,7 +257,7 @@ namespace IntegrityActions {
 		for (mksWorkItem item : *response) {
 			int status = getIntegerFieldValue(item, L"status", NO_STATUS);
 
-			EventLog::writeDebug(std::wstring(L"wf fileInfo ") + file + L" has status " +  std::to_wstring(status));
+			EventLog::writeInformation(std::wstring(L"wf fileInfo ") + file + L" has status " +  std::to_wstring(status));
 			return status;
 		}
 		return NO_STATUS;

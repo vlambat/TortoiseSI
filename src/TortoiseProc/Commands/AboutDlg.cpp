@@ -19,7 +19,7 @@
 //
 
 #include "stdafx.h"
-#include "TortoiseProc.h"
+#include "TortoiseSIProc.h"
 #include "AboutDlg.h"
 #include "PathUtils.h"
 #define NEED_SIGNING_KEY
@@ -77,17 +77,11 @@ BOOL CAboutDlg::OnInitDialog()
 	CString temp;
 
 	CString cmd, out, err;
-	cmd=_T("git.exe --version");
-	if (g_Git.Run(cmd, &out, &err, CP_UTF8))
-		out = _T("git not found (") + err + _T(")");;
-	out.Trim();
 
-	if (!CGit::ms_LastMsysGitDir.IsEmpty())
-		out += _T(" (") + CGit::ms_LastMsysGitDir + _T(")");
 
 	CString tortoisegitprocpath;
 	tortoisegitprocpath.Format(_T("(%s)"), CPathUtils::GetAppDirectory());
-	temp.Format(IDS_ABOUTVERSION, TGIT_VERMAJOR, TGIT_VERMINOR, TGIT_VERMICRO, TGIT_VERBUILD, tortoisegitprocpath, out);
+	temp.Format(IDS_ABOUTVERSION, TSI_VERMAJOR, TSI_VERMINOR, TSI_VERMICRO, TSI_VERBUILD, tortoisegitprocpath, out);
 	SetDlgItemText(IDC_VERSIONABOUT, Lf2Crlf(temp));
 
 	this->SetWindowText(_T("TortoiseGit"));
@@ -104,7 +98,7 @@ BOOL CAboutDlg::OnInitDialog()
 	m_cWebLink.SetURL(_T("http://tortoisegit.org/"));
 	m_cSupportLink.SetURL(_T("http://redir.tortoisegit.org/donate"));
 
-	CenterWindow(CWnd::FromHandle(hWndExplorer));
+	CenterWindow(CWnd::FromHandle(theApp.m_hWndExplorer));
 	GetDlgItem(IDOK)->SetFocus();
 	return FALSE;
 }
@@ -157,5 +151,5 @@ void CAboutDlg::OnMouseMove(UINT nFlags, CPoint point)
 
 void CAboutDlg::OnBnClickedUpdate()
 {
-	CAppUtils::RunTortoiseGitProc(_T("/command:updatecheck /visible"), false, false);
+	CAppUtils::RunTortoiseSIProc(_T("/command:updatecheck /visible"), false, false);
 }

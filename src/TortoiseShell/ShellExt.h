@@ -27,7 +27,7 @@
 #include "MenuInfo.h"
 #include "CrashReport.h"
 #include "FileStatus.h"
-#include "../version.h"
+#include "..\version.h"
 #include "DebugEventLog.h"
 
 extern	volatile LONG		g_cRefThisDll;			// Reference count of this DLL.
