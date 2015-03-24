@@ -213,6 +213,9 @@
     <ClCompile Include="..\Utils\EventLog.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\TortoiseShell\ServerConnections.cpp">
+      <Filter>Integrity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Utils\MiscUI\HorizontalResizableStandAloneDialog.h">
@@ -429,6 +432,12 @@
       <Filter>Common\AppUtils</Filter>
     </ClInclude>
     <ClInclude Include="..\Utils\EventLog.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TortoiseShell\ServerConnections.h">
+      <Filter>Integrity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TortoiseShell\DebugEventLog.h">
       <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>

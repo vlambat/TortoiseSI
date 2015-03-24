@@ -20,6 +20,8 @@
 #pragma once
 
 #include "IntegritySession.h"
+#include <chrono>
+#include <mutex>
 
 template<class CacheValueType> class AbstractCache {
 public:

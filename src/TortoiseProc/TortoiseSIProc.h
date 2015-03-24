@@ -26,7 +26,8 @@
 
 #include "resource.h"
 #include "..\\TortoiseShell\\resource.h"
-
+#include "ServerConnections.h"
+#include "IntegrityActions.h"
 /**
  * \ingroup TortoiseProc
  * Main class of the TortoiseGitProc.exe\n
@@ -52,12 +53,16 @@ public:
 	ULONG_PTR m_gdiplusToken;
 	HWND m_hWndExplorer = NULL;
 	CString m_sOrigCWD;
+	
+	std::unique_ptr<ServerConnections> m_serverConnectionsCache;
+	std::unique_ptr<IntegritySession>  m_integritySession;
 
 private:
 	void LoadLanguageDLL();
 	void SetHelpFile();
 	void InitializeUIComponents();
 	BOOL ProcessCommandLine();
+	int getIntegrationPort();
 
 	bool m_bRetSuccess;
 

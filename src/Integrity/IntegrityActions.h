@@ -21,10 +21,64 @@
 
 #include "FileStatus.h"
 #include "IntegritySession.h"
+#include <exception>
 
 // methods to execute integrity commands
 
 namespace IntegrityActions {
+
+	class ChangePackage {
+	public:
+		// Use this class to construct a valid ChangePackage
+		class ChangePackageBuilder;
+
+	private:
+		// Fields of a change package, builder enforces required fields
+		std::wstring m_id;
+		std::wstring m_summary;
+		std::wstring m_description;
+		std::wstring m_cptype;
+		std::wstring m_issueId;
+
+		// Private constructor can only be used by ChangePackageBuilder
+		ChangePackage( std::wstring id, std::wstring summary, std::wstring description, std::wstring cptype, std::wstring issueId ) :
+			m_id(id), m_summary(summary), m_description(description), m_cptype(cptype), m_issueId(issueId) {}
+
+	public:
+		// ChangePackage specific functionality
+		std::wstring getId() { return m_id; }
+		std::wstring getSumamry() { return m_summary; }
+		std::wstring getDescription() { return m_description; }
+		std::wstring getType() { return m_cptype; }
+		std::wstring getIssueId() { return m_issueId; }
+	};
+
+	class ChangePackage::ChangePackageBuilder {
+	private:
+		// Fields that can be initialized by the ChangePackageBuilder
+		std::wstring m_id;
+		std::wstring m_summary;
+		std::wstring m_description;
+		std::wstring m_cptype;
+		std::wstring m_issueId;
+
+	public:
+		ChangePackageBuilder& setID(const std::wstring id) { m_id = id; return *this; }
+		ChangePackageBuilder& setSummary(const std::wstring summary) { m_summary = summary; return *this; }
+		ChangePackageBuilder& setDescription(const std::wstring description) { m_description = description; return *this; }
+		ChangePackageBuilder& setType(const std::wstring cptype) { m_cptype = cptype; return *this; }
+		ChangePackageBuilder& setIssueId(const std::wstring issueId) { m_issueId = issueId; return *this; }
+
+		ChangePackage* build() {
+			if (m_id.empty() && m_summary.empty()) {
+				throw new std::exception("Attempt to construct Change Package that does not have valid id and sumamry fields");
+			}
+			else {
+				return new ChangePackage(m_id, m_summary, m_description, m_cptype, m_issueId);
+			}
+		}
+	};
+
 	// get status flags for a set of files...
 	FileStatusFlags fileInfo(const IntegritySession& session, const std::wstring& files);
 
@@ -43,6 +97,9 @@ namespace IntegrityActions {
 	// list of patterns in exclude filter
 	std::vector<std::wstring> getExcludeFilterContents(const IntegritySession& session);
 
+	// list of change packages
+	std::vector<std::shared_ptr<IntegrityActions::ChangePackage>> getChangePackageList(const IntegritySession& session);
+
 	bool connect(const IntegritySession& session);
 
 	void launchSandboxView(const IntegritySession& session, std::wstring path);
@@ -56,6 +113,7 @@ namespace IntegrityActions {
 	void launchMyChangePackageReviewsView(const IntegritySession& session);
 	void launchPreferencesView(const IntegritySession& session);
 	void launchIntegrityGUI(const IntegritySession& session);
+	bool launchCreateCPView(const IntegritySession& session);
 
 	void lockFile(const IntegritySession& session, std::wstring path);
 	void unlockFile(const IntegritySession& session, std::wstring path);
