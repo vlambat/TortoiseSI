@@ -3,7 +3,7 @@
 // but are changed infrequently
 
 #pragma once
-#define XMESSAGEBOX_APPREGPATH "Software\\TortoiseGit\\"
+#define XMESSAGEBOX_APPREGPATH "Software\\TortoiseSI\\"
 
 #include "..\targetver.h"
 

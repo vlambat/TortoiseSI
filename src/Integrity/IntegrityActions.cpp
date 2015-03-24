@@ -263,6 +263,66 @@ namespace IntegrityActions {
 	}
 
 	/**
+	 * Retrieve list of change packages
+	 */
+	std::vector<std::shared_ptr<IntegrityActions::ChangePackage>> getChangePackageList(const IntegritySession& session) {
+		std::vector<std::shared_ptr<IntegrityActions::ChangePackage>> cps;
+		IntegrityCommand command(L"si", L"viewcps");
+		command.addOption(L"filter", L"state:open");
+		command.addOption(L"fields", L"id,summary,description,cptype,issue");
+
+		std::unique_ptr<IntegrityResponse> response = session.execute(command);
+
+		if (response->getException() != NULL) {
+			logAnyExceptions(*response);
+			displayException(*response);
+			return cps;
+		}
+
+		for (mksWorkItem item : *response) {
+			std::wstring id = getId(item);
+			std::wstring summary = getStringFieldValue(item, L"summary");
+			std::wstring description = getStringFieldValue(item, L"description");
+			std::wstring cptype = getStringFieldValue(item, L"cptype");
+			std::wstring issueId = getStringFieldValue(item, L"issue");
+
+			// Create change package object
+			std::shared_ptr<IntegrityActions::ChangePackage> cp = std::shared_ptr<IntegrityActions::ChangePackage>(IntegrityActions::ChangePackage::ChangePackageBuilder()
+				.setID(id)
+				.setSummary(summary)
+				.setDescription(description)
+				.setType(cptype)
+				.setIssueId(issueId)
+				.build());
+
+			cps.push_back(cp);
+		}
+
+		return cps;
+	}
+
+	/**
+	 * Launch Create Change Package View
+	 */
+	bool launchCreateCPView(const IntegritySession& session) {
+		IntegrityCommand command(L"si", L"createcp");
+		command.addOption(L"g");
+
+		std::unique_ptr<IntegrityResponse> response = session.execute(command);
+
+		if (response->getException() != NULL) {
+			logAnyExceptions(*response);
+			return false;
+		}
+
+		if (response->getExitCode() != 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	*  Launch Member History View
 	*/
 	void launchMemberHistoryView(const IntegritySession& session, std::wstring path) {

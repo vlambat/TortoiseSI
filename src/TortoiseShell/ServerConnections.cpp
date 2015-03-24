@@ -23,6 +23,7 @@
 #include "IntegrityResponse.h"
 #include "DebugEventLog.h"
 #include "registry.h"
+#include <future>
 
 class MutexLocker {
 public:
@@ -102,7 +103,7 @@ void ServerConnections::onConnectionError(mksAPIException exception)
 
 void ServerConnections::tryToConnect()
 {
-	EventLog::writeDebug(L"attempting to connect = ");
+	EventLog::writeInformation(L"attempting to connect = ");
 	bool success = IntegrityActions::connect(this->integritySession);
 	EventLog::writeWarning(L"done trying to connect");
 
@@ -139,7 +140,7 @@ bool ServerConnections::isOnline()
 
 		online = state == ConnectionState::Online;
 	}	
-	EventLog::writeDebug(std::wstring(L"isOnline = ") + (online ? L"true" : L"false"));
+	EventLog::writeInformation(std::wstring(L"isOnline = ") + (online ? L"true" : L"false"));
 
 	return online;
 }
@@ -160,13 +161,14 @@ std::vector<std::wstring> ServerConnections::fetchNewValue()
 {
 	std::vector<std::wstring> result = IntegrityActions::servers(integritySession);
 
-	if (EventLog::isDebugLoggingEnabled()) {
+	// TODO: Remove dependency on ShellExt for debug logging!
+	//if (EventLog::isDebugLoggingEnabled()) {
 		std::wstring message;
 		for (std::wstring connectionId : result) {
 			message += L" \n" + connectionId;
 		}
-		EventLog::writeDebug(L"server connections: " + message);
-	}
+		EventLog::writeInformation(L"server connections: " + message);
+	//}
 	return result;
 }
 
