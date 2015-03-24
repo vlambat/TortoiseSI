@@ -294,6 +294,26 @@ namespace IntegrityActions {
 	}
 
 	/**
+	*
+	**/
+	std::unique_ptr<IntegrityResponse> getMemberInfo(const IntegritySession& session, const std::wstring& file) {
+
+		std::vector<std::wstring> memberInfo;
+		IntegrityCommand command(L"si", L"memberinfo");
+		command.addSelection(file);
+
+		std::unique_ptr<IntegrityResponse> response = session.execute(command);
+
+		if (response->getException() != NULL) {
+			logAnyExceptions(*response);
+			displayException(*response);
+			return nullptr;
+		}
+
+		return response;
+	}
+
+	/**
 	*  Retrieve current excludeFilter contents using 'viewprefs' command
 	*/
 	std::vector<std::wstring> getExcludeFilterContents(const IntegritySession& session) {
@@ -444,6 +464,8 @@ namespace IntegrityActions {
 
 		return true;
 	}
+
+
 
 	void logAnyExceptions(const IntegrityResponse& response) {
 		if (response.getException() != NULL) {
