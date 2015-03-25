@@ -177,7 +177,6 @@
     <ClInclude Include="..\Utils\UnicodeUtils.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\Users\gfleming\Desktop\IntegrityClient.ico" />
     <Image Include="..\Resources\checkout.ico" />
     <Image Include="..\Resources\clippaste.ico" />
     <Image Include="..\Resources\copy.ico" />
