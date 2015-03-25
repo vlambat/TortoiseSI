@@ -79,6 +79,10 @@ namespace IntegrityActions {
 		}
 	};
 
+	class TestClass {
+	public:
+		TestClass() {  };
+	};
 	// get status flags for a set of files...
 	FileStatusFlags fileInfo(const IntegritySession& session, const std::wstring& files);
 
@@ -113,7 +117,7 @@ namespace IntegrityActions {
 	void launchMyChangePackageReviewsView(const IntegritySession& session);
 	void launchPreferencesView(const IntegritySession& session);
 	void launchIntegrityGUI(const IntegritySession& session);
-	bool launchCreateCPView(const IntegritySession& session);
+	bool launchCreateCPView(const IntegritySession& session, std::wstring& cpid );
 
 	void lockFile(const IntegritySession& session, std::wstring path);
 	void unlockFile(const IntegritySession& session, std::wstring path);

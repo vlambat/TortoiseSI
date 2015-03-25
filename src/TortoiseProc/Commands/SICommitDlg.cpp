@@ -88,14 +88,6 @@ BOOL CSICommitDlg::OnInitDialog()
 	//TODO: Set any dynamic control text, e.g. dynamic labels
 	//SetDlgItemText(ID_RESOURCEID, _T(""));
 
-	//TODO: Initially enable or diable any controls
-	//GetDlgItem(IDC_RESOURCEID)->EnableWindow(TRUE);
-	//GetDlgItem(IDC_RESOURCEID)->EnableWindow(FALSE);
-
-	//TODO: Initially hide or show any controls
-	//GetDlgItem(IDC_RESOURCEID)->ShowWindow(SW_SHOW);
-	//GetDlgItem(IDC_RESORUCEID)->ShowWindow(SW_HIDE);
-
 	m_ctrlChangePackageComboBox.SetFocus();
 	
 	GetWindowText(m_sWindowTitle);
@@ -224,8 +216,10 @@ void CSICommitDlg::OnBnClickedCreateCpButton()
 		return;
 	}
 
+	std::wstring cpid;
+
 	// Launch the create cp view
-	if (IntegrityActions::launchCreateCPView(*(theApp.m_integritySession))) {
+	if (IntegrityActions::launchCreateCPView(*(theApp.m_integritySession), cpid)) {
 
 		// Delete all combobox strings and corresponding cp item data from combo box
 		for (int idx = m_ctrlChangePackageComboBox.GetCount() - 1; idx >= 0; idx--) {
@@ -243,6 +237,10 @@ void CSICommitDlg::OnBnClickedCreateCpButton()
 			std::wstring cpText = (*cp)->getId() + L" " + (*cp)->getSumamry();
 			int idx = m_ctrlChangePackageComboBox.AddString(cpText.c_str());
 			m_ctrlChangePackageComboBox.SetItemDataPtr(idx, cp);
+
+			if ( (*cp)->getId() == cpid ) {
+				m_ctrlChangePackageComboBox.SetCurSel(idx);
+			}
 		}
 	}
 
@@ -252,7 +250,6 @@ void CSICommitDlg::OnBnClickedCreateCpButton()
 	}
 	else {
 		GetDlgItem(IDC_SUBMIT_CP_BUTTON)->EnableWindow(TRUE);
-		m_ctrlChangePackageComboBox.SetCurSel(m_ctrlChangePackageComboBox.GetCount() - 1);
 	}
 }
 
