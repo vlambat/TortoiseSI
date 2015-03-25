@@ -236,6 +236,7 @@
     <Image Include="..\Resources\iconset.ico" />
     <Image Include="..\Resources\ImportBackground.ico" />
     <Image Include="..\Resources\ImportPatchesBackground.ico" />
+    <Image Include="..\Resources\IntegrityClient.ico" />
     <Image Include="..\Resources\jumpdown.ico" />
     <Image Include="..\Resources\jumpup.ico" />
     <Image Include="..\Resources\Library.ico" />

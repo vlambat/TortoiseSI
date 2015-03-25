@@ -49,7 +49,7 @@ public:
 		}
 	}
 
-	int getExitCode() {
+	int getExitCode() const {
 		int exitCode = -1;
 		if (response != NULL) {
 			mksResponseGetExitCode(response, &exitCode);
