@@ -526,6 +526,19 @@ namespace IntegrityActions {
 
 		executeUserCommand(session, wfCommand, nullptr);
 	}
+	/**
+	*  Launch WorkingFileChanges View
+	*/
+	void launchWorkingFileChangesView(const IntegritySession& session, std::wstring path) {
+		IntegrityCommand command(L"si", L"si.WorkingFileChangesView");
+		command.addOption(L"cwd", path);
+		command.addOption(L"g");
+
+		executeUserCommand(session, command, nullptr);
+	}
+
+
+
 
 	std::vector<std::wstring> folders(const IntegritySession& session)
 	{

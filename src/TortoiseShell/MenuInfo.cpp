@@ -210,6 +210,18 @@ std::vector<MenuInfo> menuInfo =
 			!hasFileStatus(selectedItemsStatus, FileStatus::Member);
 	}
 	},
+	{ MenuItem::WorkingFileChangesView, IDI_SHOWCHANGED, IDS_VIEW_WORKINGFILECHANGES, IDS_VIEW_WORKINGFILECHANGES_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND)
+	{
+		IntegrityActions::launchWorkingFileChangesView(getIntegritySession(), selectedItems.front());
+	},
+		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+	{
+		return selectedItems.size() == 1 &&
+			hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
+			hasFileStatus(selectedItemsStatus, FileStatus::Member);
+	}
+	},
 	menuSeperator,
 	{ MenuItem::ResyncFile, IDI_PULL, IDS_RESYNC, IDS_RESYNC_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND)
