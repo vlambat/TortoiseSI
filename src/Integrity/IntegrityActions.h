@@ -27,6 +27,45 @@
 
 namespace IntegrityActions {
 
+	const FileStatusFlags NO_STATUS = 0;
+
+	class WorkingFileChange {
+	public:
+		class WorkingFileChangeBuilder;
+
+	private:
+		std::wstring m_id;
+		int m_status;
+
+		WorkingFileChange(std::wstring id, int status) : m_id(id), m_status(status) {};
+
+	public:
+		std::wstring getId() { return m_id; }
+		int getStatus() { return m_status; }
+	};
+
+	class WorkingFileChange::WorkingFileChangeBuilder {
+	private:
+		std::wstring m_id;
+		int m_status = NO_STATUS;
+
+	public:
+		WorkingFileChangeBuilder& setId(std::wstring id) { m_id = id; return *this; }
+		WorkingFileChangeBuilder& setStatus(int status) { m_status = status; return *this; }
+		
+		WorkingFileChange* build() {
+			if (m_id.empty()) {
+				throw new std::exception("Attempt to construct WorkingFileChange that does not have valid id");
+			}
+			if (m_status == NO_STATUS) {
+				throw new std::exception("Attempt to construct WorkingFileChange with invalid status");
+			}
+			return new WorkingFileChange(m_id, m_status);
+		}
+
+	};
+
+
 	class ChangePackage {
 	public:
 		// Use this class to construct a valid ChangePackage
@@ -47,7 +86,7 @@ namespace IntegrityActions {
 	public:
 		// ChangePackage specific functionality
 		std::wstring getId() { return m_id; }
-		std::wstring getSumamry() { return m_summary; }
+		std::wstring getSummary() { return m_summary; }
 		std::wstring getDescription() { return m_description; }
 		std::wstring getType() { return m_cptype; }
 		std::wstring getIssueId() { return m_issueId; }
@@ -63,7 +102,7 @@ namespace IntegrityActions {
 		std::wstring m_issueId;
 
 	public:
-		ChangePackageBuilder& setID(const std::wstring id) { m_id = id; return *this; }
+		ChangePackageBuilder& setId(const std::wstring id) { m_id = id; return *this; }
 		ChangePackageBuilder& setSummary(const std::wstring summary) { m_summary = summary; return *this; }
 		ChangePackageBuilder& setDescription(const std::wstring description) { m_description = description; return *this; }
 		ChangePackageBuilder& setType(const std::wstring cptype) { m_cptype = cptype; return *this; }
@@ -99,6 +138,9 @@ namespace IntegrityActions {
 
 	// list of change packages
 	std::vector<std::shared_ptr<IntegrityActions::ChangePackage>> getChangePackageList(const IntegritySession& session);
+
+	// list of working file changes
+	std::vector<std::shared_ptr<IntegrityActions::WorkingFileChange>> getWorkingFileChanges(const IntegritySession& session, std::wstring path);
 
 	bool connect(const IntegritySession& session);
 

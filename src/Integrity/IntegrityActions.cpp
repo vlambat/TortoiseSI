@@ -220,8 +220,6 @@ namespace IntegrityActions {
 		executeUserCommand(session, command, onDone);
 	}
 
-	const FileStatusFlags NO_STATUS = 0;
-
 	// get status flags for a set of files...
 	FileStatusFlags fileInfo(const IntegritySession& session, const std::wstring& file) 
 	{
@@ -387,7 +385,7 @@ namespace IntegrityActions {
 
 			// Create change package object
 			std::shared_ptr<IntegrityActions::ChangePackage> cp = std::shared_ptr<IntegrityActions::ChangePackage>(IntegrityActions::ChangePackage::ChangePackageBuilder()
-				.setID(id)
+				.setId(id)
 				.setSummary(summary)
 				.setDescription(description)
 				.setType(cptype)
@@ -398,6 +396,32 @@ namespace IntegrityActions {
 		}
 
 		return cps;
+	}
+
+	/**
+	 * Retrieve list of working file changes for path 
+	 */
+	std::vector<std::shared_ptr<IntegrityActions::WorkingFileChange>> getWorkingFileChanges(const IntegritySession& session, std::wstring path) {
+		std::vector<std::shared_ptr<IntegrityActions::WorkingFileChange>> changes;
+		IntegrityCommand command(L"wf", L"changes");
+		command.addSelection(path);
+
+		std::unique_ptr<IntegrityResponse> response = session.execute(command);
+
+		for (mksWorkItem item : *response) {
+			std::wstring id = getId(item);
+			int status = getIntegerFieldValue(item, L"status", NO_STATUS);
+
+			// Create change package object
+			std::shared_ptr<IntegrityActions::WorkingFileChange> change = std::shared_ptr<IntegrityActions::WorkingFileChange>(IntegrityActions::WorkingFileChange::WorkingFileChangeBuilder()
+				.setId(id)
+				.setStatus(status)
+				.build());
+
+			changes.push_back(change);
+		}
+
+		return changes;
 	}
 
 	/**
