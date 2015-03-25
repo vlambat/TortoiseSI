@@ -28,6 +28,9 @@ namespace IntegrityActions {
 	// get status flags for a set of files...
 	FileStatusFlags fileInfo(const IntegritySession& session, const std::wstring& files);
 
+	// get member info
+	std::unique_ptr<IntegrityResponse> getMemberInfo(const IntegritySession& session, const std::wstring& file);
+
 	// list of controlled folders (ie with a sandbox) 
 	std::vector<std::wstring> folders(const IntegritySession& session);
 
