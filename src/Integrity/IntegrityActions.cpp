@@ -324,8 +324,15 @@ namespace IntegrityActions {
 	**/
 	std::unique_ptr<IntegrityResponse> getMemberInfo(const IntegritySession& session, const std::wstring& file) {
 
+		std::wstring folder;
 		std::vector<std::wstring> memberInfo;
-		IntegrityCommand command(L"si", L"memberinfo");
+
+		IntegrityCommand command(L"si", L"viewsandbox");
+
+		folder = file.substr(0, file.find_last_of('\\'));
+
+		command.addOption(L"cwd", folder);
+		command.addOption(L"fields", L"cpid,lockrecord,memberrev,workingrev");
 		command.addSelection(file);
 
 		std::unique_ptr<IntegrityResponse> response = session.execute(command);
