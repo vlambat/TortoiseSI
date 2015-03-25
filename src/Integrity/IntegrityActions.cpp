@@ -572,7 +572,4 @@ namespace IntegrityActions {
 		return wfcommand;
 	}
 
-	void testMethod(){
-		TestClass *x = new TestClass();
-	}
 }

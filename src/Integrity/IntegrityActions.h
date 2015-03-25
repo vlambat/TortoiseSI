@@ -79,10 +79,6 @@ namespace IntegrityActions {
 		}
 	};
 
-	class TestClass {
-	public:
-		TestClass() {  };
-	};
 	// get status flags for a set of files...
 	FileStatusFlags fileInfo(const IntegritySession& session, const std::wstring& files);
 
