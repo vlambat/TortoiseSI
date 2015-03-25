@@ -407,7 +407,7 @@ namespace IntegrityActions {
 		command.addSelection(path);
 
 		std::unique_ptr<IntegrityResponse> response = session.execute(command);
-
+	
 		if (response->getException() != NULL) {
 			logAnyExceptions(*response);
 			displayException(*response);
@@ -415,6 +415,7 @@ namespace IntegrityActions {
 		}
 		
 		for (mksWorkItem item : *response) {
+
 			std::wstring id = getId(item);
 			int status = getIntegerFieldValue(item, L"status", NO_STATUS);
 
