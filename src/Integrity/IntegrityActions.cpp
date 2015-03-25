@@ -93,6 +93,29 @@ namespace IntegrityActions {
 		executeUserCommand(session, command, onDone);
 	}
 
+	bool submitCP(const IntegritySession &session, std::wstring cpid)
+	{
+		IntegrityCommand command(L"si", L"submitcp");
+		command.addOption(L"confirmcloseCP"); 
+		command.addOption(L"confirmdeferredIsError");
+		command.addOption(L"confirmignoreNoDeferred");
+		command.addOption(L"g");
+		command.addSelection(cpid);
+
+		std::unique_ptr<IntegrityResponse> response = session.execute(command);
+
+		if (response->getException() != NULL) {
+			logAnyExceptions(*response);
+			return false;
+		}
+
+		if (response->getExitCode() != 0) {
+			return false;
+		}
+
+		return true;
+	}
+
 	void setExcludeFileFilter(const IntegritySession& session, std::vector<std::wstring> patterns, std::function<void()> onDone)
 	{
 		IntegrityCommand command(L"si", L"setprefs");
@@ -265,8 +288,8 @@ namespace IntegrityActions {
 	/**
 	 * Retrieve list of change packages
 	 */
-	std::vector<std::shared_ptr<IntegrityActions::ChangePackage>> getChangePackageList(const IntegritySession& session) {
-		std::vector<std::shared_ptr<IntegrityActions::ChangePackage>> cps;
+	std::vector<std::shared_ptr<IntegrityActions::ChangePackage> *> getChangePackageList(const IntegritySession& session) {
+		std::vector<std::shared_ptr<IntegrityActions::ChangePackage> *> cps;
 		IntegrityCommand command(L"si", L"viewcps");
 		command.addOption(L"filter", L"state:open");
 		command.addOption(L"fields", L"id,summary,description,cptype,issue");
@@ -287,7 +310,7 @@ namespace IntegrityActions {
 			std::wstring issueId = getStringFieldValue(item, L"issue");
 
 			// Create change package object
-			std::shared_ptr<IntegrityActions::ChangePackage> cp = std::shared_ptr<IntegrityActions::ChangePackage>(IntegrityActions::ChangePackage::ChangePackageBuilder()
+			std::shared_ptr<IntegrityActions::ChangePackage> *cp = new std::shared_ptr<IntegrityActions::ChangePackage>(IntegrityActions::ChangePackage::ChangePackageBuilder()
 				.setID(id)
 				.setSummary(summary)
 				.setDescription(description)
