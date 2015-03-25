@@ -194,6 +194,7 @@
     <ClInclude Include="TortoiseSIProc.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\Users\gfleming\Desktop\IntegrityClient.ico" />
     <Image Include="..\Resources\actionadded.ico" />
     <Image Include="..\Resources\actiondeleted.ico" />
     <Image Include="..\Resources\actionfetching.ico" />
@@ -233,9 +234,11 @@
     <Image Include="..\Resources\graph-line.ico" />
     <Image Include="..\Resources\graph-pie.ico" />
     <Image Include="..\Resources\hook.ico" />
+    <Image Include="..\resources\icon1.ico" />
     <Image Include="..\Resources\iconset.ico" />
     <Image Include="..\Resources\ImportBackground.ico" />
     <Image Include="..\Resources\ImportPatchesBackground.ico" />
+    <Image Include="..\Resources\IntegrityClient.ico" />
     <Image Include="..\Resources\jumpdown.ico" />
     <Image Include="..\Resources\jumpup.ico" />
     <Image Include="..\Resources\Library.ico" />

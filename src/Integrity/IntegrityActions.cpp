@@ -27,6 +27,8 @@
 #include <chrono>
 #include <future>
 
+#define DEFAULT_BUFFER_SIZE 1024
+
 namespace IntegrityActions {
 	void displayException(const IntegrityResponse& response);
 	void logAnyExceptions(const IntegrityResponse& response);
@@ -327,7 +329,7 @@ namespace IntegrityActions {
 	/**
 	 * Launch Create Change Package View
 	 */
-	bool launchCreateCPView(const IntegritySession& session) {
+	bool launchCreateCPView(const IntegritySession& session, std::wstring& cpid) {
 		IntegrityCommand command(L"si", L"createcp");
 		command.addOption(L"g");
 
@@ -339,6 +341,36 @@ namespace IntegrityActions {
 		}
 
 		if (response->getExitCode() != 0) {
+			return false;
+		}
+ 
+		/**
+		 * Interrogate the response to determine what cpid was created:
+		 *
+		 * <?xml version="1.1" ?>
+		 * <Response app="si" version="4.14.0 0-0 0" command="createcp">
+		 *     <App-Connection server="BLESKOWSKY0D" port="7001" userID="test1"></App-Connection>
+		 *     <Result>
+		 *         <Message>Created new change package 5:2</Message>
+		 *         <Field name="resultant">
+		 *             <Item id="5:2" modelType="si.ChangePackage" displayId="5:2">
+		 *             </Item>
+		 *         </Field>
+		 *     </Result>
+		 *     <ExitCode>0</ExitCode>
+		 * </Response>
+		 */
+		mksResult result = mksResponseGetResult(response->getResponse());
+
+		if (result != NULL) {
+			wchar_t buffer[DEFAULT_BUFFER_SIZE] = { '\0' };
+			mksField field = mksResultGetField(result, L"resultant");
+			mksItem item;
+
+			mksFieldGetItemValue(field, &item);
+			mksItemGetId(item, buffer, DEFAULT_BUFFER_SIZE);
+			cpid = buffer;
+		} else {
 			return false;
 		}
 
@@ -539,4 +571,5 @@ namespace IntegrityActions {
 		}
 		return wfcommand;
 	}
+
 }
