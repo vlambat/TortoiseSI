@@ -312,7 +312,9 @@
 #define IDC_STATIC_LASTMODIFIED         11030
 #define IDC_SYMLINK                     11031
 #define IDS_ETC                         11032
+#define IDC_LIST1                       11032
 #define IDS_SHOWING_PARTIAL_RESULTS     11033
+#define IDC_LIST2                       11033
 
 // Next default values for new objects
 // 
@@ -320,7 +322,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        5184
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         11032
+#define _APS_NEXT_CONTROL_VALUE         11034
 #define _APS_NEXT_SYMED_VALUE           5101
 #endif
 #endif
