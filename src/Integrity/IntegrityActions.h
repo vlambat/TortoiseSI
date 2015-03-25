@@ -109,6 +109,7 @@ namespace IntegrityActions {
 	void launchAnnotatedRevisionView(const IntegritySession& session, std::wstring path);
 	void launchSubmitChangesView(const IntegritySession& session, std::wstring path);
 	void launchMemberInfoView(const IntegritySession& session, std::wstring path);
+	void launchWorkingFileChangesView(const IntegritySession& session, std::wstring path);
 	void launchChangePackageView(const IntegritySession& session);
 	void launchMyChangePackageReviewsView(const IntegritySession& session);
 	void launchPreferencesView(const IntegritySession& session);

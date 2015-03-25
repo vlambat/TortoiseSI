@@ -135,7 +135,9 @@
 #define IDS_MENUDESCBISECTBAD           201
 #define IDS_MOVE_DESC                   201
 #define IDS_MENUDESCBISECTRESET         202
+#define IDS_VIEW_WORKINGFILECHANGES     202
 #define IDS_MENUBLAME                   203
+#define IDS_VIEW_WORKINGFILECHANGES_DESC 203
 #define IDS_STATUSEXTERNAL              204
 #define IDS_MENUDESCBLAME               205
 #define IDS_MENUSVNFETCH                206
