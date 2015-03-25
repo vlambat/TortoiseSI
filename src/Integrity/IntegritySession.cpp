@@ -28,7 +28,7 @@ IntegritySession::IntegritySession()
 
 	initAPI();
 
-	mksCreateLocalIntegrationPoint(&ip, TRUE);
+	mksCreateLocalAPIConnector(&ip, 4, 15, TRUE);
 	if (ip != NULL) {
 		mksGetCommonSession(&session, ip);
 	}
@@ -41,7 +41,7 @@ IntegritySession::IntegritySession(std::string hostname, int port)
 
 	initAPI();
 
-	mksCreateIntegrationPoint(&ip, hostname.c_str(), port, FALSE);
+	mksCreateAPIConnector(&ip, hostname.c_str(), port, FALSE, 4, 15);
 	if (ip != NULL) {
 		mksGetCommonSession(&session, ip);
 	}

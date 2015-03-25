@@ -141,7 +141,7 @@ BOOL CSICommitDlg::OnInitDialog()
 	// Add active change package ids and summary to combobox.
 	// Store ChangePackage information as item data for later reference
 	for (std::shared_ptr<IntegrityActions::ChangePackage> *cp : IntegrityActions::getChangePackageList(*(theApp.m_integritySession))) {
-		std::wstring cpText = (*cp)->getId() + L" " + (*cp)->getSumamry();
+		std::wstring cpText = (*cp)->getId() + L" " + (*cp)->getSummary();
 		int idx = m_ctrlChangePackageComboBox.AddString(cpText.c_str());
 		m_ctrlChangePackageComboBox.SetItemDataPtr(idx, cp);
 	}
@@ -239,8 +239,9 @@ void CSICommitDlg::OnBnClickedCreateCpButton()
 		m_ctrlChangePackageComboBox.ResetContent();
 
 		// Update cp combobox to include newly created cp
+
 		for (std::shared_ptr<IntegrityActions::ChangePackage> *cp : IntegrityActions::getChangePackageList(*(theApp.m_integritySession))) {
-			std::wstring cpText = (*cp)->getId() + L" " + (*cp)->getSumamry();
+			std::wstring cpText = (*cp)->getId() + L" " + (*cp)->getSummary();
 			int idx = m_ctrlChangePackageComboBox.AddString(cpText.c_str());
 			m_ctrlChangePackageComboBox.SetItemDataPtr(idx, cp);
 		}
