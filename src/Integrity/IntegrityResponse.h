@@ -144,9 +144,12 @@ inline WorkItemFieldIterator end(mksWorkItem item) {
 extern std::wstring getId(mksAPIException exception);
 extern std::wstring getExceptionMessage(mksAPIException exception);
 extern std::wstring getId(mksWorkItem item);
+extern std::wstring getId(mksItem item);
 extern std::wstring getModelType(mksWorkItem item);
 extern std::wstring getStringFieldValue(mksWorkItem item, const std::wstring& fieldName);
 extern std::wstring getStringFieldValue(mksItem item, const std::wstring& fieldName);
 extern int getIntegerFieldValue(mksField field);
 extern int getIntegerFieldValue(mksWorkItem item, const std::wstring&  fieldName, int defaultValue);
 extern mksItem getItemFieldValue(mksWorkItem item, const std::wstring& fieldName);
+extern mksItem getItemFieldValue(mksItem item, const std::wstring& fieldName);
+extern mksItemList getItemListFieldValue(mksWorkItem item, const std::wstring& fieldName);

@@ -83,6 +83,8 @@ protected:
 
 	IconBitmapUtils		m_iconBitmapUtils;
 
+
+
 private:
 	std::vector<std::wstring> getItemsForMenuAction();
 	FileStatusFlags getItemsStatusForMenuAction();
@@ -173,4 +175,6 @@ public:
 	STDMETHODIMP	AddPages(LPFNADDPROPSHEETPAGE lpfnAddPage, LPARAM lParam);
 	STDMETHODIMP	ReplacePage(UINT, LPFNADDPROPSHEETPAGE, LPARAM);
 	//@}
+
+
 };
