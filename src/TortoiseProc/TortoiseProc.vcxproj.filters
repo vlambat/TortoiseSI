@@ -829,12 +829,6 @@
     <Image Include="..\TortoiseUDiff\TortoiseUDiff.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\resources\icon1.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\..\Users\gfleming\Desktop\IntegrityClient.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="..\Resources\IntegrityClient.ico">
       <Filter>Resource Files</Filter>
     </Image>
