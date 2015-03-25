@@ -391,7 +391,7 @@
     <Image Include="..\Resources\tsimenufolder.ico">
       <Filter>Resource Files</Filter>
     </Image>
-   </ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\Resources\TortoiseShellENG.rc">
       <Filter>Resource Files</Filter>
