@@ -19,9 +19,10 @@
 //
 #include "stdafx.h"
 #include "TortoiseSIProc.h"
+#include "ServerConnections.h"
+#include "IntegrityActions.h"
 #include "SICommitDlg.h"
 #include "EventLog.h"
-
 #include "MessageBox.h"
 #include "AppUtils.h"
 #include "Git.h"
@@ -37,9 +38,6 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-#undef min
-#undef max
-
 IMPLEMENT_DYNAMIC(CSICommitDlg, CResizableStandAloneDialog)
 CSICommitDlg::CSICommitDlg(CWnd* pParent /*=NULL*/)	: 
     CResizableStandAloneDialog(CSICommitDlg::IDD, pParent),
@@ -49,15 +47,6 @@ CSICommitDlg::CSICommitDlg(CWnd* pParent /*=NULL*/)	:
 
 CSICommitDlg::~CSICommitDlg()
 {
-}
-
-int CSICommitDlg::getIntegrationPort()
-{
-	CRegStdDWORD integrationPointKey(L"Software\\TortoiseSI\\IntegrationPoint", (DWORD)-1);
-	integrationPointKey.read();
-
-	int port = (DWORD)integrationPointKey;
-	return port;
 }
 
 void CSICommitDlg::DoDataExchange(CDataExchange* pDX)
@@ -92,31 +81,30 @@ BOOL CSICommitDlg::OnInitDialog()
 	UpdateData(FALSE);
 
 	m_tooltips.Create(this);
-	//TODO: GORD: Add resource strings for tool tips
-	//TODO: GORD: Register tool tips against controls
+	//TODO: Add resource strings for tool tips
+	//TODO: Register tool tips against controls
 	//m_tooltips.AddTool(IDC_EXTERNALWARNING, IDS_COMMITDLG_EXTERNALS);
 
-	//TODO: GORD: Set any dynamic control text, e.g. dynamic labels
+	//TODO: Set any dynamic control text, e.g. dynamic labels
 	//SetDlgItemText(ID_RESOURCEID, _T(""));
 
-	//TODO: GORD: Initially enable or diable any controls
+	//TODO: Initially enable or diable any controls
 	//GetDlgItem(IDC_RESOURCEID)->EnableWindow(TRUE);
 	//GetDlgItem(IDC_RESOURCEID)->EnableWindow(FALSE);
 
-	//TODO: GORD: Initially hide or show any controls
+	//TODO: Initially hide or show any controls
 	//GetDlgItem(IDC_RESOURCEID)->ShowWindow(SW_SHOW);
 	//GetDlgItem(IDC_RESORUCEID)->ShowWindow(SW_HIDE);
 
-	//TODO: GORD: Set initial focus
-	//GetDlgItem(IDC_RESOURCEID)->SetFocus();
-
+	m_ctrlChangePackageComboBox.SetFocus();
+	
 	GetWindowText(m_sWindowTitle);
 
-	// TODO: GORD: Adjust the size of radio buttoms and check boxes to fit translated text
+	// TODO: Adjust the size of radio buttoms and check boxes to fit translated text
 	//AdjustControlSize(IDC_SHOWUNVERSIONED);
 
 	// line up all controls and adjust their sizes.
-   //#define LINKSPACING 9
+    //#define LINKSPACING 9
 	//RECT rc = AdjustControlSize(IDC_SELECTLABEL);
 	//rc.right -= 15;	// AdjustControlSize() adds 20 pixels for the checkbox/radio button bitmap, but this is a label...
 	//rc = AdjustStaticSize(IDC_CHECKALL, rc, LINKSPACING);
@@ -129,7 +117,7 @@ BOOL CSICommitDlg::OnInitDialog()
 	//rc = AdjustStaticSize(IDC_CHECKFILES, rc, LINKSPACING);
 	//rc = AdjustStaticSize(IDC_CHECKSUBMODULES, rc, LINKSPACING);
 
-	//TODO: GORD: Anchor controls using resizeable lib
+	// Anchor controls using resizeable lib
 	AddAnchor(IDC_SUBMIT_TO_CP_LABEL, TOP_LEFT, TOP_RIGHT);
 	AddAnchor(IDC_SUBMIT_CP_COMBOBOX, TOP_RIGHT);
 	AddAnchor(IDC_CREATE_CP_BUTTON, TOP_RIGHT);
@@ -140,42 +128,37 @@ BOOL CSICommitDlg::OnInitDialog()
 	//GetClientRect(m_DlgOrigRect);
 	//SetMinTrackSize( CSize( mDlgOriginRect.Width(), m_DlgOriginRect.Height())  );
 
-	// Loads window rect that was saved allowing user to resize and persist
-	EnableSaveRestore(_T("SICommitDlg"));
-
 	// Center dialog in Windows explorer (if its window handle was pass as parameter)
-	if (theApp.m_hWndExplorer)
+	if (theApp.m_hWndExplorer) {
 		CenterWindow(CWnd::FromHandle(theApp.m_hWndExplorer));
+	}
 
-	/***************************************************************************
-	 * Establish Integrity server connection
-	 ***************************************************************************/
-	//int port = getIntegrationPort();
-	//
-	//if (port > 0 && port <= std::numeric_limits<unsigned short>::max()) {
-	//	EventLog::writeInformation(L"SICommitDlg connecting to Integrity client via localhost:" + std::to_wstring(port));
-	//
-	//	m_integritySession = std::unique_ptr<IntegritySession>(new IntegritySession("localhost", port));
-	//
-	//}  else {
-	//	EventLog::writeInformation(L"SICommitDlg connecting to Integrity client via localintegration point");
-	//
-	//	m_integritySession = std::unique_ptr<IntegritySession>(new IntegritySession());
-	//}
-	//
-	//m_serverConnectionsCache = std::unique_ptr<ServerConnections>(new ServerConnections(*m_integritySession));
+	if (!theApp.m_serverConnectionsCache->isOnline()) {
+		EventLog::writeInformation(L"SICommitDlg create cp bailing out, unable to connect to integrity server");
+		return FALSE;
+	}
 
-	//TODO: GORD: Determine the users active change packages and add them to the combobox
-	// Should store cp number as additional data to comboxbox items
+	// Add active change package ids and summary to combobox.
+	// Store ChangePackage information as item data for later reference
+	for (std::shared_ptr<IntegrityActions::ChangePackage> cp : IntegrityActions::getChangePackageList(*(theApp.m_integritySession))) {
+		std::wstring cpText = cp->getId() + L" " + cp->getSumamry();
+		int idx = m_ctrlChangePackageComboBox.AddString(cpText.c_str());
+		m_ctrlChangePackageComboBox.SetItemDataPtr(idx, &cp);
+	}
 
 	// If there are no active change packages then disable submit cp button 
 	if( m_ctrlChangePackageComboBox.GetCount() == 0 ) {
-	    GetDlgItem(IDC_SUBMIT_CP_BUTTON)->EnableWindow(FALSE);
+		GetDlgItem(IDC_SUBMIT_CP_BUTTON)->EnableWindow(FALSE);
 	} else {
 		GetDlgItem(IDC_SUBMIT_CP_BUTTON)->EnableWindow(TRUE);
+		m_ctrlChangePackageComboBox.SetCurSel(m_ctrlChangePackageComboBox.GetCount() - 1);
 	}
 
-	return FALSE;  // return TRUE unless you set the focus to a control
+	// Loads window rect that was saved allowing user to resize and persist
+	EnableSaveRestore(_T("SICommitDlg"));
+
+	// return TRUE unless you set the focus to a control
+	return FALSE;  
 }
 
 BOOL CSICommitDlg::PreTranslateMessage(MSG* pMsg)
@@ -195,39 +178,7 @@ void CSICommitDlg::DoSize(int /*delta*/)
 	RemoveAnchor(IDC_CREATE_CP_BUTTON);
 	RemoveAnchor(IDC_SUBMIT_CP_BUTTON);
 	RemoveAnchor(IDCANCEL);
-
-	//AddAnchor(IDC_MESSAGEGROUP, TOP_LEFT, TOP_RIGHT);
-	//AddAnchor(IDC_LOGMESSAGE, TOP_LEFT, TOP_RIGHT);
-	//AddAnchor(IDC_SPLITTER, TOP_LEFT, TOP_RIGHT);
-	//AddAnchor(IDC_LISTGROUP, TOP_LEFT, BOTTOM_RIGHT);
-	//AddAnchor(IDC_FILELIST, TOP_LEFT, BOTTOM_RIGHT);
-	//AddAnchor(IDC_SIGNOFF,TOP_RIGHT);
-	//AddAnchor(IDC_COMMIT_AMEND,TOP_LEFT);
-	//AddAnchor(IDC_COMMIT_AMENDDIFF,TOP_LEFT);
-	//AddAnchor(IDC_COMMIT_SETDATETIME,TOP_LEFT);
-	//AddAnchor(IDC_COMMIT_DATEPICKER,TOP_LEFT);
-	//AddAnchor(IDC_COMMIT_TIMEPICKER,TOP_LEFT);
-	//AddAnchor(IDC_COMMIT_SETAUTHOR, TOP_LEFT);
-	//AddAnchor(IDC_COMMIT_AUTHORDATA, TOP_LEFT, TOP_RIGHT);
-	//AddAnchor(IDC_TEXT_INFO,TOP_RIGHT);
-	//AddAnchor(IDC_SELECTLABEL, TOP_LEFT);
-	//AddAnchor(IDC_CHECKALL, TOP_LEFT);
-	//AddAnchor(IDC_CHECKNONE, TOP_LEFT);
-	//AddAnchor(IDC_CHECKUNVERSIONED, TOP_LEFT);
-	//AddAnchor(IDC_CHECKVERSIONED, TOP_LEFT);
-	//AddAnchor(IDC_CHECKADDED, TOP_LEFT);
-	//AddAnchor(IDC_CHECKDELETED, TOP_LEFT);
-	//AddAnchor(IDC_CHECKMODIFIED, TOP_LEFT);
-	//AddAnchor(IDC_CHECKFILES, TOP_LEFT);
-	//AddAnchor(IDC_CHECKSUBMODULES, TOP_LEFT);
-	//ArrangeLayout();
-	//// adjust the minimum size of the dialog to prevent the resizing from
-	//// moving the list control too far down.
-	//CRect rcLogMsg;
-	//m_cLogMessage.GetClientRect(rcLogMsg);
-	//SetMinTrackSize(CSize(m_DlgOrigRect.Width(), m_DlgOrigRect.Height()-m_LogMsgOrigRect.Height()+rcLogMsg.Height()));
-
-	//GetDlgItem(IDC_LOGMESSAGE)->Invalidate();
+	ArrangeLayout();
 }
 
 // ON_WM_SIZE
@@ -263,34 +214,74 @@ void CSICommitDlg::OnMoving(UINT fwSide, LPRECT pRect)
 
 void CSICommitDlg::OnBnClickedCreateCpButton()
 {
-	// TODO: Add your control notification handler code here
 	UpdateData();
 
 	// Hide the tool tips
 	m_tooltips.Pop();
-}
 
+	if (!theApp.m_serverConnectionsCache->isOnline()) {
+		EventLog::writeInformation(L"SICommitDlg create cp bailing out, unable to connect to integrity server");
+		return;
+	}
+
+	// Launch the create cp view
+	if (IntegrityActions::launchCreateCPView(*(theApp.m_integritySession))) {
+
+		// Delete all combobox strings and corresponding cp item data from combo box
+		for (int idx = m_ctrlChangePackageComboBox.GetCount(); idx >= 0; idx--) {
+			m_ctrlChangePackageComboBox.SetItemDataPtr(idx, NULL);
+			m_ctrlChangePackageComboBox.DeleteString(idx);
+		}
+
+		m_ctrlChangePackageComboBox.ResetContent();
+
+		// Update cp combobox to include newly created cp
+		for (std::shared_ptr<IntegrityActions::ChangePackage> cp : IntegrityActions::getChangePackageList(*(theApp.m_integritySession))) {
+			std::wstring cpText = cp->getId() + L" " + cp->getSumamry();
+			int idx = m_ctrlChangePackageComboBox.AddString(cpText.c_str());
+			m_ctrlChangePackageComboBox.SetItemDataPtr(idx, &cp);
+		}
+	}
+
+	// Enable the submit CP button if there are no CPs, disable otherwise
+	if (m_ctrlChangePackageComboBox.GetCount() == 0) {
+		GetDlgItem(IDC_SUBMIT_CP_BUTTON)->EnableWindow(FALSE);
+	}
+	else {
+		GetDlgItem(IDC_SUBMIT_CP_BUTTON)->EnableWindow(TRUE);
+		m_ctrlChangePackageComboBox.SetCurSel(m_ctrlChangePackageComboBox.GetCount() - 1);
+	}
+}
 
 void CSICommitDlg::OnBnClickedSubmitCpButton()
 {
-	// TODO: Add your control notification handler code here
-
 	// Retrieve data for dialog controls
 	UpdateData();
 
 	// Hide the tool tips
 	m_tooltips.Pop();
 
+	if (!theApp.m_serverConnectionsCache->isOnline()) {
+		EventLog::writeInformation(L"SICommitDlg submit cp bailing out, unable to connect to server");
+		return;
+	}
 }
 
 
 void CSICommitDlg::OnBnClickedCancel()
 {
-	// TODO: Add your control notification handler code here
+	UpdateData();
 
 	// Hide the tool tips
 	m_tooltips.Pop();
 
+	// Delete all cp strings and corresponding item data from combo box
+	for (int idx = m_ctrlChangePackageComboBox.GetCount(); idx >= 0; idx--) {
+		m_ctrlChangePackageComboBox.SetItemDataPtr(idx, NULL);
+		m_ctrlChangePackageComboBox.DeleteString(idx);
+	}
+
+	__super::OnCancel();
 }
 
 
@@ -303,4 +294,6 @@ void CSICommitDlg::OnCbnSelchangeSubmitCpCombobox()
 
 	// Hide the tooltips
 	m_tooltips.Pop();
+
 }
+
