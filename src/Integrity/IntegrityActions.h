@@ -40,8 +40,8 @@ namespace IntegrityActions {
 		WorkingFileChange(std::wstring id, int status) : m_id(id), m_status(status) {};
 
 	public:
-		std::wstring getId() { return m_id; }
-		int getStatus() { return m_status; }
+		std::wstring getId() const { return m_id; }
+		int getStatus() const { return m_status; }
 	};
 
 	class WorkingFileChange::WorkingFileChangeBuilder {
@@ -50,8 +50,8 @@ namespace IntegrityActions {
 		int m_status = NO_STATUS;
 
 	public:
-		WorkingFileChangeBuilder& setId(std::wstring id) { m_id = id; return *this; }
-		WorkingFileChangeBuilder& setStatus(int status) { m_status = status; return *this; }
+		WorkingFileChangeBuilder& setId(const std::wstring id) { m_id = id; return *this; }
+		WorkingFileChangeBuilder& setStatus(const int status) { m_status = status; return *this; }
 		
 		WorkingFileChange* build() {
 			if (m_id.empty()) {
