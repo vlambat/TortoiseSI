@@ -20,8 +20,8 @@
 #pragma once
 
 #include "StandAloneDlg.h"
-//#include "ServerConnections.h"
-//#include "IntegritySession.h"
+#include "ServerConnections.h"
+#include "IntegritySession.h"
 #include "TGitPath.h"
 #include "registry.h"
 #include "Tooltip.h"
@@ -59,9 +59,6 @@ private:
 	static UINT   WM_UPDATEOKBUTTON;
 	static UINT   WM_UPDATEDATAFALSE;
 	HACCEL        m_hAccelerator;
-
-	//std::unique_ptr<ServerConnections> m_serverConnectionsCache;
-	//std::unique_ptr<IntegritySession>  m_integritySession;
 
 	int getIntegrationPort();
 

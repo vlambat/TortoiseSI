@@ -43,6 +43,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Common;$(ProjectDir)\Commands;..\Resources;$InputDir;..\Git;..\Utils;..\SI;$(ProjectDir)\..\Integrity;$(ProjectDir)\..\..\ext\Integrity\include;..\Utils\TreePropSheet;..\Utils\MiscUI;..\TortoiseShell;..\..\ext\gitdll;..\..\ext\libgit2\include;..\..\ext\ResizableLib;..\..\ext\hunspell;..\..\ext\scintilla\include;..\..\ext\zlib;..\..\ext\OGDF;..\..\ext\AsyncFramework;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>HUNSPELL_STATIC;THESAURUS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(IntDir);..\TortoiseShell;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -57,6 +58,7 @@
     <ClCompile Include="..\Integrity\IntegritySession.cpp" />
     <ClCompile Include="..\SI\Git.cpp" />
     <ClCompile Include="..\SI\TGitPath.cpp" />
+    <ClCompile Include="..\TortoiseShell\ServerConnections.cpp" />
     <ClCompile Include="..\Utils\ACEdit.cpp" />
     <ClCompile Include="..\Utils\ACListWnd.cpp" />
     <ClCompile Include="..\Utils\CmdLineParser.cpp" />
@@ -122,6 +124,8 @@
     <ClInclude Include="..\SI\GitForWindows.h" />
     <ClInclude Include="..\SI\gittype.h" />
     <ClInclude Include="..\SI\TGitPath.h" />
+    <ClInclude Include="..\TortoiseShell\DebugEventLog.h" />
+    <ClInclude Include="..\TortoiseShell\ServerConnections.h" />
     <ClInclude Include="..\Utils\ACEdit.h" />
     <ClInclude Include="..\Utils\ACListWnd.h" />
     <ClInclude Include="..\Utils\CmdLineParser.h" />

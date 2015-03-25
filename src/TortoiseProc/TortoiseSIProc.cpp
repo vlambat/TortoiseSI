@@ -25,6 +25,7 @@
 #include "DirFileEnum.h"
 #include "SmartHandle.h"
 #include "Commands\Command.h"
+#include "EventLog.h"
 #include "Git.h"
 #include "..\version.h"
 #include <math.h>
@@ -36,6 +37,9 @@
 #endif
 
 #pragma comment(linker, "\"/manifestdependency:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
+
+#undef min
+#undef max
 
 /*****************************************************************************
  * Globals
@@ -116,17 +120,31 @@ BOOL CTortoiseSIProcApp::InitInstance()
 	 */
 	CAutoGeneralHandle TGitMutex = ::CreateMutex(NULL, FALSE, _T("TortoiseSIProc.exe"));
 
+	/* Establish Integrity server connection */
+	int port = getIntegrationPort();
+
+	if (port > 0 && port <= std::numeric_limits<unsigned short>::max()) {
+		EventLog::writeInformation(L"TortoiseSIProcApp connecting to Integrity client via localhost:" + std::to_wstring(port));
+		m_integritySession = std::unique_ptr<IntegritySession>(new IntegritySession("localhost", port));
+
+	}
+	else {
+		EventLog::writeInformation(L"TortoiseSIProcApp connecting to Integrity client via localintegration point");
+		m_integritySession = std::unique_ptr<IntegritySession>(new IntegritySession());
+	}
+
+	m_serverConnectionsCache = std::unique_ptr<ServerConnections>(new ServerConnections(*m_integritySession));
+
+	if (!m_serverConnectionsCache->isOnline()) {
+		EventLog::writeInformation(L"TortoiseSIProcApp::InitInstance() bailing out, unable to connected to server");
+		return FALSE;
+	}
+
 	if (!ProcessCommandLine()) {
 		return FALSE;
 	}
 
-	//EnsureGitLibrary(false);
-
-	/* 
-	 *Since the dialog has been closed, return FALSE so that we exit the
-	 * application, rather than start the application's message pump.
-	 */
-	return FALSE;
+	return TRUE;
 }
 
 int CTortoiseSIProcApp::ExitInstance()
@@ -457,4 +475,13 @@ BOOL CTortoiseSIProcApp::ProcessCommandLine()
 	}
 
 	return TRUE;
+}
+
+int CTortoiseSIProcApp::getIntegrationPort()
+{
+	CRegStdDWORD integrationPointKey(L"Software\\TortoiseSI\\IntegrationPoint", (DWORD)-1);
+	integrationPointKey.read();
+
+	int port = (DWORD)integrationPointKey;
+	return port;
 }
