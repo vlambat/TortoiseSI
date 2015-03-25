@@ -85,11 +85,12 @@ namespace IntegrityActions {
 
 	public:
 		// ChangePackage specific functionality
-		std::wstring getId() { return m_id; }
-		std::wstring getSummary() { return m_summary; }
-		std::wstring getDescription() { return m_description; }
-		std::wstring getType() { return m_cptype; }
-		std::wstring getIssueId() { return m_issueId; }
+		std::wstring getId() const { return m_id; } 
+		std::wstring getSummary() const { return m_summary; } 
+		std::wstring getDescription() const { return m_description; } 
+		std::wstring getType() const { return m_cptype; }
+		std::wstring getIssueId() const { return m_issueId; }
+
 	};
 
 	class ChangePackage::ChangePackageBuilder {
@@ -137,7 +138,7 @@ namespace IntegrityActions {
 	std::vector<std::wstring> getExcludeFilterContents(const IntegritySession& session);
 
 	// list of change packages
-	std::vector<std::shared_ptr<IntegrityActions::ChangePackage>> getChangePackageList(const IntegritySession& session);
+	std::vector<std::shared_ptr<IntegrityActions::ChangePackage> *> getChangePackageList(const IntegritySession& session);
 
 	// list of working file changes
 	std::vector<std::shared_ptr<IntegrityActions::WorkingFileChange>> getWorkingFileChanges(const IntegritySession& session, std::wstring path);
@@ -174,6 +175,8 @@ namespace IntegrityActions {
 	void retargetSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 
 	void setExcludeFileFilter(const IntegritySession& session, std::vector<std::wstring> patterns, std::function<void()> onDone);
+
+	bool submitCP(const IntegritySession &session, std::wstring cpid);
 
 	IntegrityCommand initializeWFExecute(const IntegrityCommand& command);
 
