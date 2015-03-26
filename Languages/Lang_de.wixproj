@@ -13,7 +13,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>..\obj\$(OutputName)\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>Debug</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>..\bin\setup\x86\</OutputPath>
@@ -29,7 +30,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <OutputPath>bin\$(Configuration)64\</OutputPath>
     <IntermediateOutputPath>..\obj\$(OutputName)\$(Configuration)64\</IntermediateOutputPath>
-    <DefineConstants>Debug</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>..\bin\setup\x64\</OutputPath>
@@ -44,6 +46,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="LanguagePack.wxs" />
+    <Compile Include="ProgressDlgLang.wxs" />
     <Compile Include="WixUI_LanguagePacks.wxs" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />

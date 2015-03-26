@@ -326,6 +326,7 @@ STDMETHODIMP CShellExt::QueryContextMenu_Wrap(HMENU hMenu,
 	menuiteminfo.cbSize = sizeof(menuiteminfo);
 	menuiteminfo.fType = MFT_STRING;
 	menuiteminfo.dwTypeData = (LPWSTR)menuName.c_str();
+	menuiteminfo.dwItemData = (ULONG_PTR)g_MenuIDString;
 
 	menuiteminfo.fMask = MIIM_FTYPE | MIIM_ID | MIIM_SUBMENU | MIIM_DATA | MIIM_STRING;
 	menuiteminfo.fMask |= MIIM_BITMAP;
@@ -367,7 +368,6 @@ STDMETHODIMP CShellExt::InvokeCommand(LPCMINVOKECOMMANDINFO lpcmi)
 // This is called when you invoke a command on the menu:
 STDMETHODIMP CShellExt::InvokeCommand_Wrap(LPCMINVOKECOMMANDINFO lpcmi)
 {
-	PreserveChdir preserveChdir;
 	HRESULT hr = E_INVALIDARG;
 	if (lpcmi == NULL)
 		return hr;
@@ -393,7 +393,7 @@ STDMETHODIMP CShellExt::InvokeCommand_Wrap(LPCMINVOKECOMMANDINFO lpcmi)
 			id_it->second.siCommand(getItemsForMenuAction(), lpcmi->hwnd);
 			hr = S_OK;
 		} // if (id_it != myIDMap.end() && id_it->first == idCmd)
-	} // if (files_.empty() || folder_.empty())
+	} // if (!selectedItems.empty() || !currentExplorerWindowFolder.empty())
 	return hr;
 
 }

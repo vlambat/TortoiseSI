@@ -22,6 +22,7 @@
 #include "FileStatus.h"
 
 enum MenuItem {
+	WorkingFileChangesView,
 	ViewSandbox,
 	CreateSandbox,
 
@@ -37,7 +38,16 @@ enum MenuItem {
 	ViewHistory,
 	ViewAnnotatedRevision,
 	ViewMemberInfo,
-	LocalChangesDiff
+	LocalChangesDiff,
+
+	Add,
+	CheckOut,
+	Drop,
+	Lock,
+	CheckIn,
+	Revert,
+	Move,
+	Rename
 };
 
 struct MenuInfo

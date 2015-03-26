@@ -177,7 +177,6 @@
     <ClInclude Include="..\Utils\UnicodeUtils.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\Users\gfleming\Desktop\IntegrityClient.ico" />
     <Image Include="..\Resources\checkout.ico" />
     <Image Include="..\Resources\clippaste.ico" />
     <Image Include="..\Resources\copy.ico" />
@@ -224,6 +223,7 @@
     <Image Include="..\Resources\menuupdate.ico" />
     <Image Include="..\Resources\pull1.ico" />
     <Image Include="..\Resources\Push.ico" />
+    <Image Include="..\Resources\ssh.ico" />
     <Image Include="..\Resources\tag.ico" />
     <Image Include="..\Resources\thumb_down.ico" />
     <Image Include="..\Resources\thumb_up.ico" />

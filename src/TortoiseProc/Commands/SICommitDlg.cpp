@@ -45,15 +45,18 @@ CSICommitDlg::CSICommitDlg(CWnd* pParent /*=NULL*/)	:
 {
 }
 
+
 CSICommitDlg::~CSICommitDlg()
 {
 }
+
 
 void CSICommitDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CResizableStandAloneDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_SUBMIT_CP_COMBOBOX, m_ctrlChangePackageComboBox);
 }
+
 
 BEGIN_MESSAGE_MAP(CSICommitDlg, CResizableStandAloneDialog)
 	ON_WM_SIZE()
@@ -65,6 +68,7 @@ BEGIN_MESSAGE_MAP(CSICommitDlg, CResizableStandAloneDialog)
 	ON_BN_CLICKED(IDC_SUBMIT_CP_BUTTON, &CSICommitDlg::OnBnClickedSubmitCpButton)
 	ON_BN_CLICKED(IDCANCEL, &CSICommitDlg::OnBnClickedCancel)
 END_MESSAGE_MAP()
+
 
 BOOL CSICommitDlg::OnInitDialog()
 {
@@ -130,13 +134,7 @@ BOOL CSICommitDlg::OnInitDialog()
 		return FALSE;
 	}
 
-	// Add active change package ids and summary to combobox.
-	// Store ChangePackage information as item data for later reference
-	for (std::shared_ptr<IntegrityActions::ChangePackage> *cp : IntegrityActions::getChangePackageList(*(theApp.m_integritySession))) {
-		std::wstring cpText = (*cp)->getId() + L" " + (*cp)->getSumamry();
-		int idx = m_ctrlChangePackageComboBox.AddString(cpText.c_str());
-		m_ctrlChangePackageComboBox.SetItemDataPtr(idx, cp);
-	}
+	UpdateChangePackageList();
 
 	// If there are no active change packages then disable submit cp button 
 	if( m_ctrlChangePackageComboBox.GetCount() == 0 ) {
@@ -153,15 +151,18 @@ BOOL CSICommitDlg::OnInitDialog()
 	return FALSE;  
 }
 
+
 BOOL CSICommitDlg::PreTranslateMessage(MSG* pMsg)
 {
 	return CResizableStandAloneDialog::PreTranslateMessage(pMsg);
 }
 
+
 LRESULT CSICommitDlg::DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	return __super::DefWindowProc(message, wParam, lParam);
 }
+
 
 void CSICommitDlg::DoSize(int /*delta*/)
 {
@@ -173,6 +174,7 @@ void CSICommitDlg::DoSize(int /*delta*/)
 	ArrangeLayout();
 }
 
+
 // ON_WM_SIZE
 // Called after the windows size has changed
 void CSICommitDlg::OnSize(UINT nType, int cx, int cy)
@@ -181,12 +183,14 @@ void CSICommitDlg::OnSize(UINT nType, int cx, int cy)
     __super::OnSize(nType, cx, cy);
 }
 
+
 // ON_WM_SIZING
 // Called while the window size is changing
 void CSICommitDlg::OnSizing(UINT fwSide, LPRECT pRect)
 {
 	__super::OnSizing(fwSide, pRect);
 }
+
 
 // ON_WM_MOVE
 // Called after the window has been moved
@@ -197,12 +201,14 @@ void CSICommitDlg::OnMove(int x, int y)
 
 }
 
+
 // ON_WM_MOVING
 // Called while window is moving
 void CSICommitDlg::OnMoving(UINT fwSide, LPRECT pRect)
 {
 	__super::OnMoving(fwSide, pRect);
 }
+
 
 void CSICommitDlg::OnBnClickedCreateCpButton()
 {
@@ -221,37 +227,28 @@ void CSICommitDlg::OnBnClickedCreateCpButton()
 	// Launch the create cp view
 	if (IntegrityActions::launchCreateCPView(*(theApp.m_integritySession), cpid)) {
 
-		// Delete all combobox strings and corresponding cp item data from combo box
-		for (int idx = m_ctrlChangePackageComboBox.GetCount() - 1; idx >= 0; idx--) {
-			std::shared_ptr<IntegrityActions::ChangePackage> *cp = 
-				(std::shared_ptr<IntegrityActions::ChangePackage> *) m_ctrlChangePackageComboBox.GetItemDataPtr(idx);
-			m_ctrlChangePackageComboBox.SetItemDataPtr(idx, NULL);
-			m_ctrlChangePackageComboBox.DeleteString(idx);
-			delete cp;
+		ClearChangePackageList();
+
+		// Update CP combobox to include newly created CP
+		UpdateChangePackageList();
+
+		// Enable the submit CP button if there are no CPs, disable otherwise
+		if (m_ctrlChangePackageComboBox.GetCount() == 0) {
+			GetDlgItem(IDC_SUBMIT_CP_BUTTON)->EnableWindow(FALSE);
 		}
+		else {
+			GetDlgItem(IDC_SUBMIT_CP_BUTTON)->EnableWindow(TRUE);
 
-		m_ctrlChangePackageComboBox.ResetContent();
+			// Select the newly created CP in combobox
+			int idx = m_ctrlChangePackageComboBox.FindString(-1, cpid.c_str());
 
-		// Update cp combobox to include newly created cp
-		for (std::shared_ptr<IntegrityActions::ChangePackage> *cp : IntegrityActions::getChangePackageList(*(theApp.m_integritySession))) {
-			std::wstring cpText = (*cp)->getId() + L" " + (*cp)->getSumamry();
-			int idx = m_ctrlChangePackageComboBox.AddString(cpText.c_str());
-			m_ctrlChangePackageComboBox.SetItemDataPtr(idx, cp);
-
-			if ( (*cp)->getId() == cpid ) {
+			if (idx != CB_ERR) {
 				m_ctrlChangePackageComboBox.SetCurSel(idx);
 			}
 		}
 	}
-
-	// Enable the submit CP button if there are no CPs, disable otherwise
-	if (m_ctrlChangePackageComboBox.GetCount() == 0) {
-		GetDlgItem(IDC_SUBMIT_CP_BUTTON)->EnableWindow(FALSE);
-	}
-	else {
-		GetDlgItem(IDC_SUBMIT_CP_BUTTON)->EnableWindow(TRUE);
-	}
 }
+
 
 void CSICommitDlg::OnBnClickedSubmitCpButton()
 {
@@ -261,17 +258,32 @@ void CSICommitDlg::OnBnClickedSubmitCpButton()
 	// Hide the tool tips
 	m_tooltips.Pop();
 
+	// Check client connection and connect if not connected
 	if (!theApp.m_serverConnectionsCache->isOnline()) {
 		EventLog::writeInformation(L"SICommitDlg submit cp bailing out, unable to connect to server");
 		return;
 	}
 
+	// Get selected CP data
 	int idx = m_ctrlChangePackageComboBox.GetCurSel();
 	std::shared_ptr<IntegrityActions::ChangePackage> *cp = (std::shared_ptr<IntegrityActions::ChangePackage> *) m_ctrlChangePackageComboBox.GetItemDataPtr(idx);
 	
 	// Submit CP
 	if(IntegrityActions::submitCP(*(theApp.m_integritySession), (*cp)->getId())) {
 
+		ClearChangePackageList();
+
+		// Update CP combobox to remove submitted CP (if it was closed)
+		UpdateChangePackageList();
+		
+		// Disable the submit CP button if there are no CPs, disable otherwise
+		if (m_ctrlChangePackageComboBox.GetCount() == 0) {
+			GetDlgItem(IDC_SUBMIT_CP_BUTTON)->EnableWindow(FALSE);
+		}
+		else {
+			GetDlgItem(IDC_SUBMIT_CP_BUTTON)->EnableWindow(TRUE);
+			m_ctrlChangePackageComboBox.SetCurSel( m_ctrlChangePackageComboBox.GetCount() - 1);
+		}
 	}
 }
 
@@ -283,14 +295,7 @@ void CSICommitDlg::OnBnClickedCancel()
 	// Hide the tool tips
 	m_tooltips.Pop();
 
-	// Delete all cp strings and corresponding item data from combo box
-	for (int idx = m_ctrlChangePackageComboBox.GetCount() - 1; idx >= 0; idx--) {
-		std::shared_ptr<IntegrityActions::ChangePackage> *cp =
-			(std::shared_ptr<IntegrityActions::ChangePackage> *) m_ctrlChangePackageComboBox.GetItemDataPtr(idx);
-		m_ctrlChangePackageComboBox.SetItemDataPtr(idx, NULL);
-		m_ctrlChangePackageComboBox.DeleteString(idx);
-		delete cp;
-	}
+	ClearChangePackageList();
 
 	__super::OnCancel();
 }
@@ -306,5 +311,32 @@ void CSICommitDlg::OnCbnSelchangeSubmitCpCombobox()
 	// Hide the tooltips
 	m_tooltips.Pop();
 
+}
+
+
+void CSICommitDlg::ClearChangePackageList()
+{
+	// Delete all combobox strings and corresponding cp item data from combo box
+	for (int idx = m_ctrlChangePackageComboBox.GetCount() - 1; idx >= 0; idx--) {
+		std::shared_ptr<IntegrityActions::ChangePackage> *cp =
+			(std::shared_ptr<IntegrityActions::ChangePackage> *) m_ctrlChangePackageComboBox.GetItemDataPtr(idx);
+		m_ctrlChangePackageComboBox.SetItemDataPtr(idx, NULL);
+		m_ctrlChangePackageComboBox.DeleteString(idx);
+		delete cp;
+	}
+
+	m_ctrlChangePackageComboBox.ResetContent();
+}
+
+
+void CSICommitDlg::UpdateChangePackageList()
+{
+	// Add active change package ids and summary to combobox.
+	// Store ChangePackage information as item data for later reference
+	for (std::shared_ptr<IntegrityActions::ChangePackage> *cp : IntegrityActions::getChangePackageList(*(theApp.m_integritySession))) {
+		std::wstring cpText = (*cp)->getId() + L" " + (*cp)->getSummary();
+		int idx = m_ctrlChangePackageComboBox.AddString(cpText.c_str());
+		m_ctrlChangePackageComboBox.SetItemDataPtr(idx, cp);
+	}
 }
 

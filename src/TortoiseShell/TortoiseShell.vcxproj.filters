@@ -391,7 +391,7 @@
     <Image Include="..\Resources\tsimenufolder.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\..\..\Users\gfleming\Desktop\IntegrityClient.ico">
+    <Image Include="..\Resources\ssh.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
