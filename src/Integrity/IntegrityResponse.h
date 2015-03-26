@@ -149,4 +149,5 @@ extern std::wstring getStringFieldValue(mksWorkItem item, const std::wstring& fi
 extern std::wstring getStringFieldValue(mksItem item, const std::wstring& fieldName);
 extern int getIntegerFieldValue(mksField field);
 extern int getIntegerFieldValue(mksWorkItem item, const std::wstring&  fieldName, int defaultValue);
+extern time_t getDateTimeFieldValue(mksWorkItem item, const std::wstring& fieldName);
 extern mksItem getItemFieldValue(mksWorkItem item, const std::wstring& fieldName);

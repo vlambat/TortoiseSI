@@ -204,9 +204,6 @@ namespace IntegrityActions {
 	bool submitCP(const IntegritySession &session, std::wstring cpid)
 	{
 		IntegrityCommand command(L"si", L"submitcp");
-		command.addOption(L"confirmcloseCP"); 
-		command.addOption(L"confirmdeferredIsError");
-		command.addOption(L"confirmignoreNoDeferred");
 		command.addOption(L"g");
 		command.addSelection(cpid);
 
@@ -391,7 +388,7 @@ namespace IntegrityActions {
 		std::vector<std::shared_ptr<IntegrityActions::ChangePackage> *> cps;
 		IntegrityCommand command(L"si", L"viewcps");
 		command.addOption(L"filter", L"state:open");
-		command.addOption(L"fields", L"id,summary,description,cptype,issue");
+		command.addOption(L"fields", L"id,summary,description,cptype,creationdate,issue");
 
 		std::unique_ptr<IntegrityResponse> response = session.execute(command);
 
@@ -406,6 +403,7 @@ namespace IntegrityActions {
 			std::wstring summary = getStringFieldValue(item, L"summary");
 			std::wstring description = getStringFieldValue(item, L"description");
 			std::wstring cptype = getStringFieldValue(item, L"cptype");
+			time_t creationDate = getDateTimeFieldValue(item, L"creationdate");
 			std::wstring issueId = getStringFieldValue(item, L"issue");
 
 			// Create change package object
@@ -414,11 +412,15 @@ namespace IntegrityActions {
 				.setSummary(summary)
 				.setDescription(description)
 				.setType(cptype)
+				.setCreationDate(creationDate)
 				.setIssueId(issueId)
 				.build());
 
 			cps.push_back(cp);
 		}
+
+		// Sort by cps creation date (see overloaded < operator for ChangePackage class)
+		std::sort(cps.begin(), cps.end());
 
 		return cps;
 	}

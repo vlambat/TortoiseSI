@@ -63,6 +63,7 @@ std::wstring getStringFieldValue(mksWorkItem item, const std::wstring& fieldName
 	return std::wstring(buffer);
 
 }
+
 std::wstring getStringFieldValue(mksItem item, const std::wstring& fieldName) {
 	mksField field = mksItemGetField(item, (wchar_t*)fieldName.c_str());
 	wchar_t buffer[DEFAULT_BUFFER_SIZE];
@@ -73,6 +74,13 @@ std::wstring getStringFieldValue(mksItem item, const std::wstring& fieldName) {
 
 }
 
+time_t getDateTimeFieldValue(mksWorkItem item, const std::wstring& fieldName) {
+	mksField field = mksWorkItemGetField(item, (wchar_t*)fieldName.c_str());
+	time_t dateTime;
+
+	mksFieldGetDateTimeValue(field, &dateTime);
+	return dateTime;
+}
 
 mksItem getItemFieldValue(mksWorkItem item, const std::wstring& fieldName) {
 	mksField field = mksWorkItemGetField(item, (wchar_t*)fieldName.c_str());
