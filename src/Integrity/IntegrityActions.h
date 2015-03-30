@@ -77,11 +77,23 @@ namespace IntegrityActions {
 		std::wstring m_summary;
 		std::wstring m_description;
 		std::wstring m_cptype;
+		time_t       m_creationDate;
 		std::wstring m_issueId;
 
 		// Private constructor can only be used by ChangePackageBuilder
-		ChangePackage( std::wstring id, std::wstring summary, std::wstring description, std::wstring cptype, std::wstring issueId ) :
-			m_id(id), m_summary(summary), m_description(description), m_cptype(cptype), m_issueId(issueId) {}
+		ChangePackage( 
+			std::wstring id, 
+			std::wstring summary, 
+			std::wstring description, 
+			std::wstring cptype, 
+			time_t creationDate,
+			std::wstring issueId ) :
+			m_id(id), 
+			m_summary(summary), 
+			m_description(description), 
+			m_cptype(cptype), 
+			m_creationDate(creationDate),
+			m_issueId(issueId) {}
 
 	public:
 		// ChangePackage specific functionality
@@ -89,7 +101,11 @@ namespace IntegrityActions {
 		std::wstring getSummary() const { return m_summary; } 
 		std::wstring getDescription() const { return m_description; } 
 		std::wstring getType() const { return m_cptype; }
+		time_t       getCreationDate() const { return m_creationDate; }
 		std::wstring getIssueId() const { return m_issueId; }
+		bool operator<(const ChangePackage& rhs) {
+			return m_creationDate < rhs.m_creationDate;
+		}
 
 	};
 
@@ -100,6 +116,7 @@ namespace IntegrityActions {
 		std::wstring m_summary;
 		std::wstring m_description;
 		std::wstring m_cptype;
+		time_t m_creationDate;
 		std::wstring m_issueId;
 
 	public:
@@ -107,6 +124,7 @@ namespace IntegrityActions {
 		ChangePackageBuilder& setSummary(const std::wstring summary) { m_summary = summary; return *this; }
 		ChangePackageBuilder& setDescription(const std::wstring description) { m_description = description; return *this; }
 		ChangePackageBuilder& setType(const std::wstring cptype) { m_cptype = cptype; return *this; }
+		ChangePackageBuilder& setCreationDate(const time_t creationDate) { m_creationDate = creationDate; return *this; }
 		ChangePackageBuilder& setIssueId(const std::wstring issueId) { m_issueId = issueId; return *this; }
 
 		ChangePackage* build() {
@@ -114,7 +132,7 @@ namespace IntegrityActions {
 				throw new std::exception("Attempt to construct Change Package that does not have valid id and sumamry fields");
 			}
 			else {
-				return new ChangePackage(m_id, m_summary, m_description, m_cptype, m_issueId);
+				return new ChangePackage(m_id, m_summary, m_description, m_cptype, m_creationDate, m_issueId);
 			}
 		}
 	};

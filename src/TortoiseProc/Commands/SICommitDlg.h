@@ -69,6 +69,8 @@ protected:
 	virtual LRESULT DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 	void DoSize(int delta);
+	void ClearChangePackageList();
+	void UpdateChangePackageList();
 
 public:
 	afx_msg void    OnSize(UINT nType, int cx, int cy);

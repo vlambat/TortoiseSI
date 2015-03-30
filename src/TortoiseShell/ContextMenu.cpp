@@ -368,7 +368,6 @@ STDMETHODIMP CShellExt::InvokeCommand(LPCMINVOKECOMMANDINFO lpcmi)
 // This is called when you invoke a command on the menu:
 STDMETHODIMP CShellExt::InvokeCommand_Wrap(LPCMINVOKECOMMANDINFO lpcmi)
 {
-	PreserveChdir preserveChdir;
 	HRESULT hr = E_INVALIDARG;
 	if (lpcmi == NULL)
 		return hr;
@@ -394,7 +393,7 @@ STDMETHODIMP CShellExt::InvokeCommand_Wrap(LPCMINVOKECOMMANDINFO lpcmi)
 			id_it->second.siCommand(getItemsForMenuAction(), lpcmi->hwnd);
 			hr = S_OK;
 		} // if (id_it != myIDMap.end() && id_it->first == idCmd)
-	} // if (files_.empty() || folder_.empty())
+	} // if (!selectedItems.empty() || !currentExplorerWindowFolder.empty())
 	return hr;
 
 }
