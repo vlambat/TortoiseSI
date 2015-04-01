@@ -46,6 +46,12 @@ std::wstring getId(mksWorkItem item) {
 	return std::wstring(buffer);
 }
 
+std::wstring getId(mksItem item) {
+	wchar_t buffer[DEFAULT_BUFFER_SIZE];
+	mksItemGetId(item, buffer, DEFAULT_BUFFER_SIZE);
+	return std::wstring(buffer);
+}
+
 std::wstring getModelType(mksWorkItem item) {
 	wchar_t buffer[DEFAULT_BUFFER_SIZE];
 	buffer[0] = '\0';
@@ -91,6 +97,24 @@ mksItem getItemFieldValue(mksWorkItem item, const std::wstring& fieldName) {
 
 }
 
+mksItem getItemFieldValue(mksItem item, const std::wstring& fieldName) {
+	mksField field = mksItemGetField(item, (wchar_t*)fieldName.c_str());
+
+	mksItem itemValue = NULL;
+	mksFieldGetItemValue(field, &itemValue);
+	return itemValue;
+
+}
+
+
+mksItemList getItemListFieldValue(mksWorkItem item, const std::wstring& fieldName) {
+	mksField field = mksWorkItemGetField(item, (wchar_t*)fieldName.c_str());
+
+	mksItemList itemListValue = NULL;
+	mksFieldGetItemListValue(field, &itemListValue);
+	return itemListValue;
+
+}
 
 bool getBooleanFieldValue(mksField field)
 {

@@ -81,9 +81,6 @@
     <ClCompile Include="TortoiseSI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PropertyPage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Integrity\IntegrityActions.cpp">
       <Filter>Integrity</Filter>
     </ClCompile>
@@ -106,6 +103,9 @@
       <Filter>Integrity</Filter>
     </ClCompile>
     <ClCompile Include="ServerConnections.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SIPropertyPage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -213,6 +213,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ServerConnections.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SIPropertyPage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

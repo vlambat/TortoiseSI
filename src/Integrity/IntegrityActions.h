@@ -137,8 +137,68 @@ namespace IntegrityActions {
 		}
 	};
 
+	class LockProperties {
+	private:
+		std::wstring m_name;
+		std::wstring m_lockcpid;
+		std::wstring m_lockType;
+
+	public:
+		std::wstring getLockName() { return m_name; }
+		std::wstring getLockChangePackageId() { return m_lockcpid; }
+		std::wstring getLockType() { return m_lockType; }
+		LockProperties() {};
+		LockProperties(std::wstring name, std::wstring lockcpid, std::wstring lockType) :
+			m_name(name),
+			m_lockcpid(lockcpid),
+			m_lockType(lockType)
+		{}
+
+	};
+
+	class MemberProperties {
+
+	private:
+		std::wstring m_memberRev;
+		std::wstring m_sandboxName;
+		std::wstring m_cpid;
+		std::wstring m_workRev;
+		std::wstring m_status;
+		std::vector<std::shared_ptr<LockProperties>> m_lockers;
+
+	public:
+
+		std::wstring getMemberRev() { return m_memberRev; }
+		std::wstring getSandboxName() { return m_sandboxName; }
+		std::wstring getChangePackageId() { return m_cpid; }
+		std::wstring getWorkingRev() { return m_workRev; }
+		std::wstring getStatus() { return m_status; }
+		std::vector <std::shared_ptr<LockProperties>> getLockers() { return m_lockers; };
+
+		void setMemberRev(std::wstring memberRev) { m_memberRev = memberRev; }
+		void setSandboxName(std::wstring sandboxName) { m_sandboxName = sandboxName; }
+		void setChangePackageId(std::wstring cpid) { m_cpid = cpid; }
+		void setWorkingRev(std::wstring workRev) { m_workRev = workRev; }
+		void setLockerProperties(std::vector<std::shared_ptr<LockProperties>> lockProps) { m_lockers = lockProps; }
+		void addLockerProperties(std::shared_ptr<LockProperties> lockProps) { m_lockers.push_back(lockProps); }
+
+		MemberProperties() {};
+		MemberProperties(std::wstring memberRev, std::wstring sandboxName, std::wstring cpid, std::wstring workRev, std::wstring status):
+			m_memberRev(memberRev),
+			m_sandboxName(sandboxName),
+			m_cpid(cpid),
+			m_workRev(workRev),
+			m_status(status)
+			{}
+
+	};
+
+
 	// get status flags for a set of files...
 	FileStatusFlags fileInfo(const IntegritySession& session, const std::wstring& files);
+
+	// get member info
+	std::shared_ptr<IntegrityActions::MemberProperties> getMemberInfo(const IntegritySession& session, const std::wstring& file);
 
 	// list of controlled folders (ie with a sandbox) 
 	std::vector<std::wstring> folders(const IntegritySession& session);

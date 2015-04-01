@@ -116,9 +116,9 @@
     <ClCompile Include="..\Utils\ReaderWriterLock.cpp" />
     <ClCompile Include="RootFolderCache.cpp" />
     <ClCompile Include="ServerConnections.cpp" />
+    <ClCompile Include="SIPropertyPage.cpp" />
     <ClCompile Include="StatusCache.cpp" />
     <ClCompile Include="ContextMenu.cpp" />
-    <ClCompile Include="PropertyPage.cpp" />
     <ClCompile Include="IconOverlay.cpp" />
     <ClCompile Include="ItemIDList.cpp" />
     <ClCompile Include="MenuInfo.cpp" />
@@ -157,6 +157,7 @@
     <ClInclude Include="MenuInfo.h" />
     <ClInclude Include="RootFolderCache.h" />
     <ClInclude Include="ServerConnections.h" />
+    <ClInclude Include="SIPropertyPage.h" />
     <ClInclude Include="StatusCache.h" />
     <ClInclude Include="PropertyPage.h" />
     <ClInclude Include="Globals.h" />

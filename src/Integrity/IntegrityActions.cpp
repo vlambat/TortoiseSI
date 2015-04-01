@@ -340,6 +340,74 @@ namespace IntegrityActions {
 	}
 
 	/**
+	* Retrieve member properties
+	*/
+	std::shared_ptr<IntegrityActions::MemberProperties> getMemberInfo(const IntegritySession& session, const std::wstring& file) {
+
+		std::wstring folder;
+		std::vector<std::wstring> memberInfo;
+
+		mksItem revItem = NULL;
+		mksItem workRevItem = NULL;
+		mksItem cpIdItem = NULL;
+		mksItemList lockItemList = NULL;
+
+		// Create member properties object
+		std::shared_ptr<IntegrityActions::MemberProperties> memberProps = 
+			std::shared_ptr<IntegrityActions::MemberProperties>(new IntegrityActions::MemberProperties());
+
+		IntegrityCommand command(L"si", L"viewsandbox");
+
+		folder = file.substr(0, file.find_last_of('\\'));
+
+		command.addOption(L"cwd", folder);
+		command.addOption(L"fields", L"cpid,lockrecord,memberrev,workingrev");
+		command.addSelection(file);
+
+		std::unique_ptr<IntegrityResponse> response = session.execute(command);
+
+		if (response->getException() != NULL) {
+			logAnyExceptions(*response);
+			displayException(*response);
+			return memberProps;
+		}
+
+		// Retrieve property values and populate member prop object
+		for (mksWorkItem workItem : *response) {
+
+			revItem = getItemFieldValue(workItem, L"memberrev");
+			workRevItem = getItemFieldValue(workItem, L"workingrev");
+			cpIdItem = getItemFieldValue(workItem, L"cpid");
+			lockItemList = getItemListFieldValue(workItem, L"lockrecord");
+		}
+
+		// Set the member properties
+		memberProps->setMemberRev(revItem ? getId(revItem) : _T(""));
+		memberProps->setWorkingRev(workRevItem ? getId(workRevItem) : _T(""));
+		memberProps->setChangePackageId(cpIdItem ? getId(cpIdItem) : _T(""));
+
+		for (mksItem lockItem = mksItemListGetFirst(lockItemList); lockItemList && lockItem; lockItem = mksItemListGetNext(lockItemList)) {
+
+			std::wstring lockType;
+			mksItem locker;
+			mksItem lockcpid;
+
+			locker = getItemFieldValue(lockItem, L"locker");
+			lockcpid = getItemFieldValue(lockItem, L"lockcpid");
+			lockType = getStringFieldValue(lockItem, L"locktype");
+
+			// Create locker properties and add to member properties
+			memberProps->addLockerProperties(std::shared_ptr<IntegrityActions::LockProperties>
+				(new IntegrityActions::LockProperties(locker ? getId(locker) : _T(""), lockcpid ? getId(lockcpid) : _T(""), lockType)));
+		}
+
+		// Retrieve sandbox name
+		memberProps->setSandboxName(getSandboxName(session, file));
+
+		return memberProps;
+	}
+
+	/**
 	*  Retrieve current excludeFilter contents using 'viewprefs' command
 	*/
 	std::vector<std::wstring> getExcludeFilterContents(const IntegritySession& session) {
@@ -355,7 +423,6 @@ namespace IntegrityActions {
 			displayException(*response);
 			return filterContents;
 		}
-
 
 		std::wstring contents;
 		for (mksWorkItem item : *response) {
@@ -631,6 +698,8 @@ namespace IntegrityActions {
 
 		return true;
 	}
+
+
 
 	void logAnyExceptions(const IntegrityResponse& response) {
 		if (response.getException() != NULL) {

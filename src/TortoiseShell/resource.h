@@ -240,6 +240,18 @@
 #define IDS_DROP_SANDBOX_DESC           378
 #define IDS_RETARGET_SANDBOX_DESC       379
 #define IDS_CREATE_SANDBOX_DESC         380
+#define IDS_PROP_NAME_COLUMN            381
+#define IDS_PROP_VALUE_COLUMN           382
+#define IDS_PROP_MEMBER_REV             383
+#define IDS_PROP_WORKING_REV            384
+#define IDS_PROP_SANDBOX_NAME           385
+#define IDS_PROP_STATUS                 386
+#define IDS_PROP_LOCK_NAME              387
+#define IDS_PROP_LOCK_CPID              388
+#define IDS_PROP_LOCK_TYPE              389
+#define IDS_PROP_WORKING_CPID           390
+#define IDS_PROP_FILE_GROUP_NAME        391
+#define IDS_PROP_LOCK_GROUP_NAME        392
 #define IDC_REVISION                    1001
 #define IDC_HEAD_HASH                   1001
 #define IDC_LAST_HASH                   1002
@@ -314,7 +326,9 @@
 #define IDC_STATIC_LASTMODIFIED         11030
 #define IDC_SYMLINK                     11031
 #define IDS_ETC                         11032
+#define IDC_LIST1                       11032
 #define IDS_SHOWING_PARTIAL_RESULTS     11033
+#define IDC_LIST2                       11033
 
 // Next default values for new objects
 // 
@@ -322,7 +336,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        5184
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         11032
+#define _APS_NEXT_CONTROL_VALUE         11034
 #define _APS_NEXT_SYMED_VALUE           5101
 #endif
 #endif
