@@ -28,3 +28,7 @@ IBugTraqProvider_?.?
 Thumbs.db
 bin
 obj
+/ext/scintilla/win32/Debug
+/ext/scintilla/win32/x64/Debug
+/src/Debug
+/src/x64/Debug
