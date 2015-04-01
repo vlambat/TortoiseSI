@@ -112,6 +112,7 @@ UINT CALLBACK ListViewCompare(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 			NULL, NULL, 0);
 	}
 
+	// Make return result consistent with C runtime
 	return result - 2;
 }
 

@@ -26,7 +26,6 @@ class CSIPropertyPage
 {
 
 private:
-	//bool IsPathAllowed(std::wstring folder){ return g_ShellCache.IsPathAllowed(folder); };
 
 public:
 	CSIPropertyPage(const std::vector<stdstring> &filenames, FileStatusFlags flags);
