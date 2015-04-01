@@ -2,6 +2,7 @@
 
 // Copyright (C) 2003-2006, 2014 - TortoiseSVN
 // Copyright (C) 2008-2014 - TortoiseGit
+// Copyright (C) 2015 - TortoiseSI
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
