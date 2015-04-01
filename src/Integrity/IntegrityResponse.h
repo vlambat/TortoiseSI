@@ -49,7 +49,7 @@ public:
 		}
 	}
 
-	int getExitCode() {
+	int getExitCode() const {
 		int exitCode = -1;
 		if (response != NULL) {
 			mksResponseGetExitCode(response, &exitCode);
@@ -150,6 +150,7 @@ extern std::wstring getStringFieldValue(mksWorkItem item, const std::wstring& fi
 extern std::wstring getStringFieldValue(mksItem item, const std::wstring& fieldName);
 extern int getIntegerFieldValue(mksField field);
 extern int getIntegerFieldValue(mksWorkItem item, const std::wstring&  fieldName, int defaultValue);
+extern time_t getDateTimeFieldValue(mksWorkItem item, const std::wstring& fieldName);
 extern mksItem getItemFieldValue(mksWorkItem item, const std::wstring& fieldName);
 extern mksItem getItemFieldValue(mksItem item, const std::wstring& fieldName);
 extern mksItemList getItemListFieldValue(mksWorkItem item, const std::wstring& fieldName);

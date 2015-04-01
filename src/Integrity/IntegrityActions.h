@@ -27,6 +27,45 @@
 
 namespace IntegrityActions {
 
+	const FileStatusFlags NO_STATUS = 0;
+
+	class WorkingFileChange {
+	public:
+		class WorkingFileChangeBuilder;
+
+	private:
+		std::wstring m_id;
+		int m_status;
+
+		WorkingFileChange(std::wstring id, int status) : m_id(id), m_status(status) {};
+
+	public:
+		std::wstring getId() const { return m_id; }
+		int getStatus() const { return m_status; }
+	};
+
+	class WorkingFileChange::WorkingFileChangeBuilder {
+	private:
+		std::wstring m_id;
+		int m_status = NO_STATUS;
+
+	public:
+		WorkingFileChangeBuilder& setId(const std::wstring id) { m_id = id; return *this; }
+		WorkingFileChangeBuilder& setStatus(const int status) { m_status = status; return *this; }
+		
+		WorkingFileChange* build() {
+			if (m_id.empty()) {
+				throw new std::exception("Attempt to construct WorkingFileChange that does not have valid id");
+			}
+			if (m_status == NO_STATUS) {
+				throw new std::exception("Attempt to construct WorkingFileChange with invalid status");
+			}
+			return new WorkingFileChange(m_id, m_status);
+		}
+
+	};
+
+
 	class ChangePackage {
 	public:
 		// Use this class to construct a valid ChangePackage
@@ -38,19 +77,36 @@ namespace IntegrityActions {
 		std::wstring m_summary;
 		std::wstring m_description;
 		std::wstring m_cptype;
+		time_t       m_creationDate;
 		std::wstring m_issueId;
 
 		// Private constructor can only be used by ChangePackageBuilder
-		ChangePackage( std::wstring id, std::wstring summary, std::wstring description, std::wstring cptype, std::wstring issueId ) :
-			m_id(id), m_summary(summary), m_description(description), m_cptype(cptype), m_issueId(issueId) {}
+		ChangePackage( 
+			std::wstring id, 
+			std::wstring summary, 
+			std::wstring description, 
+			std::wstring cptype, 
+			time_t creationDate,
+			std::wstring issueId ) :
+			m_id(id), 
+			m_summary(summary), 
+			m_description(description), 
+			m_cptype(cptype), 
+			m_creationDate(creationDate),
+			m_issueId(issueId) {}
 
 	public:
 		// ChangePackage specific functionality
-		std::wstring getId() { return m_id; }
-		std::wstring getSumamry() { return m_summary; }
-		std::wstring getDescription() { return m_description; }
-		std::wstring getType() { return m_cptype; }
-		std::wstring getIssueId() { return m_issueId; }
+		std::wstring getId() const { return m_id; } 
+		std::wstring getSummary() const { return m_summary; } 
+		std::wstring getDescription() const { return m_description; } 
+		std::wstring getType() const { return m_cptype; }
+		time_t       getCreationDate() const { return m_creationDate; }
+		std::wstring getIssueId() const { return m_issueId; }
+		bool operator<(const ChangePackage& rhs) {
+			return m_creationDate < rhs.m_creationDate;
+		}
+
 	};
 
 	class ChangePackage::ChangePackageBuilder {
@@ -60,13 +116,15 @@ namespace IntegrityActions {
 		std::wstring m_summary;
 		std::wstring m_description;
 		std::wstring m_cptype;
+		time_t m_creationDate;
 		std::wstring m_issueId;
 
 	public:
-		ChangePackageBuilder& setID(const std::wstring id) { m_id = id; return *this; }
+		ChangePackageBuilder& setId(const std::wstring id) { m_id = id; return *this; }
 		ChangePackageBuilder& setSummary(const std::wstring summary) { m_summary = summary; return *this; }
 		ChangePackageBuilder& setDescription(const std::wstring description) { m_description = description; return *this; }
 		ChangePackageBuilder& setType(const std::wstring cptype) { m_cptype = cptype; return *this; }
+		ChangePackageBuilder& setCreationDate(const time_t creationDate) { m_creationDate = creationDate; return *this; }
 		ChangePackageBuilder& setIssueId(const std::wstring issueId) { m_issueId = issueId; return *this; }
 
 		ChangePackage* build() {
@@ -74,7 +132,7 @@ namespace IntegrityActions {
 				throw new std::exception("Attempt to construct Change Package that does not have valid id and sumamry fields");
 			}
 			else {
-				return new ChangePackage(m_id, m_summary, m_description, m_cptype, m_issueId);
+				return new ChangePackage(m_id, m_summary, m_description, m_cptype, m_creationDate, m_issueId);
 			}
 		}
 	};
@@ -158,7 +216,10 @@ namespace IntegrityActions {
 	std::vector<std::wstring> getExcludeFilterContents(const IntegritySession& session);
 
 	// list of change packages
-	std::vector<std::shared_ptr<IntegrityActions::ChangePackage>> getChangePackageList(const IntegritySession& session);
+	std::vector<std::shared_ptr<IntegrityActions::ChangePackage> *> getChangePackageList(const IntegritySession& session);
+
+	// list of working file changes
+	std::vector<std::shared_ptr<IntegrityActions::WorkingFileChange>> getWorkingFileChanges(const IntegritySession& session, std::wstring path);
 
 	bool connect(const IntegritySession& session);
 
@@ -169,11 +230,12 @@ namespace IntegrityActions {
 	void launchAnnotatedRevisionView(const IntegritySession& session, std::wstring path);
 	void launchSubmitChangesView(const IntegritySession& session, std::wstring path);
 	void launchMemberInfoView(const IntegritySession& session, std::wstring path);
+	void launchWorkingFileChangesView(const IntegritySession& session, std::wstring path);
 	void launchChangePackageView(const IntegritySession& session);
 	void launchMyChangePackageReviewsView(const IntegritySession& session);
 	void launchPreferencesView(const IntegritySession& session);
 	void launchIntegrityGUI(const IntegritySession& session);
-	bool launchCreateCPView(const IntegritySession& session);
+	bool launchCreateCPView(const IntegritySession& session, std::wstring& cpid );
 
 	void lockFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone);
 	void unlockFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone);
@@ -192,6 +254,8 @@ namespace IntegrityActions {
 	void retargetSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 
 	void setExcludeFileFilter(const IntegritySession& session, std::vector<std::wstring> patterns, std::function<void()> onDone);
+
+	bool submitCP(const IntegritySession &session, std::wstring cpid);
 
 	IntegrityCommand initializeWFExecute(const IntegrityCommand& command);
 

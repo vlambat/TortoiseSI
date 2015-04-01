@@ -22,6 +22,7 @@
 #include "FileStatus.h"
 
 enum MenuItem {
+	WorkingFileChangesView,
 	ViewSandbox,
 	CreateSandbox,
 

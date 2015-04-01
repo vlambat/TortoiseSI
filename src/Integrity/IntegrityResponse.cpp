@@ -24,18 +24,24 @@
 
 std::wstring getExceptionMessage(mksAPIException exception) {
 	wchar_t buffer[DEFAULT_BUFFER_SIZE];
+	buffer[0] = '\0';
+
 	mksAPIExceptionGetMessage(exception, buffer, DEFAULT_BUFFER_SIZE);
 	return std::wstring(buffer);
 }
 
 std::wstring getId(mksAPIException exception) {
 	wchar_t buffer[DEFAULT_BUFFER_SIZE];
+	buffer[0] = '\0';
+
 	mksAPIExceptionGetId(exception, buffer, DEFAULT_BUFFER_SIZE);
 	return std::wstring(buffer);
 }
 
 std::wstring getId(mksWorkItem item) {
 	wchar_t buffer[DEFAULT_BUFFER_SIZE];
+	buffer[0] = '\0';
+
 	mksWorkItemGetId(item, buffer, DEFAULT_BUFFER_SIZE);
 	return std::wstring(buffer);
 }
@@ -48,6 +54,8 @@ std::wstring getId(mksItem item) {
 
 std::wstring getModelType(mksWorkItem item) {
 	wchar_t buffer[DEFAULT_BUFFER_SIZE];
+	buffer[0] = '\0';
+
 	mksWorkItemGetModelType(item, buffer, DEFAULT_BUFFER_SIZE);
 	return std::wstring(buffer);
 }
@@ -55,20 +63,30 @@ std::wstring getModelType(mksWorkItem item) {
 std::wstring getStringFieldValue(mksWorkItem item, const std::wstring& fieldName) {
 	mksField field = mksWorkItemGetField(item, (wchar_t*)fieldName.c_str());
 	wchar_t buffer[DEFAULT_BUFFER_SIZE];
+	buffer[0] = '\0';
 
 	mksFieldGetStringValue(field, buffer, DEFAULT_BUFFER_SIZE);
 	return std::wstring(buffer);
 
 }
+
 std::wstring getStringFieldValue(mksItem item, const std::wstring& fieldName) {
 	mksField field = mksItemGetField(item, (wchar_t*)fieldName.c_str());
 	wchar_t buffer[DEFAULT_BUFFER_SIZE];
+	buffer[0] = '\0';
 
 	mksFieldGetStringValue(field, buffer, DEFAULT_BUFFER_SIZE);
 	return std::wstring(buffer);
 
 }
 
+time_t getDateTimeFieldValue(mksWorkItem item, const std::wstring& fieldName) {
+	mksField field = mksWorkItemGetField(item, (wchar_t*)fieldName.c_str());
+	time_t dateTime;
+
+	mksFieldGetDateTimeValue(field, &dateTime);
+	return dateTime;
+}
 
 mksItem getItemFieldValue(mksWorkItem item, const std::wstring& fieldName) {
 	mksField field = mksWorkItemGetField(item, (wchar_t*)fieldName.c_str());

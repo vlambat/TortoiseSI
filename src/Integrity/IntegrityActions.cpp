@@ -27,6 +27,8 @@
 #include <chrono>
 #include <future>
 
+#define DEFAULT_BUFFER_SIZE 1024
+
 namespace IntegrityActions {
 	void displayException(const IntegrityResponse& response);
 	void logAnyExceptions(const IntegrityResponse& response);
@@ -199,6 +201,26 @@ namespace IntegrityActions {
 		executeUserCommand(session, command, onDone);
 	}
 
+	bool submitCP(const IntegritySession &session, std::wstring cpid)
+	{
+		IntegrityCommand command(L"si", L"submitcp");
+		command.addOption(L"g");
+		command.addSelection(cpid);
+
+		std::unique_ptr<IntegrityResponse> response = session.execute(command);
+
+		if (response->getException() != NULL) {
+			logAnyExceptions(*response);
+			return false;
+		}
+
+		if (response->getExitCode() != 0) {
+			return false;
+		}
+
+		return true;
+	}
+
 	void setExcludeFileFilter(const IntegritySession& session, std::vector<std::wstring> patterns, std::function<void()> onDone)
 	{
 		IntegrityCommand command(L"si", L"setprefs");
@@ -219,8 +241,6 @@ namespace IntegrityActions {
 
 		executeUserCommand(session, command, onDone);
 	}
-
-	const FileStatusFlags NO_STATUS = 0;
 
 	// get status flags for a set of files...
 	FileStatusFlags fileInfo(const IntegritySession& session, const std::wstring& file) 
@@ -431,11 +451,11 @@ namespace IntegrityActions {
 	/**
 	 * Retrieve list of change packages
 	 */
-	std::vector<std::shared_ptr<IntegrityActions::ChangePackage>> getChangePackageList(const IntegritySession& session) {
-		std::vector<std::shared_ptr<IntegrityActions::ChangePackage>> cps;
+	std::vector<std::shared_ptr<IntegrityActions::ChangePackage> *> getChangePackageList(const IntegritySession& session) {
+		std::vector<std::shared_ptr<IntegrityActions::ChangePackage> *> cps;
 		IntegrityCommand command(L"si", L"viewcps");
 		command.addOption(L"filter", L"state:open");
-		command.addOption(L"fields", L"id,summary,description,cptype,issue");
+		command.addOption(L"fields", L"id,summary,description,cptype,creationdate,issue");
 
 		std::unique_ptr<IntegrityResponse> response = session.execute(command);
 
@@ -450,27 +470,65 @@ namespace IntegrityActions {
 			std::wstring summary = getStringFieldValue(item, L"summary");
 			std::wstring description = getStringFieldValue(item, L"description");
 			std::wstring cptype = getStringFieldValue(item, L"cptype");
+			time_t creationDate = getDateTimeFieldValue(item, L"creationdate");
 			std::wstring issueId = getStringFieldValue(item, L"issue");
 
 			// Create change package object
-			std::shared_ptr<IntegrityActions::ChangePackage> cp = std::shared_ptr<IntegrityActions::ChangePackage>(IntegrityActions::ChangePackage::ChangePackageBuilder()
-				.setID(id)
+			std::shared_ptr<IntegrityActions::ChangePackage> *cp = new std::shared_ptr<IntegrityActions::ChangePackage>(IntegrityActions::ChangePackage::ChangePackageBuilder()
+				.setId(id)
 				.setSummary(summary)
 				.setDescription(description)
 				.setType(cptype)
+				.setCreationDate(creationDate)
 				.setIssueId(issueId)
 				.build());
 
 			cps.push_back(cp);
 		}
 
+		// Sort by cps creation date (see overloaded < operator for ChangePackage class)
+		std::sort(cps.begin(), cps.end());
+
 		return cps;
+	}
+
+	/**
+	 * Retrieve list of working file changes for path 
+	 */
+	std::vector<std::shared_ptr<IntegrityActions::WorkingFileChange>> getWorkingFileChanges(const IntegritySession& session, std::wstring path) {
+		std::vector<std::shared_ptr<IntegrityActions::WorkingFileChange>> changes;
+		IntegrityCommand command(L"wf", L"changes");
+		command.addSelection(path);
+
+		std::unique_ptr<IntegrityResponse> response = session.execute(command);
+	
+		if (response->getException() != NULL) {
+			logAnyExceptions(*response);
+			displayException(*response);
+			return changes;
+		}
+		
+		for (mksWorkItem item : *response) {
+
+			std::wstring id = getId(item);
+			int status = getIntegerFieldValue(item, L"status", NO_STATUS);
+
+			// Create change package object
+			std::shared_ptr<IntegrityActions::WorkingFileChange> change = std::shared_ptr<IntegrityActions::WorkingFileChange>(IntegrityActions::WorkingFileChange::WorkingFileChangeBuilder()
+				.setId(id)
+				.setStatus(status)
+				.build());
+
+			changes.push_back(change);
+		}
+
+		return changes;
 	}
 
 	/**
 	 * Launch Create Change Package View
 	 */
-	bool launchCreateCPView(const IntegritySession& session) {
+	bool launchCreateCPView(const IntegritySession& session, std::wstring& cpid) {
 		IntegrityCommand command(L"si", L"createcp");
 		command.addOption(L"g");
 
@@ -482,6 +540,36 @@ namespace IntegrityActions {
 		}
 
 		if (response->getExitCode() != 0) {
+			return false;
+		}
+ 
+		/**
+		 * Interrogate the response to determine what cpid was created:
+		 *
+		 * <?xml version="1.1" ?>
+		 * <Response app="si" version="4.14.0 0-0 0" command="createcp">
+		 *     <App-Connection server="BLESKOWSKY0D" port="7001" userID="test1"></App-Connection>
+		 *     <Result>
+		 *         <Message>Created new change package 5:2</Message>
+		 *         <Field name="resultant">
+		 *             <Item id="5:2" modelType="si.ChangePackage" displayId="5:2">
+		 *             </Item>
+		 *         </Field>
+		 *     </Result>
+		 *     <ExitCode>0</ExitCode>
+		 * </Response>
+		 */
+		mksResult result = mksResponseGetResult(response->getResponse());
+
+		if (result != NULL) {
+			wchar_t buffer[DEFAULT_BUFFER_SIZE] = { '\0' };
+			mksField field = mksResultGetField(result, L"resultant");
+			mksItem item;
+
+			mksFieldGetItemValue(field, &item);
+			mksItemGetId(item, buffer, DEFAULT_BUFFER_SIZE);
+			cpid = buffer;
+		} else {
 			return false;
 		}
 
@@ -539,6 +627,19 @@ namespace IntegrityActions {
 
 		executeUserCommand(session, wfCommand, nullptr);
 	}
+	/**
+	*  Launch WorkingFileChanges View
+	*/
+	void launchWorkingFileChangesView(const IntegritySession& session, std::wstring path) {
+		IntegrityCommand command(L"si", L"si.WorkingFileChangesView");
+		command.addOption(L"cwd", path);
+		command.addOption(L"g");
+
+		executeUserCommand(session, command, nullptr);
+	}
+
+
+
 
 	std::vector<std::wstring> folders(const IntegritySession& session)
 	{
@@ -684,4 +785,5 @@ namespace IntegrityActions {
 		}
 		return wfcommand;
 	}
+
 }
