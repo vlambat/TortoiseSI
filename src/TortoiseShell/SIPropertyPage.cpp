@@ -90,15 +90,16 @@ UINT CALLBACK ListViewCompare(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 	ListView_GetItemText(m_list, lParam1, column, buf1, sizeof(buf1) / sizeof(WCHAR));
 	ListView_GetItemText(m_list, lParam2, column, buf2, sizeof(buf2) / sizeof(WCHAR));
 
+	wcslen(buf1);
 	// Perform string compare depending on sort type
 	if (isAsc) 
 	{
 		result = CompareStringEx(LOCALE_NAME_SYSTEM_DEFAULT,
 			0,
 			buf1,
-			sizeof(buf1) / sizeof(WCHAR),
+			wcslen(buf1),
 			buf2,
-			sizeof(buf2) / sizeof(WCHAR),
+			wcslen(buf2),
 			NULL, NULL, 0);
 	}
 	else 
@@ -106,9 +107,9 @@ UINT CALLBACK ListViewCompare(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 		result = CompareStringEx(LOCALE_NAME_SYSTEM_DEFAULT,
 			0,
 			buf2,
-			sizeof(buf2) / sizeof(WCHAR),
+			wcslen(buf2),
 			buf1,
-			sizeof(buf1) / sizeof(WCHAR),
+			wcslen(buf1),
 			NULL, NULL, 0);
 	}
 
@@ -238,22 +239,21 @@ BOOL CSIPropertyPage::PageProc(HWND /*hwnd*/, UINT uMessage, WPARAM wParam, LPAR
 
 			if (pGetInfoTip != NULL)
 			{
-				// Buffer to hold property value
-				WCHAR buf[MAX_BUFFER_LENGTH];
+				std::wstring buffer;
+
+				// Ensure buffer is the correct size
+				buffer.resize(pGetInfoTip->cchTextMax);
 
 				// Retrieve the property value that will appear in the tool tip
-				ListView_GetItemText(m_list, pGetInfoTip->iItem, 1, &buf[0], sizeof(buf) / sizeof(WCHAR));
+				ListView_GetItemText(m_list, pGetInfoTip->iItem, 1, &buffer[0], buffer.size());
 
 				// Copy the value into the buffer
-				_tcsncpy(pGetInfoTip->pszText, buf, sizeof(buf) / sizeof(WCHAR));
+				wcsncpy(pGetInfoTip->pszText, buffer.c_str(), buffer.length());
 			}
 		}
 		else if (code == LVN_COLUMNCLICK) 
 		{
 			// Respond to column click for sorting
-			NMLISTVIEW *pListView = (NMLISTVIEW *)lParam;
-
-			// Call sort
 			OnColumnClick((LPNMLISTVIEW)lParam);
 		}
 
