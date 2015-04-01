@@ -183,6 +183,9 @@ BEGIN
     IDS_RETARGET_SANDBOX_DESC 
                             "Point a Sandbox to a different project configuration"
     IDS_CREATE_SANDBOX_DESC "Create a new Sandbox"
+    IDS_PROP_NAME_COLUMN    "Property"
+    IDS_PROP_VALUE_COLUMN   "Value"
+    IDS_PROP_MEMBER_REV     "Member Revision"
 END
 
 STRINGTABLE
@@ -234,6 +237,19 @@ BEGIN
     IDS_RENAME_DESC         "Rename an existing project member"
     IDS_MOVE                "Move..."
     IDS_MOVE_DESC           "Move one or more project members between projects, or between directories in a single project"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PROP_WORKING_REV    "Working Revision"
+    IDS_PROP_SANDBOX_NAME   "Sandbox Name"
+    IDS_PROP_STATUS         "Status"
+    IDS_PROP_LOCK_NAME      "Lock Name"
+    IDS_PROP_LOCK_CPID      "Lock CP Id"
+    IDS_PROP_LOCK_TYPE      "Lock Type"
+    IDS_PROP_WORKING_CPID   "Working CP Id"
+    IDS_PROP_FILE_GROUP_NAME "File"
+    IDS_PROP_LOCK_GROUP_NAME "Lock"
 END
 
 #endif    // English (United States) resources

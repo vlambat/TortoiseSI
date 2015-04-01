@@ -20,68 +20,38 @@
 #pragma once
 #include "ShellUpdater.h"
 
-struct LockProperties {
-	std::wstring locker;
-	std::wstring lockcpid;
-	std::wstring locktype;
-};
-
-
-struct MemberProperties {
-
-	std::wstring memberRev;
-	std::wstring sandboxName;
-	std::wstring cpid;
-	std::wstring workRev;
-	std::wstring status;
-	std::vector<LockProperties> lockers;
-};
-
-
-/**
- * \ingroup TortoiseShell
- * Displays and updates all controls on the property page. The property
- * page itself is shown by explorer.
- */
+// Displays and updates all controls on the property page. The property
+// page itself is shown by explorer.
 class CSIPropertyPage
 {
 
 private:
-	bool IsPathAllowed(std::wstring folder){ return g_ShellCache.IsPathAllowed(folder); };
+	//bool IsPathAllowed(std::wstring folder){ return g_ShellCache.IsPathAllowed(folder); };
 
 public:
-	CSIPropertyPage(const std::vector<stdstring> &filenames);
+	CSIPropertyPage(const std::vector<stdstring> &filenames, FileStatusFlags flags);
 	virtual ~CSIPropertyPage();
 
-	/**
-	 * Sets the window handle.
-	 * \param hwnd the handle.
-	 */
+	// Sets the window handle.
 	virtual void SetHwnd(HWND hwnd);
-	/**
-	 * Callback function which receives the window messages of the
-	 * property page. See the Win32 API for PropertySheets for details.
-	 */
+	
+	// Callback function which receives the window messages of the
+	// property page. See the Win32 API for PropertySheets for details.
 	virtual BOOL PageProc(HWND hwnd, UINT uMessage, WPARAM wParam, LPARAM lParam);
 
-	const static UINT m_UpdateLastCommit;
-
 protected:
-	/**
-	 * Initializes the property page.
-	 */
+
+	HWND m_hwnd;
+	FileStatusFlags m_flags;
+	std::vector<stdstring> m_filenames;
+
+	int LogThread();
+
 	virtual void InitWorkfileView();
 	static void LogThreadEntry(void *param);
-	int LogThread();
-	void Time64ToTimeString(__time64_t time, TCHAR * buf, size_t buflen) const;
+
 	void PageProcOnCommand(WPARAM wParam);
-	void RunCommand(const tstring& command);
-	HWND m_hwnd;
-	std::vector<stdstring> filenames;
-	/**
-	 * Were executable, assumeValid or skip-worktree flags changes
-	 */
-	bool m_bChanged;
-	FileStatusFlags	getPathStatus(std::wstring path);
+	void SetSortIcon(HWND, int, int);
+	void OnColumnClick(LPNMLISTVIEW);
 };
 
