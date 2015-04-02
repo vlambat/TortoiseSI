@@ -25,6 +25,8 @@
 #include "ShellExt.h"
 #include "IntegrityActions.h"
 #include "StatusCache.h"
+#include "CreateProcessHelper.h"
+#include "PathUtils.h"
 
 // defaults are specified in ShellCache.h
 
@@ -332,6 +334,30 @@ std::vector<MenuInfo> menuInfo =
 			return selectedItems.size() == 1 &&
 				hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
 				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	menuSeperator,
+	{ MenuItem::SubmitCP, IDI_COMMIT, IDS_SUBMIT_CP, IDS_SUBMIT_CP_DESC,
+	    [](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring tortoiseSIProcPath = CPathUtils::GetAppDirectory(g_hmodThisDll) + L"TortoiseSIProc.exe";
+
+			// Leading space is required
+			std::wstring cmd = L" /command:sicommit /hwnd:";
+			TCHAR buf[30] = { 0 };
+			_stprintf_s(buf, _T("%p"), parentWindow);
+			cmd += buf;
+
+			if (CCreateProcessHelper::CreateProcessDetached(const_cast<TCHAR*>(tortoiseSIProcPath.c_str()), const_cast<TCHAR*>(cmd.c_str()))) {
+				// Process started
+				return;
+			}
+
+			MessageBox(parentWindow, CFormatMessageWrapper(), L"TortoiseSIProc launch failed", MB_OK | MB_ICONINFORMATION);
+		},
+		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return true;
 		}
 	},
 	menuSeperator,
@@ -644,8 +670,4 @@ std::vector<MenuInfo> menuInfo =
 				!hasFileStatus(selectedItemsStatus, FileStatus::Ignored);
 		}
 	},
-	
-	
-
-	
 };
