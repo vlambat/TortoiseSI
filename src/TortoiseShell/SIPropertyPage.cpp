@@ -621,13 +621,16 @@ STDMETHODIMP CShellExt::AddPages_Wrap(LPFNADDPROPSHEETPAGE lpfnAddPage, LPARAM l
 	HPROPSHEETPAGE hPage;
 	CSIPropertyPage *sheetpage = new (std::nothrow) CSIPropertyPage(selectedItems, flags);
 
+	// Name the tab the same as the context menu
+	std::wstring propTabTitle = getTortoiseSIString(IDS_MENU);
+
 	// Initialize the property page
 	psp.dwSize = sizeof (psp);
 	psp.dwFlags = PSP_USEREFPARENT | PSP_USETITLE | PSP_USEICONID | PSP_USECALLBACK;
 	psp.hInstance = g_hResInst;
 	psp.pszTemplate = MAKEINTRESOURCE(IDD_PROPPAGE);
 	psp.pszIcon = MAKEINTRESOURCE(IDI_APP);
-	psp.pszTitle = _T("SI");
+	psp.pszTitle = (LPWSTR)propTabTitle.c_str();
 	psp.pfnDlgProc = (DLGPROC) PageProc;
 	psp.lParam = (LPARAM) sheetpage;
 	psp.pfnCallback = PropPageCallbackProc;
