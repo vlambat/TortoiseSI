@@ -155,6 +155,9 @@ int CTortoiseSIProcApp::ExitInstance()
 
 	CWinAppEx::ExitInstance();
 
+	m_serverConnectionsCache = NULL;
+	m_integritySession = NULL;
+
 	if (m_bRetSuccess)
 		return 0;
 	return -1;
