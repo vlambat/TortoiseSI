@@ -225,6 +225,7 @@ void CSICommitDlg::OnBnClickedCreateCpButton()
 	std::wstring cpid;
 
 	// Launch the create cp view
+
 	if (IntegrityActions::launchCreateCPView(*(theApp.m_integritySession), cpid)) {
 
 		ClearChangePackageList();
@@ -258,16 +259,17 @@ void CSICommitDlg::OnBnClickedSubmitCpButton()
 	// Hide the tool tips
 	m_tooltips.Pop();
 
-	// Check client connection and connect if not connected
+	 //Check client connection and connect if not connected
 	if (!theApp.m_serverConnectionsCache->isOnline()) {
 		EventLog::writeInformation(L"SICommitDlg submit cp bailing out, unable to connect to server");
 		return;
 	}
 
+
 	// Get selected CP data
 	int idx = m_ctrlChangePackageComboBox.GetCurSel();
 	std::shared_ptr<IntegrityActions::ChangePackage> *cp = (std::shared_ptr<IntegrityActions::ChangePackage> *) m_ctrlChangePackageComboBox.GetItemDataPtr(idx);
-	
+
 	// Submit CP
 	if(IntegrityActions::submitCP(*(theApp.m_integritySession), (*cp)->getId())) {
 
@@ -297,14 +299,12 @@ void CSICommitDlg::OnBnClickedCancel()
 
 	ClearChangePackageList();
 
-	__super::OnCancel();
+	CResizableStandAloneDialog::OnCancel();
 }
 
 
 void CSICommitDlg::OnCbnSelchangeSubmitCpCombobox()
 {
-	// TODO: Add your control notification handler code here
-
 	// Retrieve data for dialog control
 	UpdateData();
 
