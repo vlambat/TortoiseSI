@@ -47,7 +47,9 @@ enum MenuItem {
 	CheckIn,
 	Revert,
 	Move,
-	Rename
+	Rename,
+
+	SubmitCP
 };
 
 struct MenuInfo
