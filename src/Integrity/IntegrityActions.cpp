@@ -364,7 +364,10 @@ namespace IntegrityActions {
 		command.addOption(L"fields", L"cpid,lockrecord,memberrev,workingrev");
 		command.addSelection(file);
 
-		std::unique_ptr<IntegrityResponse> response = session.execute(command);
+		// Wrap command with wf execute
+		IntegrityCommand wfCommand = initializeWFExecute(command);
+
+		std::unique_ptr<IntegrityResponse> response = session.execute(wfCommand);
 
 		if (response->getException() != NULL) {
 			logAnyExceptions(*response);
