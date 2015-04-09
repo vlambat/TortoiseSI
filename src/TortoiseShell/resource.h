@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by D:\git\TortoiseSI\src\Resources\TortoiseShellENG.rc
+// Used by D:\GitHub\TortoiseSI\src\Resources\TortoiseShellENG.rc
 //
 #define IDI_PULL                        5
 #define IDD_PROPPAGE                    107
@@ -139,7 +139,9 @@
 #define IDS_MENUBLAME                   203
 #define IDS_VIEW_WORKINGFILECHANGES_DESC 203
 #define IDS_STATUSEXTERNAL              204
+#define IDS_SUBMIT_CP                   204
 #define IDS_MENUDESCBLAME               205
+#define IDS_SUBMIT_CP_DESC              205
 #define IDS_MENUSVNFETCH                206
 #define IDS_MENUAPPLYPATCH              207
 #define IDS_MENUDESCCREATEPATCH         208
