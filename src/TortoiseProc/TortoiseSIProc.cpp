@@ -134,10 +134,10 @@ BOOL CTortoiseSIProcApp::InitInstance()
 
 	m_serverConnectionsCache = std::unique_ptr<ServerConnections>(new ServerConnections(*m_integritySession));
 
-	//if (!m_serverConnectionsCache->isOnline()) {
-	//	EventLog::writeInformation(L"TortoiseSIProcApp::InitInstance() bailing out, unable to connected to server");
-	//	return FALSE;
-	//}
+	if (!m_serverConnectionsCache->isOnline()) {
+		EventLog::writeInformation(L"TortoiseSIProcApp::InitInstance() bailing out, unable to connected to server");
+		return FALSE;
+	}
 
 	if (!ProcessCommandLine()) {
 		return FALSE;
