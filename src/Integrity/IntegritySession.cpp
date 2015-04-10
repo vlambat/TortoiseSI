@@ -20,6 +20,7 @@
 #include "stdafx.h"
 #include "IntegritySession.h"
 #include "IntegrityResponse.h"
+//#include "MessageBox.h"
 
 IntegritySession::IntegritySession()
 {
@@ -113,6 +114,8 @@ public:
 
 std::unique_ptr<IntegrityResponse> IntegritySession::execute(const IntegrityCommand& command) const
 {
+	static std::atomic<bool> bShowingDialog = false;
+
 	if (session != NULL) {
 		mksCmdRunner commandRunner;
 		NativeIntegrityCommand nativeIntegrityCommand(command);
@@ -121,6 +124,32 @@ std::unique_ptr<IntegrityResponse> IntegritySession::execute(const IntegrityComm
 
 		if (commandRunner != NULL) {
 			mksResponse response = mksCmdRunnerExecCmd(commandRunner, nativeIntegrityCommand.nativeCommand, NO_INTERIM);
+
+			if (response == NULL) {
+				mksrtn result = mksGetError();
+
+				if (result == MKS_API_COMMUNICATION_ERROR) {
+					if (bShowingDialog == false) {
+						TCHAR message[1024];
+						TCHAR caption[256];
+
+						// If there is another execute running, then only show one dialog
+						bShowingDialog.store(true);
+
+						//L"Could not communicate with client. Ensure you have a client running."
+						LoadString(GetModuleHandle(NULL), msgid, message, 1024);
+						
+						//L"TortoiseSI Client Communication Error"
+						LoadString(GetModuleHandle(NULL), captionid, caption, 256);
+
+						// SHMessageBoxCheckW records the mesage boxes that the user has chosen to suppress under the registry key
+						// HKCU/Software/Microsoft/Windows/CurrentVersion/Explorer/DontShowMeThisDialogAgain
+						SHMessageBoxCheckW(	NULL, message, caption, MB_OK | MB_ICONEXCLAMATION, 0, L"{4B96CADC-960F-428F-B370-E088F2B5D423}");
+												
+						bShowingDialog.store(false);
+					}
+				}
+			}
 
 			std::unique_ptr<IntegrityResponse> responseWrapper 
 				= std::unique_ptr<IntegrityResponse>(new IntegrityResponse(commandRunner, response, command));
