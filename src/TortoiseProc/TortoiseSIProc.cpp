@@ -123,12 +123,12 @@ BOOL CTortoiseSIProcApp::InitInstance()
 	int port = getIntegrationPort();
 
 	if (port > 0 && port <= std::numeric_limits<unsigned short>::max()) {
-		//EventLog::writeInformation(L"TortoiseSIProcApp connecting to Integrity client via localhost:" + std::to_wstring(port));
+		EventLog::writeInformation(L"TortoiseSIProcApp connecting to Integrity client via localhost:" + std::to_wstring(port));
 		m_integritySession = std::unique_ptr<IntegritySession>(new IntegritySession("localhost", port));
 
 	}
 	else {
-		//EventLog::writeInformation(L"TortoiseSIProcApp connecting to Integrity client via localintegration point");
+		EventLog::writeInformation(L"TortoiseSIProcApp connecting to Integrity client via localintegration point");
 		m_integritySession = std::unique_ptr<IntegritySession>(new IntegritySession());
 	}
 
