@@ -56,8 +56,9 @@ void IntegritySession::initAPI()
 IntegritySession::~IntegritySession()
 {
 	if (ip != NULL) {
-		mksReleaseIntegrationPoint(ip);
-		mksAPITerminate();
+		//mksReleaseIntegrationPoint(ip);
+		mksReleaseSession(session);
+		//mksAPITerminate();
 
 		ip = NULL;
 		session = NULL;

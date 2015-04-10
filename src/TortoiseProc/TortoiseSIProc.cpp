@@ -123,21 +123,21 @@ BOOL CTortoiseSIProcApp::InitInstance()
 	int port = getIntegrationPort();
 
 	if (port > 0 && port <= std::numeric_limits<unsigned short>::max()) {
-		//EventLog::writeInformation(L"TortoiseSIProcApp connecting to Integrity client via localhost:" + std::to_wstring(port));
+		EventLog::writeInformation(L"TortoiseSIProcApp connecting to Integrity client via localhost:" + std::to_wstring(port));
 		m_integritySession = std::unique_ptr<IntegritySession>(new IntegritySession("localhost", port));
 
 	}
 	else {
-		//EventLog::writeInformation(L"TortoiseSIProcApp connecting to Integrity client via localintegration point");
+		EventLog::writeInformation(L"TortoiseSIProcApp connecting to Integrity client via localintegration point");
 		m_integritySession = std::unique_ptr<IntegritySession>(new IntegritySession());
 	}
 
 	m_serverConnectionsCache = std::unique_ptr<ServerConnections>(new ServerConnections(*m_integritySession));
 
-	//if (!m_serverConnectionsCache->isOnline()) {
-	//	EventLog::writeInformation(L"TortoiseSIProcApp::InitInstance() bailing out, unable to connected to server");
-	//	return FALSE;
-	//}
+	if (!m_serverConnectionsCache->isOnline()) {
+		EventLog::writeInformation(L"TortoiseSIProcApp::InitInstance() bailing out, unable to connected to server");
+		return FALSE;
+	}
 
 	if (!ProcessCommandLine()) {
 		return FALSE;
