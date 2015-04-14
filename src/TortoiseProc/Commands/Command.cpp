@@ -22,7 +22,6 @@
 
 #include "AboutCommand.h"
 #include "SICommitCommand.h"
-#include "SettingsCommand.h"
 #include "HelpCommand.h"
 #include "MessageBox.h"
 #include "Git.h"
