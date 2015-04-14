@@ -20,7 +20,7 @@
 #include "stdafx.h"
 #include "IntegritySession.h"
 #include "IntegrityResponse.h"
-//#include "MessageBox.h"
+#include "..\\TortoiseShell\\resource.h"
 
 IntegritySession::IntegritySession()
 {
@@ -130,17 +130,14 @@ std::unique_ptr<IntegrityResponse> IntegritySession::execute(const IntegrityComm
 
 				if (result == MKS_API_COMMUNICATION_ERROR) {
 					if (bShowingDialog == false) {
-						TCHAR message[1024];
+						TCHAR message[256];
 						TCHAR caption[256];
 
 						// If there is another execute running, then only show one dialog
 						bShowingDialog.store(true);
 
-						//L"Could not communicate with client. Ensure you have a client running."
-						LoadString(GetModuleHandle(NULL), msgid, message, 1024);
-						
-						//L"TortoiseSI Client Communication Error"
-						LoadString(GetModuleHandle(NULL), captionid, caption, 256);
+						LoadString(GetModuleHandle(NULL), IDS_CLIENT_COMM_ERROR, message, 256);
+						LoadString(GetModuleHandle(NULL), IDS_CLIENT_COMM_TITLE, caption, 256);
 
 						// SHMessageBoxCheckW records the mesage boxes that the user has chosen to suppress under the registry key
 						// HKCU/Software/Microsoft/Windows/CurrentVersion/Explorer/DontShowMeThisDialogAgain
