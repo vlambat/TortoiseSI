@@ -43,6 +43,7 @@
 #include <set>
 #include <algorithm>
 #include <functional>
+#include <atomic>
 
 #include <vfw.h>
 #include <shlobj.h>

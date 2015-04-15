@@ -138,7 +138,6 @@
     <ClCompile Include="..\Utils\UnicodeUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
     <None Include="ShellExt.def" />
   </ItemGroup>
   <ItemGroup>

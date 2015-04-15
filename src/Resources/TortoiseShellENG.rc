@@ -241,6 +241,8 @@ BEGIN
     IDS_VIEW_WORKINGFILECHANGES_DESC "Launch the Working File Changes View"
     IDS_SUBMIT_CP           "Submit CP..."
     IDS_SUBMIT_CP_DESC      "Commit changes in a change package"
+    IDS_CLIENT_COMM_ERROR   "Could not communicate with Integrity client"
+    IDS_CLIENT_COMM_TITLE   "TortoiseSI Integrity Client Communication Error"
 END
 
 STRINGTABLE

@@ -143,7 +143,9 @@
 #define IDS_MENUDESCBLAME               205
 #define IDS_SUBMIT_CP_DESC              205
 #define IDS_MENUSVNFETCH                206
+#define IDS_CLIENT_COMM_ERROR           206
 #define IDS_MENUAPPLYPATCH              207
+#define IDS_CLIENT_COMM_TITLE           207
 #define IDS_MENUDESCCREATEPATCH         208
 #define IDS_MENUDESCAPPLYPATCH          209
 #define IDS_MENUDESCSVNFETCH            210

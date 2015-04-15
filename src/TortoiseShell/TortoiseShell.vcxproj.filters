@@ -113,7 +113,6 @@
     <None Include="ShellExt.def">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">

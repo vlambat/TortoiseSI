@@ -1194,9 +1194,6 @@
 #define IDC_COLOR_LINE2                 1547
 #define IDS_SETTINGS_DELCACHE           1547
 #define IDC_COLOR_LINE3                 1548
-#define IDC_LOGMINSIZE                  1548
-#define IDC_COLOR_LINE4                 1549
-#define IDC_SHOWADDEDOVERLAY            1549
 #define IDC_SHOWREADONLYOVERLAY         1550
 #define IDC_MSYSGIT_PATH                1550
 #define IDS_PROC_RENAME                 1550
