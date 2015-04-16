@@ -65,6 +65,7 @@
 	<?define GuidApproveShellComponents="FA1A0641-587F-4659-873B-B3C5CA8A2F96"?>
 	<?define GuidApproveShellComponents32="ADD033B6-CEEA-43F6-B3AC-F52C8C75ACEB"?>
 
+  <?define GuidTortoiseProc="8E2E8747-7B02-433F-BA0A-E7C0AC24F7A6"?>
 	<?define GuidTortoiseShell="0397C30C-148E-46AF-84C3-C9C4E4ED9E11"?>
 	<?define GuidTortoiseShell32="85689525-1F91-41C1-8D08-7901AC97DE4B"?>
 
