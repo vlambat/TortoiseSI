@@ -91,7 +91,8 @@
 	<?define GuidApproveShellComponents="1EE586D0-3E63-4A9D-9346-C3EF744CB5EE"?>
 
 	<?define GuidTortoiseShell="5E2E03DD-BCB0-4DC3-9B74-FED43E38D12B"?>
-
+  <?define GuidTortoiseProc="39750BC5-CF9F-4443-9FD9-332A0CF0FDCB"?>
+    
 	<?define GuidIconsClassic="DE85D104-2E11-4E05-89F2-E482B5966FF0"?>
 	<?define GuidIconsCVSClassic="AA5B3EA8-5215-4807-A31E-ED6775F7CF29"?>
 	<?define GuidIconsModern="639DFAFB-CFAA-4EBD-8A49-730337BFF48E"?>
