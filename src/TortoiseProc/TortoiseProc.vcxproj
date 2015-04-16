@@ -338,23 +338,9 @@
     <ResourceCompile Include="..\Resources\TortoiseProcENG.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ext\hunspell\hunspell.vcxproj">
-      <Project>{12e5b4ae-d7ef-4a57-a22d-6f9f9d8ce1fb}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ext\OGDF\ogdf.vcxproj">
-      <Project>{7801d1be-e2fe-476b-a4b4-5d27f387f479}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\ext\ResizableLib\ResizableLib.vcxproj">
       <Project>{4be529fb-c2f2-49f7-a897-054b955564cf}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ext\AsyncFramework\AsyncFramework.vcxproj">
-      <Project>{98e4e6d3-0ef6-4570-a29e-274dacf3b784}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ext\scintilla\win32\SciLexer.vcxproj">
-      <Project>{fbe04237-9c7b-4973-9c60-505975998b39}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
