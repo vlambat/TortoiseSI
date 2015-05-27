@@ -233,6 +233,7 @@
     <Image Include="..\Resources\graph-line.ico" />
     <Image Include="..\Resources\graph-pie.ico" />
     <Image Include="..\Resources\hook.ico" />
+    <Image Include="..\resources\icon1.ico" />
     <Image Include="..\Resources\iconset.ico" />
     <Image Include="..\Resources\ImportBackground.ico" />
     <Image Include="..\Resources\ImportPatchesBackground.ico" />
@@ -304,6 +305,7 @@
     <Image Include="..\Resources\showbranches.ico" />
     <Image Include="..\Resources\snippet.ico" />
     <Image Include="..\Resources\spell.ico" />
+    <Image Include="..\Resources\TortoiseSI.ico" />
     <Image Include="..\Resources\UpdateBackground.ico" />
     <Image Include="..\Resources\ssh.ico" />
     <Image Include="..\Resources\switch.ico" />
@@ -323,6 +325,8 @@
     <Image Include="..\Resources\up.ico" />
     <Image Include="..\Resources\update1.ico" />
     <Image Include="..\Resources\warning-general.ico" />
+    <Image Include="..\TortoiseSISetup\include\tortoise_128x.png" />
+    <Image Include="..\TortoiseSISetup\include\tortoise_48x.png" />
     <Image Include="..\TortoiseUDiff\TortoiseUDiff.ico" />
   </ItemGroup>
   <ItemGroup>
