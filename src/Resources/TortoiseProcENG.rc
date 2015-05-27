@@ -106,6 +106,7 @@ IDI_FILE                ICON                    "file.ico"
 IDI_CODE                ICON                    "code.ico"
 IDI_SNIPPET             ICON                    "snippet.ico"
 IDI_CERTCHECK           ICON                    "certcheck.ico"
+IDI_TORTOISESI          ICON                    "TortoiseSI.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -3251,25 +3252,6 @@ END
 #endif    // APSTUDIO_INVOKED
 
 #endif    // German (Switzerland) resources
-/////////////////////////////////////////////////////////////////////////////
-
-
-/////////////////////////////////////////////////////////////////////////////
-// English (Canada) resources
-
-#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENC)
-LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_CAN
-#pragma code_page(1252)
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Icon
-//
-
-// Icon with lowest ID value placed first to ensure application icon
-// remains consistent on all systems.
-IDI_TORTOISE_SI         ICON                    "D:\\Project\\TortoiseSI\\src\\Resources\\TortoiseSI.ico"
-#endif    // English (Canada) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
