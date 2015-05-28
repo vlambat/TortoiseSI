@@ -457,7 +457,6 @@ namespace IntegrityActions {
 	std::vector<std::shared_ptr<IntegrityActions::ChangePackage> *> getChangePackageList(const IntegritySession& session) {
 		std::vector<std::shared_ptr<IntegrityActions::ChangePackage> *> cps;
 		IntegrityCommand command(L"si", L"viewcps");
-		command.addOption(L"filter", L"state:open");
 		command.addOption(L"fields", L"id,summary,description,cptype,creationdate,issue");
 
 		std::unique_ptr<IntegrityResponse> response = session.execute(command);
