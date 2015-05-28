@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by D:\GitHub\TortoiseSI\src\Resources\TortoiseProcENG.rc
+// Used by D:\Project\TortoiseSI\src\Resources\TortoiseProcENG.rc
 //
 #define IDR_MAINFRAME                   1
 #define IDD_SETTINGSPROXY               102
@@ -84,6 +84,7 @@
 #define IDC_PANCURDOWN                  251
 #define IDC_RENINFOLABEL                252
 #define IDI_TORTOISEBLAME               252
+#define IDI_TORTOISE                    253
 #define IDR_ACC_LOGDLG                  254
 #define IDI_ADD_BKG                     255
 #define IDI_RESOLVE_BKG                 256
@@ -170,6 +171,8 @@
 #define IDI_CERTCHECK                   355
 #define IDI_TORTOISEUDIFF               356
 #define IDD_SETTINGSUDIFF               357
+#define IDI_ICON1                       368
+#define IDI_TORTOISESI                  365
 #define IDS_CHSTAT_FILECOL              1000
 #define IDS_CHSTAT_WCCOL                1001
 #define IDS_CHSTAT_REPOCOL              1002
@@ -2003,7 +2006,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        361
+#define _APS_NEXT_RESOURCE_VALUE        370
 #define _APS_NEXT_COMMAND_VALUE         32878
 #define _APS_NEXT_CONTROL_VALUE         1835
 #define _APS_NEXT_SYMED_VALUE           201

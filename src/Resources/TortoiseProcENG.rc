@@ -106,6 +106,7 @@ IDI_FILE                ICON                    "file.ico"
 IDI_CODE                ICON                    "code.ico"
 IDI_SNIPPET             ICON                    "snippet.ico"
 IDI_CERTCHECK           ICON                    "certcheck.ico"
+IDI_TORTOISESI          ICON                    "TortoiseSI.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //

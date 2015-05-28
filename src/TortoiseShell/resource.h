@@ -229,6 +229,7 @@
 #define IDS_MENUDELETEIGNORE            353
 #define IDS_MENUDESCDELETEIGNORE        354
 #define IDS_MENUCOMMITSUBMODULE         355
+#define IDI_TORTOISESI                  365
 #define IDI_REVISIONGRAPH               366
 #define IDS_MENUREVISIONGRAPH           367
 #define IDS_MENUDESCREVISIONGRAPH       368
