@@ -84,7 +84,6 @@
 #define IDC_PANCURDOWN                  251
 #define IDC_RENINFOLABEL                252
 #define IDI_TORTOISEBLAME               252
-#define IDI_TORTOISE                    253
 #define IDR_ACC_LOGDLG                  254
 #define IDI_ADD_BKG                     255
 #define IDI_RESOLVE_BKG                 256
@@ -171,7 +170,6 @@
 #define IDI_CERTCHECK                   355
 #define IDI_TORTOISEUDIFF               356
 #define IDD_SETTINGSUDIFF               357
-#define IDI_ICON1                       368
 #define IDI_TORTOISESI                  365
 #define IDS_CHSTAT_FILECOL              1000
 #define IDS_CHSTAT_WCCOL                1001
