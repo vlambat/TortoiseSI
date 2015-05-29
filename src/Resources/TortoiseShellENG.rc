@@ -239,7 +239,7 @@ BEGIN
     IDS_MOVE_DESC           "Move one or more project members between projects, or between directories in a single project"
     IDS_VIEW_WORKINGFILECHANGES "View Working File Changes"
     IDS_VIEW_WORKINGFILECHANGES_DESC "Launch the Working File Changes View"
-    IDS_SUBMIT_CP           "Submit CP..."
+    IDS_SUBMIT_CP           "Submit Changes..."
     IDS_SUBMIT_CP_DESC      "Commit changes in a change package"
     IDS_CLIENT_COMM_ERROR   "Could not communicate with Integrity client"
     IDS_CLIENT_COMM_TITLE   "TortoiseSI Integrity Client Communication Error"
