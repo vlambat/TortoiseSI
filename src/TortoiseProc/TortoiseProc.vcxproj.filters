@@ -833,9 +833,6 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\TortoiseSISetup\include\tortoise_128x.png" />
-    <Image Include="..\resources\icon1.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="..\TortoiseSISetup\include\tortoise_48x.png" />
     <Image Include="..\Resources\TortoiseSI.ico">
       <Filter>Resource Files</Filter>
