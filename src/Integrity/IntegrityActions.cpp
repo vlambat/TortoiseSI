@@ -443,6 +443,8 @@ namespace IntegrityActions {
 			while (token != NULL) {
 				filterContents.push_back(token);
 				token = wcstok(NULL, L",");
+
+
 			}
 		}
 
