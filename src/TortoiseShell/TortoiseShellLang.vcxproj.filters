@@ -179,6 +179,168 @@
     <Image Include="..\Resources\warning-general.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\Resources\update1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\TortoiseSI.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menucheckout.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menuupdate.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menucommit.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menuadd.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menurevert.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menucleanup.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menuresolve.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menuswitch.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menumerge.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menuimport.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menuexport.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menucopy.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menudelete.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menurename.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menucompare.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menulog.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menuabout.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menusettings.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menucreaterepos.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menuconflict.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menurelocate.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menuhelp.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menushowchanged.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menuignore.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menurepobrowse.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menublame.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menupatch.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menudiff.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\tsvnmenufile.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\tsimenufolder.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\tsvnmenulink.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\tsvnmenumultiple.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menuproperties.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\TortoiseSmall.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\clippaste.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\Push.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\checkout.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\Tag.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menurebase.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menucombine.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menuskip.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menusquash.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menuedit.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menupick.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menusync.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\copy.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\thumb_down.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\thumb_up.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menurevisiongraph.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menudaemon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menumergeabort.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\menusendmail.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\pan.cur">
