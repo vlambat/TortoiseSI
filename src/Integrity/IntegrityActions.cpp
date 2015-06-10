@@ -750,12 +750,6 @@ namespace IntegrityActions {
 
 				logAnyExceptions(*response);
 
-				if (response->getResponse() == NULL) {
-					int exitCode = response->getExitCode();
-					if (exitCode != 0) {
-						MessageBox(NULL, _T("Error"), _T("Error"), MB_OK);
-					}
-				}
 
 				if (onDone != nullptr) {
 					onDone();
@@ -763,7 +757,6 @@ namespace IntegrityActions {
 			}
 			catch (std::exception)
 			{
-				MessageBox(NULL, _T("Error"), _T("Error"), MB_OK);
 			}
 		}, command, onDone);
 	}
