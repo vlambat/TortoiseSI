@@ -236,6 +236,7 @@ namespace IntegrityActions {
 	void launchPreferencesView(const IntegritySession& session);
 	void launchIntegrityGUI(const IntegritySession& session);
 	bool launchCreateCPView(const IntegritySession& session, std::wstring& cpid );
+	void viewMyChangePackages(const IntegritySession& session, std::wstring path);
 
 	void lockFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone);
 	void unlockFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone);
