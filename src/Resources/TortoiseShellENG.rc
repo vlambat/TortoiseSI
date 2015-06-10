@@ -258,6 +258,13 @@ BEGIN
     IDS_PROP_LOCK_GROUP_NAME "Lock"
 END
 
+STRINGTABLE
+BEGIN
+    IDS_VIEW_CHANGEPACKAGES "View My Change Package"
+    IDS_VIEW_CHANGEPACKAGES_DESC 
+                            "View All Active Change Packages of the Current User "
+END
+
 #endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 

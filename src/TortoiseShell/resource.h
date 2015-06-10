@@ -257,6 +257,8 @@
 #define IDS_PROP_WORKING_CPID           390
 #define IDS_PROP_FILE_GROUP_NAME        391
 #define IDS_PROP_LOCK_GROUP_NAME        392
+#define IDS_VIEW_CHANGEPACKAGES         999
+#define IDS_VIEW_CHANGEPACKAGES_DESC    1000
 #define IDC_REVISION                    1001
 #define IDC_HEAD_HASH                   1001
 #define IDC_LAST_HASH                   1002

@@ -36,7 +36,8 @@ enum MenuItem {
 	RetargetSandbox,
 
 	ViewHistory,
-	ViewAnnotatedRevision,
+	ViewMyChangePackages,
+	ViewAnnotatedRevision, 
 	ViewMemberInfo,
 	LocalChangesDiff,
 
