@@ -42,6 +42,14 @@ namespace IntegrityActions {
 
 		executeUserCommand(session, command, nullptr);
 	}
+	void viewMyChangePackages(const IntegritySession& session, std::wstring path)
+	{
+		IntegrityCommand command(L"si", L"viewcps");
+		command.addOption(L"g");
+		command.addOption(L"fields", L"id,summary,description,cptype,creationdate,issue");
+		
+		executeUserCommand(session, command, nullptr);
+	}
 
 	void createSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone)
 	{
@@ -414,7 +422,7 @@ namespace IntegrityActions {
 	*  Retrieve current excludeFilter contents using 'viewprefs' command
 	*/
 	std::vector<std::wstring> getExcludeFilterContents(const IntegritySession& session) {
-		
+
 		std::vector<std::wstring> filterContents;
 		IntegrityCommand command(L"si", L"viewprefs");
 		command.addOption(L"command", L"viewnonmembers");
@@ -443,13 +451,10 @@ namespace IntegrityActions {
 			while (token != NULL) {
 				filterContents.push_back(token);
 				token = wcstok(NULL, L",");
-
-
 			}
 		}
 
 		return filterContents;
-
 
 	}
 
@@ -460,6 +465,7 @@ namespace IntegrityActions {
 		std::vector<std::shared_ptr<IntegrityActions::ChangePackage> *> cps;
 		IntegrityCommand command(L"si", L"viewcps");
 		command.addOption(L"fields", L"id,summary,description,cptype,creationdate,issue");
+		
 
 		std::unique_ptr<IntegrityResponse> response = session.execute(command);
 
@@ -743,6 +749,7 @@ namespace IntegrityActions {
 				std::unique_ptr<IntegrityResponse> response = session.execute(command);
 
 				logAnyExceptions(*response);
+
 
 				if (onDone != nullptr) {
 					onDone();
