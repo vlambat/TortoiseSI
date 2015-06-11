@@ -232,7 +232,16 @@ std::vector<MenuInfo> menuInfo =
 		return true;
 	}
 	},
-
+	{ MenuItem::MergeConflicts, IDI_MERGE, IDS_MERGE_CONFLICTS, IDS_MERGE_CONFLICTS_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND)
+	{
+		IntegrityActions::mergeConflicts(getIntegritySession(), selectedItems.front());
+	},
+		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+	{
+		return true;
+	}
+	},
 	{ MenuItem::WorkingFileChangesView, IDI_SHOWCHANGED, IDS_VIEW_WORKINGFILECHANGES, IDS_VIEW_WORKINGFILECHANGES_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND)
 	{

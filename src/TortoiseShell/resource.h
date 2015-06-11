@@ -151,7 +151,9 @@
 #define IDS_MENUDESCAPPLYPATCH          209
 #define IDS_VIEW_MYREVIEWS_DESC         209
 #define IDS_MENUDESCSVNFETCH            210
+#define IDS_MERGE_CONFLICTS             210
 #define IDS_MENULOGSUBMODULE            211
+#define IDS_MERGE_CONFLICTS_DESC        211
 #define IDS_MENUUNDOADD                 212
 #define IDS_MENUDESCUNDOADD             213
 #define IDS_MENUPREVDIFF                214
