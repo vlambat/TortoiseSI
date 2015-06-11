@@ -265,6 +265,14 @@ BEGIN
                             "View All Active Change Packages of the Current User "
 END
 
+STRINGTABLE
+BEGIN
+    IDS_VIEW_MYREVIEWS      "View My Reviews"
+    IDS_VIEW_MYREVIEWS_DESC "Views all the Change PAckages Reviews of that User"
+    IDS_MERGE_CONFLICTS     "Merge Conflicts"
+    IDS_MERGE_CONFLICTS_DESC "Menu to Resolve Merge Conflicts"
+END
+
 #endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 

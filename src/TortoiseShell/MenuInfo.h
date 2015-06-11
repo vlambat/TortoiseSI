@@ -25,6 +25,9 @@ enum MenuItem {
 	WorkingFileChangesView,
 	ViewSandbox,
 	CreateSandbox,
+	ViewMyChangePackages,
+	ViewMyReviews,
+	MergeConflicts,
 
 	IgnoreSubMenu,
 	UnIgnoreSubMenu,
@@ -36,7 +39,6 @@ enum MenuItem {
 	RetargetSandbox,
 
 	ViewHistory,
-	ViewMyChangePackages,
 	ViewAnnotatedRevision, 
 	ViewMemberInfo,
 	LocalChangesDiff,

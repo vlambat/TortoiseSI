@@ -194,24 +194,6 @@ std::vector<MenuInfo> menuInfo =
 			hasFileStatus(selectedItemsStatus, FileStatus::Member);
 	}
 	},
-
-	{ MenuItem::ViewMyChangePackages,
-	IDI_REPOBROWSE, 
-	IDS_VIEW_CHANGEPACKAGES, 
-	IDS_VIEW_CHANGEPACKAGES_DESC,
-	[](const std::vector<std::wstring>& selectedItems, HWND)
-	{
-		IntegrityActions::viewMyChangePackages(getIntegritySession(), selectedItems.front());
-	},
-		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
-	{
-		return true;
-		/*return selectedItems.size() == 1 &&
-			hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
-			hasFileStatus(selectedItemsStatus, FileStatus::Member);*/
-	}
-	},
-
 	{ MenuItem::CreateSandbox, IDI_CREATEREPOS, IDS_CREATE_SANDBOX, IDS_CREATE_SANDBOX_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
 	{
@@ -228,6 +210,36 @@ std::vector<MenuInfo> menuInfo =
 		return selectedItems.size() == 1 &&
 			hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
 			!hasFileStatus(selectedItemsStatus, FileStatus::Member);
+	}
+	},
+	{ MenuItem::ViewMyChangePackages, IDI_REPOBROWSE, IDS_VIEW_CHANGEPACKAGES, IDS_VIEW_CHANGEPACKAGES_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND)
+	{
+		IntegrityActions::viewMyChangePackages(getIntegritySession(), selectedItems.front());
+	},
+		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+	{
+		return true;
+	}
+	},
+	{ MenuItem::ViewMyReviews, IDI_REPOBROWSE, IDS_VIEW_MYREVIEWS, IDS_VIEW_MYREVIEWS_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND)
+	{
+		IntegrityActions::viewMyReviews(getIntegritySession(), selectedItems.front());
+	},
+		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+	{
+		return true;
+	}
+	},
+	{ MenuItem::MergeConflicts, IDI_MERGE, IDS_MERGE_CONFLICTS, IDS_MERGE_CONFLICTS_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND)
+	{
+		IntegrityActions::mergeConflicts(getIntegritySession(), selectedItems.front());
+	},
+		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+	{
+		return true;
 	}
 	},
 	{ MenuItem::WorkingFileChangesView, IDI_SHOWCHANGED, IDS_VIEW_WORKINGFILECHANGES, IDS_VIEW_WORKINGFILECHANGES_DESC,

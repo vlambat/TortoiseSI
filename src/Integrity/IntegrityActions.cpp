@@ -51,6 +51,23 @@ namespace IntegrityActions {
 		executeUserCommand(session, command, nullptr);
 	}
 
+	void viewMyReviews(const IntegritySession& session, std::wstring path)
+	{
+		IntegrityCommand command(L"si", L"viewcps");
+		command.addOption(L"g");
+		command.addOption(L"myReviews");
+
+		executeUserCommand(session, command, nullptr);
+	}
+
+	void mergeConflicts(const IntegritySession& session, std::wstring path)
+	{
+		IntegrityCommand command(L"si", L"merge");
+		command.addOption(L"g");
+
+		executeUserCommand(session, command, nullptr);
+	}
+
 	void createSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone)
 	{
 		IntegrityCommand command(L"si", L"createsandbox");

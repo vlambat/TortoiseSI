@@ -147,9 +147,13 @@
 #define IDS_MENUAPPLYPATCH              207
 #define IDS_CLIENT_COMM_TITLE           207
 #define IDS_MENUDESCCREATEPATCH         208
+#define IDS_VIEW_MYREVIEWS              208
 #define IDS_MENUDESCAPPLYPATCH          209
+#define IDS_VIEW_MYREVIEWS_DESC         209
 #define IDS_MENUDESCSVNFETCH            210
+#define IDS_MERGE_CONFLICTS             210
 #define IDS_MENULOGSUBMODULE            211
+#define IDS_MERGE_CONFLICTS_DESC        211
 #define IDS_MENUUNDOADD                 212
 #define IDS_MENUDESCUNDOADD             213
 #define IDS_MENUPREVDIFF                214
