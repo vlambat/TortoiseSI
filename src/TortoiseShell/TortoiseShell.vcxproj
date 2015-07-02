@@ -181,6 +181,7 @@
     <Image Include="..\Resources\checkout.ico" />
     <Image Include="..\Resources\clippaste.ico" />
     <Image Include="..\Resources\copy.ico" />
+    <Image Include="..\Resources\icon1.ico" />
     <Image Include="..\Resources\menuabout.ico" />
     <Image Include="..\Resources\menuadd.ico" />
     <Image Include="..\Resources\menublame.ico" />
