@@ -38,7 +38,7 @@ template <typename BaseType> class CStandAloneDialogTmpl : public BaseType
 protected:
 	CStandAloneDialogTmpl(UINT nIDTemplate, CWnd* pParentWnd = NULL) : BaseType(nIDTemplate, pParentWnd)
 	{
-		m_hIcon = AfxGetApp()->LoadIcon(IDI_TORTOISESI);
+		m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	}
 	virtual BOOL OnInitDialog()
 	{
