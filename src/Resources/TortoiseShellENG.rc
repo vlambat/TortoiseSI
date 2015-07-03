@@ -260,7 +260,7 @@ END
 
 STRINGTABLE
 BEGIN
-    IDS_VIEW_CHANGEPACKAGES "View My Change Package"
+    IDS_VIEW_CHANGEPACKAGES "View My Change Packages"
     IDS_VIEW_CHANGEPACKAGES_DESC 
                             "View All Active Change Packages of the Current User "
 END

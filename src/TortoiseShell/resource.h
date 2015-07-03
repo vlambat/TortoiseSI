@@ -155,6 +155,7 @@
 #define IDS_MENULOGSUBMODULE            211
 #define IDS_MERGE_CONFLICTS_DESC        211
 #define IDS_MENUUNDOADD                 212
+#define IDS_REMOVE_FILTER               212
 #define IDS_MENUDESCUNDOADD             213
 #define IDS_MENUPREVDIFF                214
 #define IDS_MENUDESCPREVDIFF            215
@@ -233,7 +234,6 @@
 #define IDS_MENUDELETEIGNORE            353
 #define IDS_MENUDESCDELETEIGNORE        354
 #define IDS_MENUCOMMITSUBMODULE         355
-#define IDI_TORTOISESI                  365
 #define IDI_REVISIONGRAPH               366
 #define IDS_MENUREVISIONGRAPH           367
 #define IDS_MENUDESCREVISIONGRAPH       368
@@ -345,7 +345,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        5184
+#define _APS_NEXT_RESOURCE_VALUE        5186
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         11034
 #define _APS_NEXT_SYMED_VALUE           5101
