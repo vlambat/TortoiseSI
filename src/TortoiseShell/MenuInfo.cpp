@@ -240,7 +240,10 @@ std::vector<MenuInfo> menuInfo =
 	},
 		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
 	{
-		return true;	
+		return selectedItems.size() == 1 &&
+			hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+			hasFileStatus(selectedItemsStatus, FileStatus::Member) &&
+			hasFileStatus(selectedItemsStatus, FileStatus::MergeNeeded);
 	}
 	},
 	{ MenuItem::WorkingFileChangesView, IDI_SHOWCHANGED, IDS_VIEW_WORKINGFILECHANGES, IDS_VIEW_WORKINGFILECHANGES_DESC,
