@@ -63,7 +63,9 @@ namespace IntegrityActions {
 	void mergeConflicts(const IntegritySession& session, std::wstring path)
 	{
 		IntegrityCommand command(L"si", L"merge");
+		command.addOption(L"cwd", path);
 		command.addOption(L"g");
+		command.addSelection(path);
 
 		executeUserCommand(session, command, nullptr);
 	}
@@ -249,7 +251,7 @@ namespace IntegrityActions {
 	void setExcludeFileFilter(const IntegritySession& session, std::vector<std::wstring> patterns, std::function<void()> onDone)
 	{
 		IntegrityCommand command(L"si", L"setprefs");
-		command.addOption(L"command",L"viewnonmembers");
+		command.addOption(L"command", L"viewnonmembers");
 
 		std::wstring patternString;
 		if (!patterns.empty()) {
@@ -266,6 +268,7 @@ namespace IntegrityActions {
 
 		executeUserCommand(session, command, onDone);
 	}
+
 
 	// get status flags for a set of files...
 	FileStatusFlags fileInfo(const IntegritySession& session, const std::wstring& file) 
