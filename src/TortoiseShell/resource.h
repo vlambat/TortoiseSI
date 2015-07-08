@@ -155,8 +155,9 @@
 #define IDS_MENULOGSUBMODULE            211
 #define IDS_MERGE_CONFLICTS_DESC        211
 #define IDS_MENUUNDOADD                 212
-#define IDS_REMOVE_FILTER               212
+#define IDS_REMOVE_SUBMENU              212
 #define IDS_MENUDESCUNDOADD             213
+#define IDS_REMOVE_SUBMENU_DESC         213
 #define IDS_MENUPREVDIFF                214
 #define IDS_MENUDESCPREVDIFF            215
 #define IDS_MENUDAEMON                  216

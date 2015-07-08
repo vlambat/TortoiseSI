@@ -154,7 +154,6 @@ std::wstring getTopLevelSandbox(std::wstring path, HWND parentWindow) {
 */
 void updateExcludeFileFilter(const std::vector<std::wstring>& selectedItems, const std::wstring newExclude) {
 	// assume newExclude of the form "filename.extension" or "*.extension" 
-
 	if (selectedItems.empty()) {
 		EventLog::writeDebug(L"selected items list empty for ignore operations");
 		return;
@@ -168,13 +167,18 @@ void updateExcludeFileFilter(const std::vector<std::wstring>& selectedItems, con
 	// retrieve current exclude contents
 	std::vector<std::wstring> excludeContents = IntegrityActions::getExcludeFilterContents(getIntegritySession());
 
-	// append it to this list, error check for duplicates
+	// append it to this list
 	std::wstring newExcludeOption = L"file:" + newExclude;
-	if (std::find(excludeContents.begin(), excludeContents.end(), newExcludeOption) != excludeContents.end()) {
-		EventLog::writeDebug(L"Already contains pattern " + newExcludeOption);
-		return;
+
+	//Remove elements from the exclude Filter	
+	std::vector<std::wstring>::iterator it;
+	it = std::find(excludeContents.begin(), excludeContents.end(), newExcludeOption);
+	if (it != excludeContents.end()) {
+		excludeContents.erase(it);
 	}
-	excludeContents.push_back(newExcludeOption);
+	//Adding elements into the Exclude Filter
+	else
+		excludeContents.push_back(newExcludeOption);
 
 	// set prefs and refresh folder
 	IntegrityActions::setExcludeFileFilter(getIntegritySession(), excludeContents, [folder] { refreshFolder(folder); });
@@ -702,6 +706,16 @@ std::vector<MenuInfo> menuInfo =
 			return selectedItems.size() == 1 &&
 				hasFileStatus(selectedItemsStatus, FileStatus::File) && 
 				!hasFileStatus(selectedItemsStatus, FileStatus::Ignored);
+		}
+	},
+
+	{ MenuItem::UnIgnoreSubMenu, 0, IDS_REMOVE_SUBMENU, IDS_REMOVE_SUBMENU_DESC,
+	nullptr, // CShellExt::InsertIgnoreSubmenus define the actions associated with menu
+	[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Ignored);
 		}
 	},
 };
