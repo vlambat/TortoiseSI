@@ -199,7 +199,7 @@ END
 STRINGTABLE
 BEGIN
     IDS_ETC                 "..."
-    IDS_SHOWING_PARTIAL_RESULTS "Remove the Exclude Filter "
+    IDS_SHOWING_PARTIAL_RESULTS "(Showing %1!d! of %2!d! only)"
 END
 
 STRINGTABLE
