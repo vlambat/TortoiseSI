@@ -1,15 +1,16 @@
 # Translation of TortoiseSI
+# Copyright (C) 2008-2015 the TortoiseGit team
 # Copyright (C) 2008-2015 the TortoiseSI team
 #
 # This file is distributed under the same license as TortoiseSI
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: TortoiseGit\n"
+"Project-Id-Version: TortoiseSI\n"
 "Report-Msgid-Bugs-To: https://github.com/PTC-ALM/TortoiseSI/issues\n"
-"POT-Creation-Date: 1900-01-01 00:00+0000\n"
-"PO-Revision-Date: 2015-03-13 14:07-0500\n"
-"Last-Translator: Blaise Leskowsky <bleskowsky@ptc.com>\n"
+"POT-Creation-Date: 2015-07-23 11:54-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,6 +18,7 @@ msgstr ""
 "X-Generator: Poedit 1.7.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: de_DE\n"
+
 
 # msgid/msgstr fields for Accelerator keys
 # Format is: "ID:xxxxxx:VACS+X" where:
@@ -27,91 +29,295 @@ msgstr ""
 #    S = Shift key   (or blank if not used)
 #    X = upper case character
 # e.g. "V CS+Q" == Ctrl + Shift + 'Q'
+
 # ONLY Accelerator Keys with corresponding alphanumeric characters can be
 # updated i.e. function keys (F2), special keys (Delete, HoMe) etc. will not.
+
 # ONLY change the msgstr field. Do NOT change any other.
 # If you do not want to change an Accelerator Key, copy msgid to msgstr
-#. Resource IDs: (172)
-msgid "View Sandbox"
+
+#. Resource IDs: (690)
+#, c-format
+msgid "(Showing %1!d! of %2!d! only)"
 msgstr ""
 
-#. Resource IDs: (173)
+#. Resource IDs: (1002, 1003, 1021, 1022, 1036, 1089, 1104, 1324, 1333, 1382, 1383, 1384, 1474, 1483, 1484, 1541, 1542, 1551, 1583, 1584, 1664, 1672)
+msgid "..."
+msgstr ""
+
+#. Resource IDs: (12)
+msgid "Add non-members to sandbox"
+msgstr ""
+
+#. Resource IDs: (12)
+msgid "Add selected pattern to Non-Members View Exclude Filter"
+msgstr ""
+
+#. Resource IDs: (12)
+msgid "Add to exclude filter"
+msgstr ""
+
+#. Resource IDs: (209, 1279)
+msgid "Add..."
+msgstr ""
+
+#. Resource IDs: (12)
+msgid "Annotated Revision"
+msgstr ""
+
+#. Resource IDs: (11)
+msgid "Can't create Sandbox here because the following folder(s) already have a Sandbox:"
+msgstr ""
+
+#. Resource IDs: (12)
+msgid "Check In..."
+msgstr ""
+
+#. Resource IDs: (12)
+msgid "Check Out..."
+msgstr ""
+
+#. Resource IDs: (12)
+msgid "Check in members of a sandbox"
+msgstr ""
+
+#. Resource IDs: (12)
+msgid "Check out members into working files in a sandbox"
+msgstr ""
+
+#. Resource IDs: (13)
+msgid "Commit changes in a change package"
+msgstr ""
+
+#. Resource IDs: (13)
+msgid "Could not communicate with Integrity client"
+msgstr ""
+
+#. Resource IDs: (11)
 msgid "Create Sandbox"
 msgstr ""
 
-#. Resource IDs: (174)
-msgid "TortoiseSI"
-msgstr "[GERMAN] TortoiseSI"
-
-#. Resource IDs: (175)
-msgid ""
-"Can't create Sandbox here because the following folder(s) already have a "
-"Sandbox:"
-msgstr ""
-"[GERMAN] Can't create Sandbox here because the following folder(s) already "
-"have a Sandbox:"
-
-#. Resource IDs: (176)
-msgid "Add to exclude filter"
-msgstr "[GERMAN] Add to exclude filter"
-
-#. Resource IDs: (177)
-msgid "Add selected pattern to Non-Members View Exclude Filter"
-msgstr "[GERMAN] Add selected pattern to Non-Members View Exclude Filter"
-
-#. Resource IDs: (369)
-msgid "Loading..."
-msgstr "[GERMAN] Loading..."
-
-#. Resource IDs: (370)
-msgid "Resynchronize by Change Package"
-msgstr "[GERMAN] Resynchronize by Change Package"
-
-#. Resource IDs: (371)
-msgid "Resynchronize Entire Sandbox"
-msgstr "[GERMAN] Resynchronize Entire Sandbox"
-
-#. Resource IDs: (372)
-msgid "Drop Sandbox"
-msgstr "[GERMAN] Drop Sandbox"
-
-#. Resource IDs: (373)
-msgid "Retarget Sandbox"
-msgstr "[GERMAN] Retarget Sandbox"
-
-#. Resource IDs: (374)
-msgid "Multiple top level Sandboxes found:"
-msgstr "[GERMAN] Multiple top level Sandboxes found:"
-
-#. Resource IDs: (375)
-msgid "Displays the contents of a Sandbox"
-msgstr "[GERMAN] Displays the contents of a Sandbox"
-
-#. Resource IDs: (376)
-msgid "Resynchronize Sandbox member files by Change Package"
-msgstr "[GERMAN] Resynchronize Sandbox member files by Change Package"
-
-#. Resource IDs: (377)
-msgid "Resynchronize Sandbox member files"
-msgstr "[GERMAN] Resynchronize Sandbox member files"
-
-#. Resource IDs: (378)
-msgid "Unregister Sandbox from Integrity Client"
-msgstr "[GERMAN] Unregister Sandbox from Integrity Client"
-
-#. Resource IDs: (379)
-msgid "Point a Sandbox to a different project configuration"
-msgstr "[GERMAN] Point a Sandbox to a different project configuration"
-
-#. Resource IDs: (380)
+#. Resource IDs: (24)
 msgid "Create a new Sandbox"
-msgstr "[GERMAN] Create a new Sandbox"
+msgstr ""
 
-#. Resource IDs: (11032)
-msgid "..."
-msgstr "..."
+#. Resource IDs: (24)
+msgid "Displays the contents of a Sandbox"
+msgstr ""
 
-#. Resource IDs: (11033)
-#, c-format
-msgid "(Showing %1!d! of %2!d! only)"
-msgstr "[GERMAN] (Showing %1!d! of %2!d! only)"
+#. Resource IDs: (24)
+msgid "Drop Sandbox"
+msgstr ""
+
+#. Resource IDs: (13)
+msgid "Drop a member from a project"
+msgstr ""
+
+#. Resource IDs: (13)
+msgid "Drop..."
+msgstr ""
+
+#. Resource IDs: (63, 74, 77, 319, 1001)
+msgid "File"
+msgstr ""
+
+#. Resource IDs: (13)
+msgid "Launch the Working File Changes View"
+msgstr ""
+
+#. Resource IDs: (369,1379)
+msgid "Loading..."
+msgstr ""
+
+#. Resource IDs: (25)
+msgid "Lock"
+msgstr ""
+
+#. Resource IDs: (25)
+msgid "Lock CP Id"
+msgstr ""
+
+#. Resource IDs: (25)
+msgid "Lock Name"
+msgstr ""
+
+#. Resource IDs: (25)
+msgid "Lock Type"
+msgstr ""
+
+#. Resource IDs: (13)
+msgid "Lock project members"
+msgstr ""
+
+#. Resource IDs: (13)
+msgid "Lock..."
+msgstr ""
+
+#. Resource IDs: (12)
+msgid "Member Differences"
+msgstr ""
+
+#. Resource IDs: (12)
+msgid "Member History"
+msgstr ""
+
+#. Resource IDs: (12)
+msgid "Member Information"
+msgstr ""
+
+#. Resource IDs: (24)
+msgid "Member Revision"
+msgstr ""
+
+#. Resource IDs: (14)
+msgid "Menu to Resolve Merge Conflicts"
+msgstr ""
+
+#. Resource IDs: (14)
+msgid "Merge Conflicts"
+msgstr ""
+
+#. Resource IDs: (13)
+msgid "Move one or more project members between projects, or between directories in a single project"
+msgstr ""
+
+#. Resource IDs: (13)
+msgid "Move..."
+msgstr ""
+
+#. Resource IDs: (24)
+msgid "Multiple top level Sandboxes found:"
+msgstr ""
+
+#. Resource IDs: (13)
+msgid "Overwrite a sandbox file with a fresh copy of the working file, discarding changes"
+msgstr ""
+
+#. Resource IDs: (24)
+msgid "Point a Sandbox to a different project configuration"
+msgstr ""
+
+#. Resource IDs: (11)
+msgid "Property"
+msgstr ""
+
+#. Resource IDs: (107)
+msgid "Property Page"
+msgstr ""
+
+#. Resource IDs: (14)
+msgid "Remove from Exclude Filter"
+msgstr ""
+
+#. Resource IDs: (14)
+msgid "Removes selected pattern from Non-Members View Exclude Filter"
+msgstr ""
+
+#. Resource IDs: (13)
+msgid "Rename an existing project member"
+msgstr ""
+
+#. Resource IDs: (13)
+msgid "Rename..."
+msgstr ""
+
+#. Resource IDs: (24)
+msgid "Resynchronize Entire Sandbox"
+msgstr ""
+
+#. Resource IDs: (24)
+msgid "Resynchronize Sandbox member files"
+msgstr ""
+
+#. Resource IDs: (24)
+msgid "Resynchronize Sandbox member files by Change Package"
+msgstr ""
+
+#. Resource IDs: (24)
+msgid "Resynchronize by Change Package"
+msgstr ""
+
+#. Resource IDs: (24)
+msgid "Retarget Sandbox"
+msgstr ""
+
+#. Resource IDs: (13)
+msgid "Revert..."
+msgstr ""
+
+#. Resource IDs: (25)
+msgid "Sandbox Name"
+msgstr ""
+
+#. Resource IDs: (12)
+msgid "Show annotated revision view for selected member"
+msgstr ""
+
+#. Resource IDs: (12)
+msgid "Show member differences view for selected member"
+msgstr ""
+
+#. Resource IDs: (12)
+msgid "Show member history view for selected member"
+msgstr ""
+
+#. Resource IDs: (12)
+msgid "Show member information view for selected member"
+msgstr ""
+
+#. Resource IDs: (74, 77, 207)
+msgid "Status"
+msgstr ""
+
+#. Resource IDs: (13)
+msgid "Submit Changes..."
+msgstr ""
+
+#. Resource IDs: (11)
+msgid "TortoiseSI"
+msgstr ""
+
+#. Resource IDs: (13)
+msgid "TortoiseSI Integrity Client Communication Error"
+msgstr ""
+
+#. Resource IDs: (24)
+msgid "Unregister Sandbox from Integrity Client"
+msgstr ""
+
+#. Resource IDs: (11, 357)
+msgid "Value"
+msgstr ""
+
+#. Resource IDs: (63)
+msgid "View All Active Change Packages of the Current User "
+msgstr ""
+
+#. Resource IDs: (63)
+msgid "View My Change Packages"
+msgstr ""
+
+#. Resource IDs: (14)
+msgid "View My Reviews"
+msgstr ""
+
+#. Resource IDs: (11)
+msgid "View Sandbox"
+msgstr ""
+
+#. Resource IDs: (13)
+msgid "View Working File Changes"
+msgstr ""
+
+#. Resource IDs: (14)
+msgid "Views all the Change PAckages Reviews of that User"
+msgstr ""
+
+#. Resource IDs: (25)
+msgid "Working CP Id"
+msgstr ""
+
+#. Resource IDs: (25)
+msgid "Working Revision"
+msgstr ""
+
