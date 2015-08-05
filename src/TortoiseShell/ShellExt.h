@@ -90,6 +90,7 @@ private:
 	FileStatusFlags getItemsStatusForMenuAction();
 	void			InsertSIMenu(HMENU menu, UINT pos, UINT_PTR id, UINT idCmdFirst, MenuInfo& menuInfo);
 	bool			InsertIgnoreSubmenus(UINT &idCmd, UINT idCmdFirst, HMENU subMenu, int &indexSubMenu, MenuInfo &MenuInfo);
+	bool			InsertUnIgnoreSubmenus(UINT &idCmd, UINT idCmdFirst, HMENU subMenu, int &indexSubMenu, MenuInfo &MenuInfo);
 	void			TweakMenu(HMENU menu);
 	bool			IsIllegalFolder(std::wstring folder);
 	HRESULT			doesStatusMatch(FileStatusFlags fileStatusFlags);

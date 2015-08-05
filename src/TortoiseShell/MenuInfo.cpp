@@ -173,9 +173,8 @@ void updateExcludeFileFilter(const std::vector<std::wstring>& selectedItems, con
 	//Remove elements from the exclude Filter	
 	std::vector<std::wstring>::iterator it;
 	it = std::find(excludeContents.begin(), excludeContents.end(), newExcludeOption);
-	if (it != excludeContents.end()) {
+	if (it != excludeContents.end()) 
 		excludeContents.erase(it);
-	}
 	//Adding elements into the Exclude Filter
 	else
 		excludeContents.push_back(newExcludeOption);

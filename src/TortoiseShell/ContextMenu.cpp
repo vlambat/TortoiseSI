@@ -28,6 +28,7 @@
 #include "FormatMessageWrapper.h"
 #include "resource.h"
 #include "StatusCache.h"
+#include "IntegrityActions.h"
 
 #define GetPIDLFolder(pida) (LPCITEMIDLIST)(((LPBYTE)pida)+(pida)->aoffset[0])
 #define GetPIDLItem(pida, i) (LPCITEMIDLIST)(((LPBYTE)pida)+(pida)->aoffset[i+1])
@@ -36,6 +37,10 @@ int g_shellidlist=RegisterClipboardFormat(CFSTR_SHELLIDLIST);
 
 extern std::vector<MenuInfo> menuInfo;
 static int g_syncSeq = 0;
+
+static const IntegritySession& getIntegritySession() {
+	return IStatusCache::getInstance().getIntegritySession();
+}
 
 STDMETHODIMP CShellExt::Initialize(LPCITEMIDLIST pIDFolder,
                                    LPDATAOBJECT pDataObj,
@@ -275,13 +280,19 @@ STDMETHODIMP CShellExt::QueryContextMenu_Wrap(HMENU hMenu,
 					idCmd++;
 				}
 
-				// handle special cases (sub menus)
-				if ((menu.menuID == MenuItem::IgnoreSubMenu) || (menu.menuID == MenuItem::UnIgnoreSubMenu))
+				// handle special cases (sub menus) " || "
+				if (menu.menuID == MenuItem::IgnoreSubMenu)
 				{
 					if (InsertIgnoreSubmenus(idCmd, idCmdFirst, subMenu, indexSubMenu, menu))
 						bMenuEntryAdded = true;
 						bMenuEmpty = false;
+				}
 
+				else if (menu.menuID == MenuItem::UnIgnoreSubMenu) 
+				{
+					if (InsertUnIgnoreSubmenus(idCmd, idCmdFirst, subMenu, indexSubMenu, menu))
+						bMenuEntryAdded = true;
+						bMenuEmpty = false;
 				}
 				else
 				{
@@ -528,6 +539,7 @@ bool CShellExt::IsIllegalFolder(std::wstring folder)
 	return false;
 }
 
+//Decides what content to show in the "Add to Exclude Filter" Sub Menu
 bool CShellExt::InsertIgnoreSubmenus(UINT &idCmd, UINT idCmdFirst, HMENU subMenu, int &indexSubMenu, MenuInfo &menuInfo)
 {
 	std::wstring menutext = getTortoiseSIString(menuInfo.menuTextID);
@@ -611,6 +623,112 @@ bool CShellExt::InsertIgnoreSubmenus(UINT &idCmd, UINT idCmdFirst, HMENU subMenu
 	}
 
 	return bShowIgnoreMenu;
+}
+
+//Decides what content to show in the "Remove from Exclude Filter" Sub Menu
+bool CShellExt::InsertUnIgnoreSubmenus(UINT &idCmd, UINT idCmdFirst, HMENU subMenu, int &indexSubMenu, MenuInfo &menuInfo)
+{
+	std::wstring menutext = getTortoiseSIString(menuInfo.menuTextID);
+	std::vector<std::wstring> excludeContents = IntegrityActions::getExcludeFilterContents(getIntegritySession());
+
+	HMENU ignoresubmenu = NULL;
+	int indexignoresub = 0;
+	bool bShowUnIgnoreMenu = false;
+	TCHAR maskbuf[MAX_PATH] = { 0 };		// MAX_PATH is ok, since this only holds a filename
+	TCHAR ignorepath[MAX_PATH] = { 0 };		// MAX_PATH is ok, since this only holds a filename
+	std::vector<std::wstring>::iterator it1;
+	std::vector<std::wstring>::iterator it2;
+	stdstring verb;
+
+	if (selectedItems.empty())
+		return false;
+
+	UINT icon = IDI_IGNORE;
+
+	std::vector<stdstring>::iterator I = selectedItems.begin();
+	if (_tcsrchr(I->c_str(), '\\'))
+		_tcscpy_s(ignorepath, MAX_PATH, _tcsrchr(I->c_str(), '\\') + 1);
+	else
+		_tcscpy_s(ignorepath, MAX_PATH, I->c_str());
+
+	ignoresubmenu = CreateMenu();
+
+	/*This checks if the extension for the file is there in exclude filter or 
+	the selected file or both and only shows the relevant content on the submenu */
+	std::wstring newExcludeOption = L"file:" + stdstring(ignorepath);
+	it1 = std::find(excludeContents.begin(), excludeContents.end(), newExcludeOption);
+	if (it1 != excludeContents.end())
+	{
+		InsertMenu(ignoresubmenu, indexignoresub++, MF_BYPOSITION | MF_STRING, idCmd, ignorepath);
+		verb = stdstring(ignorepath);
+
+		// update the siCommand
+	menuInfo.siCommand = [verb](const std::vector<std::wstring>& selectedItems, HWND parentWindow) {
+		updateExcludeFileFilter(selectedItems, verb);
+		};
+	}
+
+	myVerbsMap[verb] = idCmd - idCmdFirst;
+	myVerbsMap[verb] = idCmd;
+	myVerbsIDMap[idCmd - idCmdFirst] = verb;
+	myVerbsIDMap[idCmd] = verb;
+	myIDMap[idCmd - idCmdFirst] = menuInfo;
+	myIDMap[idCmd++] = menuInfo;
+	bShowUnIgnoreMenu = true;
+
+	_tcscpy_s(maskbuf, MAX_PATH, _T("*"));
+	if (_tcsrchr(ignorepath, '.'))
+	{
+		_tcscat_s(maskbuf, MAX_PATH, _tcsrchr(ignorepath, '.'));
+
+		if (ignoresubmenu == NULL)
+			ignoresubmenu = CreateMenu();
+		
+		/*This checks if the extension for the file is there in exclude filter or 
+		the selected file or both and only shows the relevant content on the submenu */
+		std::wstring newExcludeOption = L"file:" + stdstring(maskbuf);
+		it2 = std::find(excludeContents.begin(), excludeContents.end(), newExcludeOption);
+		if (it2 != excludeContents.end())
+		{
+			InsertMenu(ignoresubmenu, indexignoresub++, MF_BYPOSITION | MF_STRING, idCmd, maskbuf);
+			verb = stdstring(maskbuf);
+
+			// re-update the siCommand
+			menuInfo.siCommand = [verb](const std::vector<std::wstring>& selectedItems, HWND parentWindow) {
+				updateExcludeFileFilter(selectedItems, verb);
+			};
+		}
+		myVerbsMap[verb] = idCmd - idCmdFirst;
+		myVerbsMap[verb] = idCmd;
+		myVerbsIDMap[idCmd - idCmdFirst] = verb;
+		myVerbsIDMap[idCmd] = verb;
+		myIDMap[idCmd - idCmdFirst] = menuInfo;
+		myIDMap[idCmd++] = menuInfo;
+		bShowUnIgnoreMenu = true;
+	}
+
+	if (bShowUnIgnoreMenu)
+	{
+		MENUITEMINFO menuiteminfo;
+		SecureZeroMemory(&menuiteminfo, sizeof(menuiteminfo));
+		menuiteminfo.cbSize = sizeof(menuiteminfo);
+		menuiteminfo.fMask = MIIM_FTYPE | MIIM_ID | MIIM_SUBMENU | MIIM_DATA | MIIM_STRING;
+		if (icon)
+		{
+			menuiteminfo.fMask |= MIIM_BITMAP;
+			menuiteminfo.hbmpItem = SysInfo::Instance().IsVistaOrLater() ? m_iconBitmapUtils.IconToBitmapPARGB32(g_hResInst, icon) : m_iconBitmapUtils.IconToBitmap(g_hResInst, icon);
+		}
+		menuiteminfo.fType = MFT_STRING;
+		menuiteminfo.dwTypeData = (LPWSTR)menutext.c_str();
+		menuiteminfo.hSubMenu = ignoresubmenu;
+		menuiteminfo.wID = idCmd;
+
+		InsertMenuItem(subMenu, indexSubMenu++, TRUE, &menuiteminfo);
+		myIDMap[idCmd - idCmdFirst] = menuInfo;
+		myIDMap[idCmd++] = menuInfo;
+	}
+
+	return bShowUnIgnoreMenu;
 }
 
 std::vector<std::wstring> CShellExt::getItemsForMenuAction()
