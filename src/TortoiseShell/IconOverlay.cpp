@@ -210,7 +210,9 @@ FileStatusFlags	CShellExt::getPathStatus(std::wstring path)
 		 if (g_lockedovlloaded && m_State == FileStateLockedOverlay) {
 			 return S_OK;
 		 }
-		 else if (!g_lockedovlloaded && m_State == FileStateVersioned) {
+		 else if (!g_lockedovlloaded && m_State == FileStateModified) {
+			 // the 'locked' overlay isn't available (due to lack of enough
+			 // overlay slots). So just show the 'modified' overlay instead.
 			 return S_OK;
 		 }
 		 else {
