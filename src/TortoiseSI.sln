@@ -1,7 +1,6 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40302.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TortoiseSISetup", "TortoiseSISetup", "{97449875-7B08-41B1-AF99-1EBE64AD7939}"
 EndProject
@@ -50,6 +49,8 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Lang_ja", "..\Languages\Lan
 	ProjectSection(ProjectDependencies) = postProject
 		{EC88E7EC-3074-4841-BA45-B938D098EFF6} = {EC88E7EC-3074-4841-BA45-B938D098EFF6}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TortoiseProcLang", "TortoiseProc\TortoiseProcLang.vcxproj", "{1B3C273E-6DDF-4FBE-BA31-F9F39C6DAC99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -141,6 +142,14 @@ Global
 		{2DA02430-FD59-4EE7-B8B1-E501FF390656}.Release|Win32.Build.0 = Release|x86
 		{2DA02430-FD59-4EE7-B8B1-E501FF390656}.Release|x64.ActiveCfg = Release|x64
 		{2DA02430-FD59-4EE7-B8B1-E501FF390656}.Release|x64.Build.0 = Release|x64
+		{1B3C273E-6DDF-4FBE-BA31-F9F39C6DAC99}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1B3C273E-6DDF-4FBE-BA31-F9F39C6DAC99}.Debug|Win32.Build.0 = Debug|Win32
+		{1B3C273E-6DDF-4FBE-BA31-F9F39C6DAC99}.Debug|x64.ActiveCfg = Debug|x64
+		{1B3C273E-6DDF-4FBE-BA31-F9F39C6DAC99}.Debug|x64.Build.0 = Debug|x64
+		{1B3C273E-6DDF-4FBE-BA31-F9F39C6DAC99}.Release|Win32.ActiveCfg = Release|Win32
+		{1B3C273E-6DDF-4FBE-BA31-F9F39C6DAC99}.Release|Win32.Build.0 = Release|Win32
+		{1B3C273E-6DDF-4FBE-BA31-F9F39C6DAC99}.Release|x64.ActiveCfg = Release|x64
+		{1B3C273E-6DDF-4FBE-BA31-F9F39C6DAC99}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -155,5 +164,6 @@ Global
 		{B0E79916-B2B5-464D-AB25-8269B0F40F4A} = {FB607AFD-DD1E-4C6D-8C34-BC00AF725037}
 		{913B23F9-1138-4D39-947C-EDC5A59D3719} = {FB607AFD-DD1E-4C6D-8C34-BC00AF725037}
 		{2DA02430-FD59-4EE7-B8B1-E501FF390656} = {FB607AFD-DD1E-4C6D-8C34-BC00AF725037}
+		{1B3C273E-6DDF-4FBE-BA31-F9F39C6DAC99} = {FB607AFD-DD1E-4C6D-8C34-BC00AF725037}
 	EndGlobalSection
 EndGlobal
