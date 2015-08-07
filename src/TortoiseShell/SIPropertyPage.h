@@ -53,5 +53,8 @@ protected:
 	void PageProcOnCommand(WPARAM wParam);
 	void SetSortIcon(HWND, int, int);
 	void OnColumnClick(LPNMLISTVIEW);
+
+	void initFileProperties(const stdstring path);
+	void initFolderProperties(const stdstring path);
 };
 

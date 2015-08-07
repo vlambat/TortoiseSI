@@ -193,12 +193,45 @@ namespace IntegrityActions {
 
 	};
 
+	class FolderProperties {
+
+		private:
+			time_t m_lastCheckpoint;
+			std::wstring m_developmentPath;
+			std::wstring m_sandboxName;
+			std::wstring m_projectName;
+			std::wstring m_serverName;
+			std::wstring m_serverPort;
+			std::wstring m_revision;
+
+		public:
+			FolderProperties() {};
+
+			time_t getLastCheckpoint() { return m_lastCheckpoint; }
+			std::wstring getDevelopmentPath() { return m_developmentPath; }
+			std::wstring getSandboxName() { return m_sandboxName; }
+			std::wstring getProjectName() { return m_projectName; }
+			std::wstring getServerName() { return m_serverName; }
+			std::wstring getServerPort() { return m_serverPort; }
+			std::wstring getRevision() { return m_revision; }
+
+			void setLastCheckpoint(time_t lastCheckpoint) { m_lastCheckpoint = lastCheckpoint; }
+			void setDevelopmentPath(std::wstring developmentPath) { m_developmentPath = developmentPath; }
+			void setSandboxName(std::wstring sandboxName) { m_sandboxName = sandboxName; }
+			void setProjectName(std::wstring projectName) { m_projectName = projectName; }
+			void setServerName(std::wstring serverName) { m_serverName = serverName; }
+			void setServerPort(std::wstring serverPort) { m_serverPort = serverPort; }
+			void setRevision(std::wstring revision) { m_revision = revision; }
+	};
 
 	// get status flags for a set of files...
 	FileStatusFlags fileInfo(const IntegritySession& session, const std::wstring& files);
 
 	// get member info
 	std::shared_ptr<IntegrityActions::MemberProperties> getMemberInfo(const IntegritySession& session, const std::wstring& file);
+
+	// get folder info
+	std::shared_ptr<IntegrityActions::FolderProperties> getFolderInfo(const IntegritySession& session, const std::wstring& folder);
 
 	// list of controlled folders (ie with a sandbox) 
 	std::vector<std::wstring> folders(const IntegritySession& session);
