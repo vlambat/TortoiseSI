@@ -256,6 +256,11 @@ BEGIN
     IDS_PROP_WORKING_CPID   "Working CP Id"
     IDS_PROP_FILE_GROUP_NAME "File"
     IDS_PROP_LOCK_GROUP_NAME "Lock"
+    IDS_PROP_FOLDER_GROUP_NAME "Folder"
+    IDS_PROP_DEVPATH        "Development Path"
+    IDS_PROP_PROJECT_NAME   "Project Name"
+    IDS_PROP_SERVER_NAME    "Server"
+    IDS_PROP_REVISION       "Checkpoint"
 END
 
 STRINGTABLE

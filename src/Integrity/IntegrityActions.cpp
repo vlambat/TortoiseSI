@@ -335,7 +335,7 @@ namespace IntegrityActions {
 
 		return sandboxName;
 	}
-	
+
 	/**
 	*  Retrieve a list of all sandboxes using the 'sandboxes' command
 	*/
@@ -400,7 +400,7 @@ namespace IntegrityActions {
 		if (response->getException() != NULL) {
 			logAnyExceptions(*response);
 			displayException(*response);
-			return memberProps;
+			return NULL;
 		}
 
 		// Retrieve property values and populate member prop object
@@ -436,6 +436,55 @@ namespace IntegrityActions {
 		memberProps->setSandboxName(getSandboxName(session, file));
 
 		return memberProps;
+	}
+
+	/**
+	* Retrieve folder properties to be displayed in the properties sheet
+	*/
+	std::shared_ptr<IntegrityActions::FolderProperties> getFolderInfo(const IntegritySession& session, const std::wstring& folder) {
+	
+		mksItem devPathItem = NULL;
+		mksItem revItem = NULL;
+
+		// Create folder properties object which will be populated with data
+		// and read when folder properties sheet is created
+		std::shared_ptr<IntegrityActions::FolderProperties> folderProps =
+			std::shared_ptr<IntegrityActions::FolderProperties>(new IntegrityActions::FolderProperties());
+
+		// Use sandboxinfo Integrity command to retrieve folder properties
+		IntegrityCommand command(L"si", L"sandboxinfo");
+		command.addOption(L"cwd", folder);
+
+		std::unique_ptr<IntegrityResponse> response = session.execute(command);
+
+		// Return NULL if there is a problem running the command
+		if (response->getException() != NULL) {
+			logAnyExceptions(*response);
+			displayException(*response);
+			return NULL;
+		}
+
+		// Retrieve data from Integrity response
+		for (mksWorkItem workItem : *response) {
+
+			// Populate folder properties object
+			folderProps->setProjectName(getStringFieldValue(workItem, L"projectName"));
+			folderProps->setSandboxName(getStringFieldValue(workItem, L"sandboxName"));
+			folderProps->setServerName(getStringFieldValue(workItem, L"server"));
+			folderProps->setServerPort(getStringFieldValue(workItem, L"serverPort"));
+			folderProps->setLastCheckpoint(getDateTimeFieldValue(workItem, L"lastCheckpoint"));
+
+			// Retrieve items from response
+			revItem = getItemFieldValue(workItem, L"revision");
+			devPathItem = getItemFieldValue(workItem, L"developmentPath");
+		}
+
+		// Populate folder properties with checkpoint and development path info
+		folderProps->setRevision(revItem ? getId(revItem) : _T(""));
+		folderProps->setDevelopmentPath(devPathItem ? getId(devPathItem) : _T(""));
+
+		// Populated folder properties object
+		return folderProps;
 	}
 
 	/**
