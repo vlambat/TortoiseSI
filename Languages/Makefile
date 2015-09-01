@@ -16,8 +16,7 @@
 
 RESTEXT		= $(outdir)ResText.exe
 APPLY		= apply
-LANGDLLS	=	$(outdir)TortoiseShell$(LANGID).dll \
-				$(outdir)TortoiseProc$(LANGID).dll
+LANGDLLS	=	$(outdir)TortoiseShell$(LANGID).dll 
 
 
 all: $(LANGDLLS)
@@ -26,7 +25,5 @@ clean:
 	del $(LANGDLLS)
 
 $(outdir)TortoiseShell$(LANGID).dll: Tortoise_$(ISO).po $(outdir)TortoiseShellLang.dll
-  $(RESTEXT) $(APPLY) $(outdir)TortoiseShellLang.dll $@ Tortoise_$(ISO).po 
+  $(RESTEXT) $(APPLY) $(outdir)TortoiseShellLang.dll $@ Tortoise_$(ISO).po
 
-$(outdir)TortoiseProc$(LANGID).dll: Tortoise_$(ISO).po $(outdir)TortoiseProcLang.dll
-  $(RESTEXT) $(APPLY) $(outdir)TortoiseProcLang.dll $@ Tortoise_$(ISO).po
