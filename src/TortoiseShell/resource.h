@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by D:\Project\TortoiseSI\src\Resources\TortoiseShellENG.rc
+// Used by D:\git\TortoiseSI\src\Resources\TortoiseShellENG.rc
 //
 #define IDI_PULL                        5
 #define IDD_PROPPAGE                    107
@@ -97,6 +97,11 @@
 #define IDS_PROP_WORKING_CPID           390
 #define IDS_PROP_FILE_GROUP_NAME        391
 #define IDS_PROP_LOCK_GROUP_NAME        392
+#define IDS_PROP_FOLDER_GROUP_NAME      393
+#define IDS_PROP_DEVPATH                394
+#define IDS_PROP_PROJECT_NAME           395
+#define IDS_PROP_SERVER_NAME            396
+#define IDS_PROP_REVISION               397
 #define IDS_VIEW_CHANGEPACKAGES         999
 #define IDS_VIEW_CHANGEPACKAGES_DESC    1000
 #define IDC_HEAD_HASH                   1001

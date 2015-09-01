@@ -279,13 +279,8 @@ void CSIPropertyPage::LogThreadEntry(void *param)
 
 void CSIPropertyPage::InitWorkfileView()
 {
-	int iItemIndex = 0;
-	int iGroupId = 100;
-
 	LVCOLUMN lvCol;
-	LVGROUP lvGroup;
-	LVITEM lvitem;
-	
+
 	// Return if no files found or multiple
 	if (m_filenames.empty() || m_filenames.size() != 1)
 		return;
@@ -302,6 +297,7 @@ void CSIPropertyPage::InitWorkfileView()
 	// Initialize columns appearing in list view
 	SecureZeroMemory(&lvCol, sizeof(LVCOLUMN));
 
+	// Set the column titles
 	std::wstring columnProp = getTortoiseSIString(IDS_PROP_NAME_COLUMN);
 	std::wstring valueProp = getTortoiseSIString(IDS_PROP_VALUE_COLUMN);
 
@@ -314,11 +310,189 @@ void CSIPropertyPage::InitWorkfileView()
 	lvCol.pszText = (LPWSTR)valueProp.c_str();
 	SendMessage(m_list, LVM_INSERTCOLUMN, 1, (LPARAM)&lvCol);
 
+	// Retrieve highlighted file name
+	const stdstring fileName = m_filenames.front();
+
+	// Check if folder or file properties should be displayed
+	if (PathIsDirectory(fileName.c_str())) {
+		initFolderProperties(fileName);
+	} 
+	else { 
+		initFileProperties(fileName);
+	}
+}
+
+
+/**
+*  Create and populate folder properties page
+*/
+void CSIPropertyPage::initFolderProperties(const stdstring folder)
+{
+	int iItemIndex = 0;
+	int iGroupId = 100;
+
+	LVGROUP lvGroup;
+	LVITEM lvitem;
+
+	// Retrieve file properties from Integrity
+	std::shared_ptr<IntegrityActions::FolderProperties> folderProp =
+		IntegrityActions::getFolderInfo(IStatusCache::getInstance().getIntegritySession(), folder.c_str());
+
+	// Can't retrieve properties
+	if (!folderProp) {
+		return;
+	}
+
+	// Extract properties to be displayed from properties object
+	time_t lastCheckpoint = folderProp->getLastCheckpoint();
+
+	std::wstring developmentPath = folderProp->getDevelopmentPath();
+	std::wstring projectName = folderProp->getProjectName();
+	std::wstring sandboxName = folderProp->getSandboxName();
+	std::wstring serverName = folderProp->getServerName();
+	std::wstring serverPort = folderProp->getServerPort();
+	std::wstring revision = folderProp->getRevision();
+
+	// Retrieve title for folder group displayed on properties page
+	std::wstring folderGrpName = getTortoiseSIString(IDS_PROP_FOLDER_GROUP_NAME);
+
+	SecureZeroMemory(&lvGroup, sizeof(LVGROUP));
+
+	// Insert group containing folder properties
+	lvGroup.cbSize = sizeof(LVGROUP);
+	lvGroup.mask = LVGF_HEADER | LVGF_GROUPID;
+	lvGroup.pszHeader = (LPWSTR)folderGrpName.c_str();
+	lvGroup.iGroupId = iGroupId;
+	SendMessage(m_list, LVM_INSERTGROUP, 0, (LPARAM)&lvGroup);
+
 	// Initialize entries in the list view
 	SecureZeroMemory(&lvitem, sizeof(LVITEM));
 
 	// Specify member functions that contain data
 	lvitem.mask = LVIF_TEXT | LVIF_GROUPID | LVIF_COLUMNS;
+
+	// Display devpath info
+	if (!developmentPath.empty()) {
+
+		// Retrieve property name to be displayed
+		std::wstring devPathPropName = getTortoiseSIString(IDS_PROP_DEVPATH);
+
+		// Create entry and add to list of properties
+		lvitem.iItem = iItemIndex;
+		lvitem.iGroupId = iGroupId;
+		lvitem.iSubItem = 0;
+		lvitem.pszText = (LPWSTR)devPathPropName.c_str();
+		SendMessage(m_list, LVM_INSERTITEM, 0, (LPARAM)&lvitem);
+		lvitem.iSubItem = 1;
+		lvitem.pszText = (LPWSTR)developmentPath.c_str();
+		SendMessage(m_list, LVM_SETITEMTEXT, iItemIndex++, (LPARAM)&lvitem);
+	}
+
+	// Display project name
+	if (!projectName.empty()) {
+
+		// Retrieve property name to be displayed
+		std::wstring projectNamePropName = getTortoiseSIString(IDS_PROP_PROJECT_NAME);
+
+		// Create entry and add to list of properties
+		lvitem.iItem = iItemIndex;
+		lvitem.iGroupId = iGroupId;
+		lvitem.iSubItem = 0;
+		lvitem.pszText = (LPWSTR)projectNamePropName.c_str();
+		SendMessage(m_list, LVM_INSERTITEM, 0, (LPARAM)&lvitem);
+		lvitem.iSubItem = 1;
+		lvitem.pszText = (LPWSTR)projectName.c_str();
+		SendMessage(m_list, LVM_SETITEMTEXT, iItemIndex++, (LPARAM)&lvitem);
+	}
+
+	// Display sandbox name
+	if (!sandboxName.empty()) {
+
+		// Retrieve property name to be displayed
+		std::wstring sandboxNamePropName = getTortoiseSIString(IDS_PROP_SANDBOX_NAME);
+
+		// Create entry and add to list of properties
+		lvitem.iItem = iItemIndex;
+		lvitem.iGroupId = iGroupId;
+		lvitem.iSubItem = 0;
+		lvitem.pszText = (LPWSTR)sandboxNamePropName.c_str();
+		SendMessage(m_list, LVM_INSERTITEM, 0, (LPARAM)&lvitem);
+		lvitem.iSubItem = 1;
+		lvitem.pszText = (LPWSTR)sandboxName.c_str();
+		SendMessage(m_list, LVM_SETITEMTEXT, iItemIndex++, (LPARAM)&lvitem);
+	}
+
+	// Display server name and port
+	if (!serverName.empty()) {
+
+		// Stores server and port info
+		std::wstring serverInfo;
+
+		// Retrieve property name to be displayed
+		std::wstring serverNamePropName = getTortoiseSIString(IDS_PROP_SERVER_NAME);
+
+		// Display as <server name>:<port number>
+		serverInfo += serverName;
+
+		// Add port number to server info
+		if (!serverPort.empty()) {
+			serverInfo += _T(":");
+			serverInfo += serverPort;
+		}
+
+		// Create entry and add to list of properties
+		lvitem.iItem = iItemIndex;
+		lvitem.iGroupId = iGroupId;
+		lvitem.iSubItem = 0;
+		lvitem.pszText = (LPWSTR)serverNamePropName.c_str();
+		SendMessage(m_list, LVM_INSERTITEM, 0, (LPARAM)&lvitem);
+		lvitem.iSubItem = 1;
+		lvitem.pszText = (LPWSTR)serverInfo.c_str();
+		SendMessage(m_list, LVM_SETITEMTEXT, iItemIndex++, (LPARAM)&lvitem);
+	}
+
+	// Display checkpoint info
+	if (!revision.empty()) {
+
+		std::wstring revInfo;
+
+		// Retrieve property name to be displayed
+		std::wstring revisionPropName = getTortoiseSIString(IDS_PROP_REVISION);
+
+		wchar_t timeBuf[30];
+		struct tm* timeinfo;
+
+		// Display checkpoint time as dd/mm/yy hh:mm
+		timeinfo = localtime(&lastCheckpoint);
+		wcsftime(timeBuf, 30, L"%d/%m/%y %#I:%M %p", timeinfo);
+
+		// Add time info to checkpoint
+		revInfo += revision;
+		revInfo += _T(" at ");
+		revInfo += timeBuf;
+
+		// Create entry and add to list of properties
+		lvitem.iItem = iItemIndex;
+		lvitem.iGroupId = iGroupId;
+		lvitem.iSubItem = 0;
+		lvitem.pszText = (LPWSTR)revisionPropName.c_str();
+		SendMessage(m_list, LVM_INSERTITEM, 0, (LPARAM)&lvitem);
+		lvitem.iSubItem = 1;
+		lvitem.pszText = (LPWSTR)revInfo.c_str();
+		SendMessage(m_list, LVM_SETITEMTEXT, iItemIndex++, (LPARAM)&lvitem);
+	}
+}
+
+/**
+*  Create and populate file properties page
+*/
+void CSIPropertyPage::initFileProperties(const stdstring file)
+{
+	int iItemIndex = 0;
+	int iGroupId = 100;
+
+	LVGROUP lvGroup;
+	LVITEM lvitem;
 
 	// Retrieve group name
 	std::wstring lockGrpName = getTortoiseSIString(IDS_PROP_LOCK_GROUP_NAME);
@@ -333,13 +507,24 @@ void CSIPropertyPage::InitWorkfileView()
 
 	// Retrieve file properties from Integrity
 	std::shared_ptr<IntegrityActions::MemberProperties> memProp =
-		IntegrityActions::getMemberInfo(IStatusCache::getInstance().getIntegritySession(), fileName.c_str());
+		IntegrityActions::getMemberInfo(IStatusCache::getInstance().getIntegritySession(), file.c_str());
+
+	// Can't retrieve properties
+	if (!memProp) {
+		return;
+	}
 
 	// Extract required properties
 	std::wstring memRev = memProp->getMemberRev();
 	std::wstring workingRev = memProp->getWorkingRev();
 	std::wstring sandboxName = memProp->getSandboxName();
 	std::wstring cpId = memProp->getChangePackageId();
+
+	// Initialize entries in the list view
+	SecureZeroMemory(&lvitem, sizeof(LVITEM));
+
+	// Specify member functions that contain data
+	lvitem.mask = LVIF_TEXT | LVIF_GROUPID | LVIF_COLUMNS;
 
 	// Retrieve the file locks and related info 
 	for (std::shared_ptr<IntegrityActions::LockProperties> lock : memProp->getLockers()) {
