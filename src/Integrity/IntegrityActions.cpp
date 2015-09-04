@@ -228,7 +228,7 @@ namespace IntegrityActions {
 		executeUserCommand(session, command, onDone);
 	}
 
-	bool submitCP(const IntegritySession &session, std::wstring cpid)
+	/*bool submitCP(const IntegritySession &session, std::wstring cpid)
 	{
 		IntegrityCommand command(L"si", L"submitcp");
 		command.addOption(L"g");
@@ -246,7 +246,7 @@ namespace IntegrityActions {
 		}
 
 		return true;
-	}
+	}*/
 
 	void setExcludeFileFilter(const IntegritySession& session, std::vector<std::wstring> patterns, std::function<void()> onDone)
 	{

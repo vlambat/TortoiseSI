@@ -374,7 +374,7 @@ std::vector<MenuInfo> menuInfo =
 		}
 	},
 	menuSeperator,
-	{ MenuItem::SubmitCP, IDI_COMMIT, IDS_SUBMIT_CP, IDS_SUBMIT_CP_DESC,
+	/*{ MenuItem::SubmitCP, IDI_COMMIT, IDS_SUBMIT_CP, IDS_SUBMIT_CP_DESC,
 	    [](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
 		{
 			std::wstring tortoiseSIProcPath = CPathUtils::GetAppDirectory(g_hmodThisDll) + L"TortoiseSIProc.exe";
@@ -396,7 +396,7 @@ std::vector<MenuInfo> menuInfo =
 		{
 			return true;
 		}
-	},
+	},*/
 	menuSeperator,
 	{ MenuItem::LocalChangesDiff, IDI_DIFF, IDS_LOCAL_CHANGES_DIFF, IDS_LOCAL_CHANGES_DIFF_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)

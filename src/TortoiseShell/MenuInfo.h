@@ -52,7 +52,7 @@ enum MenuItem {
 	Move,
 	Rename,
 
-	SubmitCP
+	/*SubmitCP*/
 };
 
 struct MenuInfo

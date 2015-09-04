@@ -291,7 +291,7 @@ namespace IntegrityActions {
 
 	void setExcludeFileFilter(const IntegritySession& session, std::vector<std::wstring> patterns, std::function<void()> onDone);
 
-	bool submitCP(const IntegritySession &session, std::wstring cpid);
+	/*bool submitCP(const IntegritySession &session, std::wstring cpid);*/
 
 	IntegrityCommand initializeWFExecute(const IntegrityCommand& command);
 
