@@ -55,7 +55,6 @@ namespace IntegrityActions {
 	{
 		IntegrityCommand command(L"si", L"locks");
 		command.addOption(L"g");
-		/*command.addOption(L"fields", L"id,summary,description,cptype,creationdate,issue");*/
 
 		executeUserCommand(session, command, nullptr);
 	}
