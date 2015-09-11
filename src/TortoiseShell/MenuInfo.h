@@ -27,6 +27,7 @@ enum MenuItem {
 	CreateSandbox,
 	ViewMyChangePackages,
 	ViewMyReviews,
+	viewMyLocks,
 	MergeConflicts,
 
 	IgnoreSubMenu,

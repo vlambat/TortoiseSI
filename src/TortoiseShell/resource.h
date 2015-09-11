@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by D:\git\TortoiseSI\src\Resources\TortoiseShellENG.rc
+// Used by D:\Project\TortoiseSI\src\Resources\TortoiseShellENG.rc
 //
 #define IDI_PULL                        5
 #define IDD_PROPPAGE                    107
@@ -71,6 +71,8 @@
 #define IDS_MERGE_CONFLICTS_DESC        211
 #define IDS_REMOVE_SUBMENU              212
 #define IDS_REMOVE_SUBMENU_DESC         213
+#define IDS_VIEW_LOCKS                  214
+#define IDS_VIEW_LOCKS_DESC             215
 #define IDI_MENUSYNC                    321
 #define IDI_REVISIONGRAPH               366
 #define IDS_LOADING                     369
@@ -142,6 +144,7 @@
 #define IDI_DAEMON                      5180
 #define IDI_MERGEABORT                  5181
 #define IDI_LOCK                        5183
+#define IDI_ICON2                       5187
 #define IDC_CONFIG_AUTOCRLF             11020
 #define IDC_SHELL_REMOTE_BRANCH         11022
 #define IDC_ESCAPEDURLLABEL             11023
@@ -161,7 +164,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        5186
+#define _APS_NEXT_RESOURCE_VALUE        5190
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         11034
 #define _APS_NEXT_SYMED_VALUE           5122

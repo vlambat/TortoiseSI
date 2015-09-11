@@ -278,9 +278,30 @@ BEGIN
     IDS_MERGE_CONFLICTS_DESC "Menu to Resolve Merge Conflicts"
     IDS_REMOVE_SUBMENU      "Remove from Exclude Filter"
     IDS_REMOVE_SUBMENU_DESC "Removes selected pattern from Non-Members View Exclude Filter"
+    IDS_VIEW_LOCKS          "View My Locks"
+    IDS_VIEW_LOCKS_DESC     "Shows all the locked files in the users sandbox"
 END
 
 #endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (Canada) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENC)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_CAN
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON2               ICON                    "icon2.ico"
+#endif    // English (Canada) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

@@ -225,6 +225,18 @@ std::vector<MenuInfo> menuInfo =
 		return true;
 	}
 	},
+
+	{ MenuItem::ViewMyChangePackages, IDI_REPOBROWSE, IDS_VIEW_LOCKS, IDS_VIEW_LOCKS_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND)
+	{
+		IntegrityActions::viewMyLocks(getIntegritySession(), selectedItems.front());
+	},
+		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+	{
+		return true;
+	}
+	},
+
 	{ MenuItem::ViewMyReviews, IDI_REPOBROWSE, IDS_VIEW_MYREVIEWS, IDS_VIEW_MYREVIEWS_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND)
 	{

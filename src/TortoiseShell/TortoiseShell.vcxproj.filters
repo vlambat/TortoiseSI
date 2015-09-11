@@ -399,6 +399,11 @@
     <Image Include="..\Resources\icon1.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\Resources\icon2.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="view_lock.png" />
+    <Image Include="..\Resources\view_lock.png" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\Resources\TortoiseShellENG.rc">
