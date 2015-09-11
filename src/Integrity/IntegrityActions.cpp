@@ -59,6 +59,14 @@ namespace IntegrityActions {
 		executeUserCommand(session, command, nullptr);
 	}
 
+	void viewMyProjectHistory(const IntegritySession& session, std::wstring path)
+	{
+		IntegrityCommand command(L"si", L"viewprojecthistory");
+		command.addOption(L"g");
+
+		executeUserCommand(session, command, nullptr);
+	}
+
 	void viewMyReviews(const IntegritySession& session, std::wstring path)
 	{
 		IntegrityCommand command(L"si", L"locks");

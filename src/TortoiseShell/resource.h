@@ -73,6 +73,8 @@
 #define IDS_REMOVE_SUBMENU_DESC         213
 #define IDS_VIEW_LOCKS                  214
 #define IDS_VIEW_LOCKS_DESC             215
+#define IDS_VIEW_PROJECTHISTORY         216
+#define IDS_VIEW_PROJECTHISTORY_DESC    217
 #define IDI_MENUSYNC                    321
 #define IDI_REVISIONGRAPH               366
 #define IDS_LOADING                     369

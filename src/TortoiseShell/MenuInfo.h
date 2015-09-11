@@ -28,6 +28,7 @@ enum MenuItem {
 	ViewMyChangePackages,
 	ViewMyReviews,
 	viewMyLocks,
+	ViewMyProjectHistory,
 	MergeConflicts,
 
 	IgnoreSubMenu,

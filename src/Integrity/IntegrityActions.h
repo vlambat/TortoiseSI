@@ -273,6 +273,7 @@ namespace IntegrityActions {
 	void viewMyReviews(const IntegritySession& session, std::wstring path);
 	void mergeConflicts(const IntegritySession& session, std::wstring path);
 	void viewMyLocks(const IntegritySession& session, std::wstring path);
+	void viewMyProjectHistory(const IntegritySession& session, std::wstring path);
 
 	void lockFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone);
 	void unlockFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone);
