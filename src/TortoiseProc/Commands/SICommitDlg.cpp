@@ -270,7 +270,7 @@ void CSICommitDlg::OnBnClickedSubmitCpButton()
 	int idx = m_ctrlChangePackageComboBox.GetCurSel();
 	std::shared_ptr<IntegrityActions::ChangePackage> *cp = (std::shared_ptr<IntegrityActions::ChangePackage> *) m_ctrlChangePackageComboBox.GetItemDataPtr(idx);
 
-	// Submit CP
+	/* Submit CP
 	if(IntegrityActions::submitCP(*(theApp.m_integritySession), (*cp)->getId())) {
 
 		ClearChangePackageList();
@@ -286,7 +286,7 @@ void CSICommitDlg::OnBnClickedSubmitCpButton()
 			GetDlgItem(IDC_SUBMIT_CP_BUTTON)->EnableWindow(TRUE);
 			m_ctrlChangePackageComboBox.SetCurSel( m_ctrlChangePackageComboBox.GetCount() - 1);
 		}
-	}
+	}*/
 }
 
 

@@ -278,6 +278,11 @@ BEGIN
     IDS_MERGE_CONFLICTS_DESC "Menu to Resolve Merge Conflicts"
     IDS_REMOVE_SUBMENU      "Remove from Exclude Filter"
     IDS_REMOVE_SUBMENU_DESC "Removes selected pattern from Non-Members View Exclude Filter"
+    IDS_VIEW_LOCKS          "View My Locks"
+    IDS_VIEW_LOCKS_DESC     "Shows all the locked files in the users sandbox"
+    IDS_VIEW_PROJECTHISTORY "View My Project History"
+    IDS_VIEW_PROJECTHISTORY_DESC 
+                            "Brings up the Project history View of the user"
 END
 
 #endif    // English (United States) resources

@@ -225,6 +225,29 @@ std::vector<MenuInfo> menuInfo =
 		return true;
 	}
 	},
+
+	{ MenuItem::viewMyLocks, IDI_REPOBROWSE, IDS_VIEW_LOCKS, IDS_VIEW_LOCKS_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND)
+	{
+		IntegrityActions::viewMyLocks(getIntegritySession(), selectedItems.front());
+	},
+		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+	{
+		return true;
+	}
+	},
+
+	{ MenuItem::ViewMyProjectHistory, IDI_REPOBROWSE, IDS_VIEW_PROJECTHISTORY, IDS_VIEW_PROJECTHISTORY_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND)
+	{
+		IntegrityActions::viewMyProjectHistory(getIntegritySession(), selectedItems.front());
+	},
+		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+	{
+		return true;
+	}
+	},
+
 	{ MenuItem::ViewMyReviews, IDI_REPOBROWSE, IDS_VIEW_MYREVIEWS, IDS_VIEW_MYREVIEWS_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND)
 	{
@@ -374,7 +397,7 @@ std::vector<MenuInfo> menuInfo =
 		}
 	},
 	menuSeperator,
-	{ MenuItem::SubmitCP, IDI_COMMIT, IDS_SUBMIT_CP, IDS_SUBMIT_CP_DESC,
+	/*{ MenuItem::SubmitCP, IDI_COMMIT, IDS_SUBMIT_CP, IDS_SUBMIT_CP_DESC,
 	    [](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
 		{
 			std::wstring tortoiseSIProcPath = CPathUtils::GetAppDirectory(g_hmodThisDll) + L"TortoiseSIProc.exe";
@@ -396,7 +419,7 @@ std::vector<MenuInfo> menuInfo =
 		{
 			return true;
 		}
-	},
+	},*/
 	menuSeperator,
 	{ MenuItem::LocalChangesDiff, IDI_DIFF, IDS_LOCAL_CHANGES_DIFF, IDS_LOCAL_CHANGES_DIFF_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
