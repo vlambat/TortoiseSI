@@ -273,7 +273,7 @@ END
 STRINGTABLE
 BEGIN
     IDS_VIEW_MYREVIEWS      "View My Reviews"
-    IDS_VIEW_MYREVIEWS_DESC "Views all the Change PAckages Reviews of that User"
+    IDS_VIEW_MYREVIEWS_DESC "Views all the Change Packages Reviews of that User"
     IDS_MERGE_CONFLICTS     "Merge Conflicts"
     IDS_MERGE_CONFLICTS_DESC "Menu to Resolve Merge Conflicts"
     IDS_REMOVE_SUBMENU      "Remove from Exclude Filter"
@@ -281,10 +281,9 @@ BEGIN
     IDS_VIEW_LOCKS          "View My Locks"
     IDS_VIEW_LOCKS_DESC     "Shows all the locked files in the users sandbox"
     IDS_VIEW_PROJECTHISTORY "View Project History"
-    IDS_VIEW_PROJECTHISTORY_DESC 
-                            "Brings up the Project history View of the user"
+    IDS_VIEW_PROJECTHISTORY_DESC "Brings up the Project History View "
     IDS_VIEW_PROJECTDIFFERENCES_DESC 
-                            "Shows Changes Made Since Last Chackpoint"
+                            "Shows Changes Made Since Last Checkpoint"
     IDS_VIEW_PROJECTDIFFERENCES "View Project Differences"
 END
 
