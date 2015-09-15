@@ -282,9 +282,9 @@ BEGIN
     IDS_VIEW_LOCKS_DESC     "Shows all the locked files in the users sandbox"
     IDS_VIEW_PROJECTHISTORY "View Project History"
     IDS_VIEW_PROJECTHISTORY_DESC 
-                            "Brings up the Project history View of the user"
+                            "Brings up the Project History View of the User"
     IDS_VIEW_PROJECTDIFFERENCES_DESC 
-                            "Shows Changes Made Since Last Chackpoint"
+                            "Shows Changes Made Since Last Checkpoint"
     IDS_VIEW_PROJECTDIFFERENCES "View Project Differences"
 END
 
