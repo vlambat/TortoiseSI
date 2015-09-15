@@ -248,6 +248,18 @@ std::vector<MenuInfo> menuInfo =
 	}
 	},
 
+
+	{ MenuItem::ViewMyProjectDifferences, IDI_REPOBROWSE, IDS_VIEW_PROJECTDIFFERENCES, IDS_VIEW_PROJECTDIFFERENCES_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND)
+	{
+		IntegrityActions::viewMyProjectDifferences(getIntegritySession(), selectedItems.front());
+	},
+		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+	{
+		return true;
+	}
+	},
+
 	{ MenuItem::ViewMyReviews, IDI_REPOBROWSE, IDS_VIEW_MYREVIEWS, IDS_VIEW_MYREVIEWS_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND)
 	{
