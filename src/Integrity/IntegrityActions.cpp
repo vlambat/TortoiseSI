@@ -76,7 +76,7 @@ namespace IntegrityActions {
 		if (!developmentPath.empty())
 		{
 			IntegrityCommand command(L"si", L"viewcps");
-			command.addOption(L"filter", projectFilter);
+			command.addOption(L"filter", variantFilter);
 			command.addOption(L"g");
 			command.addOption(L"fields", L"id,summary,description,cptype,creationdate,issue");
 
