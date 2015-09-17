@@ -30,7 +30,7 @@ enum MenuItem {
 
 	ViewMyChangePackages,
 	WorkingFileChangesView,
-	viewMyLocks,
+	ViewMyLocks,
 	ViewMyReviews,
 
 	MergeConflicts,
