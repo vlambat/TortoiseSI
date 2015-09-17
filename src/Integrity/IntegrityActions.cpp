@@ -63,14 +63,8 @@ namespace IntegrityActions {
 		}
 
 		// Extract properties to be displayed from properties object
-		time_t lastCheckpoint = folderProp->getLastCheckpoint();
-
 		std::wstring developmentPath = folderProp->getDevelopmentPath();
 		std::wstring projectName = folderProp->getProjectName();
-		std::wstring sandboxName = folderProp->getSandboxName();
-		std::wstring serverName = folderProp->getServerName();
-		std::wstring serverPort = folderProp->getServerPort();
-		std::wstring revision = folderProp->getRevision();
 
 		std::wstring variantFilter = L"variant:" + developmentPath;
 		std::wstring projectFilter = L"project:" + projectName;
@@ -79,7 +73,7 @@ namespace IntegrityActions {
 		if (!developmentPath.empty())
 		{
 			IntegrityCommand command(L"si", L"viewcps");
-			command.addOption(L"filter", L"variantFilter, projectFilter");
+			command.addOption(L"filter", projectFilter);
 			command.addOption(L"g");
 			command.addOption(L"fields", L"id,summary,description,cptype,creationdate,issue");
 
