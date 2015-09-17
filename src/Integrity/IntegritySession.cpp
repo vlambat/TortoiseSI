@@ -32,6 +32,10 @@ IntegritySession::IntegritySession()
 	mksCreateLocalAPIConnector(&ip, 4, 15, TRUE);
 	if (ip != NULL) {
 		mksGetCommonSession(&session, ip);
+
+		if (session != NULL) {
+			mksSessionSetAutoReconnect(session, TRUE);
+		}
 	}
 }
 
@@ -45,6 +49,10 @@ IntegritySession::IntegritySession(std::string hostname, int port)
 	mksCreateAPIConnector(&ip, hostname.c_str(), port, FALSE, 4, 15);
 	if (ip != NULL) {
 		mksGetCommonSession(&session, ip);
+
+		if (session != NULL) {
+			mksSessionSetAutoReconnect(session, TRUE);
+		}
 	}
 }
 
@@ -136,8 +144,14 @@ std::unique_ptr<IntegrityResponse> IntegritySession::execute(const IntegrityComm
 						// If there is another execute running, then only show one dialog
 						bShowingDialog.store(true);
 
-						LoadString(GetModuleHandle(NULL), IDS_CLIENT_COMM_ERROR, message, 256);
-						LoadString(GetModuleHandle(NULL), IDS_CLIENT_COMM_TITLE, caption, 256);
+						// Retrieve a reference to the loaded TortoiseSI dll
+						// NOTE: Issue reading from resource file from TortoiseProc
+						// since this is a shared file. This may have to be re-examined
+						// when TortoiseProc comes back online.
+						HMODULE modRef = GetModuleHandle(MODULE_NAME);
+
+						LoadString(modRef, IDS_CLIENT_COMM_ERROR, message, 256);
+						LoadString(modRef, IDS_CLIENT_COMM_TITLE, caption, 256);
 
 						// SHMessageBoxCheckW records the mesage boxes that the user has chosen to suppress under the registry key
 						// HKCU/Software/Microsoft/Windows/CurrentVersion/Explorer/DontShowMeThisDialogAgain
