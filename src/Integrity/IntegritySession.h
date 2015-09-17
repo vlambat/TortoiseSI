@@ -23,6 +23,8 @@ extern "C" {
 #include <mksapi.h>
 }
 
+#define MODULE_NAME L"TortoiseSI.dll"
+
 #ifdef _WIN64
 #pragma comment(lib, "..\\..\\ext\\Integrity\\lib\\mksapi64.lib")
 #else
