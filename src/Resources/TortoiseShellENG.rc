@@ -285,6 +285,8 @@ BEGIN
     IDS_VIEW_PROJECTDIFFERENCES_DESC 
                             "Shows Changes Made Since Last Checkpoint"
     IDS_VIEW_PROJECTDIFFERENCES "View Project Differences"
+    IDS_VIEW_RELATEDCP      "View Related Change Packages"
+    IDS_VIEW_RELATEDCP_DESC "Shows all Change Packages related to the Project represented by the selected Sandbox/Subsandbox."
 END
 
 #endif    // English (United States) resources

@@ -185,6 +185,7 @@ void updateExcludeFileFilter(const std::vector<std::wstring>& selectedItems, con
 
 std::vector<MenuInfo> menuInfo =
 {
+	menuSeperator,
 	{ MenuItem::ViewSandbox, IDI_REPOBROWSE, IDS_VIEW_SANDBOX, IDS_VIEW_SANDBOX_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND)
 	{
@@ -215,6 +216,48 @@ std::vector<MenuInfo> menuInfo =
 			!hasFileStatus(selectedItemsStatus, FileStatus::Member);
 	}
 	},
+
+	{ MenuItem::ViewRelatedChangePackages, IDI_REPOBROWSE, IDS_VIEW_RELATEDCP, IDS_VIEW_RELATEDCP_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND)
+	{
+		IntegrityActions::viewRelatedChangePackages(getIntegritySession(), selectedItems.front());
+	},
+		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+	{
+		return selectedItems.size() == 1 &&
+			hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
+			hasFileStatus(selectedItemsStatus, FileStatus::Member);
+	}
+	},
+
+	{ MenuItem::ViewMyProjectHistory, IDI_REVISIONGRAPH, IDS_VIEW_PROJECTHISTORY, IDS_VIEW_PROJECTHISTORY_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND)
+	{
+		IntegrityActions::viewMyProjectHistory(getIntegritySession(), selectedItems.front());
+	},
+		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+	{
+		return selectedItems.size() == 1 &&
+			hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
+			hasFileStatus(selectedItemsStatus, FileStatus::Member);
+	}
+	},
+
+
+	{ MenuItem::ViewMyProjectDifferences, IDI_REPOBROWSE, IDS_VIEW_PROJECTDIFFERENCES, IDS_VIEW_PROJECTDIFFERENCES_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND)
+	{
+		IntegrityActions::viewMyProjectDifferences(getIntegritySession(), selectedItems.front());
+	},
+		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+	{
+		return selectedItems.size() == 1 &&
+			hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
+			hasFileStatus(selectedItemsStatus, FileStatus::Member);
+	}
+	},
+
+	menuSeperator,
 	{ MenuItem::ViewMyChangePackages, IDI_REPOBROWSE, IDS_VIEW_CHANGEPACKAGES, IDS_VIEW_CHANGEPACKAGES_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND)
 	{
@@ -224,35 +267,12 @@ std::vector<MenuInfo> menuInfo =
 	{
 		return true;
 	}
-	},
+	},	
 
-	{ MenuItem::viewMyLocks, IDI_REPOBROWSE, IDS_VIEW_LOCKS, IDS_VIEW_LOCKS_DESC,
+	{ MenuItem::viewMyLocks, IDI_LOCK, IDS_VIEW_LOCKS, IDS_VIEW_LOCKS_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND)
 	{
 		IntegrityActions::viewMyLocks(getIntegritySession(), selectedItems.front());
-	},
-		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
-	{
-		return true;
-	}
-	},
-
-	{ MenuItem::ViewMyProjectHistory, IDI_REPOBROWSE, IDS_VIEW_PROJECTHISTORY, IDS_VIEW_PROJECTHISTORY_DESC,
-	[](const std::vector<std::wstring>& selectedItems, HWND)
-	{
-		IntegrityActions::viewMyProjectHistory(getIntegritySession(), selectedItems.front());
-	},
-		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
-	{
-		return true;
-	}
-	},
-
-
-	{ MenuItem::ViewMyProjectDifferences, IDI_REPOBROWSE, IDS_VIEW_PROJECTDIFFERENCES, IDS_VIEW_PROJECTDIFFERENCES_DESC,
-	[](const std::vector<std::wstring>& selectedItems, HWND)
-	{
-		IntegrityActions::viewMyProjectDifferences(getIntegritySession(), selectedItems.front());
 	},
 		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
 	{

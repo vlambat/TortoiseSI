@@ -51,6 +51,54 @@ namespace IntegrityActions {
 		executeUserCommand(session, command, nullptr);
 	}
 
+	void viewRelatedChangePackages(const IntegritySession& session, std::wstring path)
+	{
+		/*const std::wstring folder;*/
+		std::shared_ptr<IntegrityActions::FolderProperties> folderProp =
+			IntegrityActions::getFolderInfo(session, path);
+
+		// Can't retrieve properties
+		if (!folderProp) {
+			return;
+		}
+
+		// Extract properties to be displayed from properties object
+		time_t lastCheckpoint = folderProp->getLastCheckpoint();
+
+		std::wstring developmentPath = folderProp->getDevelopmentPath();
+		std::wstring projectName = folderProp->getProjectName();
+		std::wstring sandboxName = folderProp->getSandboxName();
+		std::wstring serverName = folderProp->getServerName();
+		std::wstring serverPort = folderProp->getServerPort();
+		std::wstring revision = folderProp->getRevision();
+
+		std::wstring variantFilter = L"variant:" + developmentPath;
+		std::wstring projectFilter = L"project:" + projectName;
+
+		//Filter for Variant 
+		if (!developmentPath.empty())
+		{
+			IntegrityCommand command(L"si", L"viewcps");
+			command.addOption(L"filter", L"variantFilter, projectFilter");
+			command.addOption(L"g");
+			command.addOption(L"fields", L"id,summary,description,cptype,creationdate,issue");
+
+			executeUserCommand(session, command, nullptr);
+		}
+
+		//Filter for Mainline (Project)
+		else
+		{
+			IntegrityCommand command(L"si", L"viewcps");
+			command.addOption(L"filter", projectFilter);
+			command.addOption(L"g");
+			command.addOption(L"fields", L"id,summary,description,cptype,creationdate,issue");
+
+			executeUserCommand(session, command, nullptr);
+		}
+
+	}
+
 	void viewMyLocks(const IntegritySession& session, std::wstring path)
 	{
 		IntegrityCommand command(L"si", L"locks");
