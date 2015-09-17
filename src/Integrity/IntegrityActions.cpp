@@ -26,10 +26,13 @@
 #include <sstream>
 #include <chrono>
 #include <future>
+#include <mutex>
 
 #define DEFAULT_BUFFER_SIZE 1024
 
 namespace IntegrityActions {
+	std::mutex actionMutex;
+
 	void displayException(const IntegrityResponse& response);
 	void logAnyExceptions(const IntegrityResponse& response);
 	void executeUserCommand(const IntegritySession& session, const IntegrityCommand& command, std::function<void()>);
@@ -273,25 +276,14 @@ namespace IntegrityActions {
 	// get status flags for a set of files...
 	FileStatusFlags fileInfo(const IntegritySession& session, const std::wstring& file) 
 	{
+		// Added mutex to prevent situation where multiple Integrity client sessions are
+		// started by the file status cache, server connection cache and root folder cache
+		std::lock_guard<std::mutex> lock(actionMutex);
+
 		IntegrityCommand command(L"wf", L"fileinfo");
 		command.addSelection(file);
 
-		std::future<std::unique_ptr<IntegrityResponse>> responseFuture =
-			std::async(std::launch::async, [command, &session]() { return session.execute(command); });
-
-		std::future_status status = responseFuture.wait_for(std::chrono::seconds(10));
-		if (status != std::future_status::ready) {
-			EventLog::writeWarning(L"get status timeout for " + file);
-
-			return (FileStatusFlags)FileStatus::TimeoutError;
-		}
-
-		// TODO check future's exception... ?
-		std::unique_ptr<IntegrityResponse> response = responseFuture.get();
-		if (response == NULL) {
-			EventLog::writeWarning(L"get status failed to return response");
-			return NO_STATUS;
-		}
+		std::unique_ptr<IntegrityResponse> response = session.execute(command);
 
 		if (response->getException() != NULL) {
 			logAnyExceptions(*response);
@@ -718,10 +710,12 @@ namespace IntegrityActions {
 	}
 
 
-
-
 	std::vector<std::wstring> folders(const IntegritySession& session)
 	{
+		// Added mutex to prevent situation where multiple Integrity client sessions are
+		// started by the file status cache, server connection cache and root folder cache
+		std::lock_guard<std::mutex> lock(actionMutex);
+
 		IntegrityCommand command(L"wf", L"folders");
 		std::vector<std::wstring> rootPaths;
 
@@ -742,6 +736,10 @@ namespace IntegrityActions {
 
 	std::vector<std::wstring> servers(const IntegritySession& session)
 	{
+		// Added mutex to prevent situation where multiple Integrity client sessions are
+		// started by the file status cache, server connection cache and root folder cache
+		std::lock_guard<std::mutex> lock(actionMutex);
+
 		IntegrityCommand command(L"si", L"servers");
 		std::vector<std::wstring> servers;
 
