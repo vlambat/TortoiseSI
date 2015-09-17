@@ -16,7 +16,8 @@
 
 RESTEXT		= $(outdir)ResText.exe
 APPLY		= apply
-LANGDLLS	=	$(outdir)TortoiseShell$(LANGID).dll
+LANGDLLS	=	$(outdir)TortoiseShell$(LANGID).dll 
+
 
 all: $(LANGDLLS)
 

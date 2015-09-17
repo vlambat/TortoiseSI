@@ -54,9 +54,33 @@ namespace IntegrityActions {
 		executeUserCommand(session, command, nullptr);
 	}
 
+	void viewMyLocks(const IntegritySession& session, std::wstring path)
+	{
+		IntegrityCommand command(L"si", L"locks");
+		command.addOption(L"g");
+
+		executeUserCommand(session, command, nullptr);
+	}
+
+	void viewMyProjectHistory(const IntegritySession& session, std::wstring path)
+	{
+		IntegrityCommand command(L"si", L"viewprojecthistory");
+		command.addOption(L"g");
+
+		executeUserCommand(session, command, nullptr);
+	}
+
+	void viewMyProjectDifferences(const IntegritySession& session, std::wstring path)
+	{
+		IntegrityCommand command(L"si", L"mods");
+		command.addOption(L"g");
+
+		executeUserCommand(session, command, nullptr);
+	}
+
 	void viewMyReviews(const IntegritySession& session, std::wstring path)
 	{
-		IntegrityCommand command(L"si", L"viewcps");
+		IntegrityCommand command(L"si", L"locks");
 		command.addOption(L"g");
 		command.addOption(L"myReviews");
 
@@ -231,7 +255,7 @@ namespace IntegrityActions {
 		executeUserCommand(session, command, onDone);
 	}
 
-	bool submitCP(const IntegritySession &session, std::wstring cpid)
+	/*bool submitCP(const IntegritySession &session, std::wstring cpid)
 	{
 		IntegrityCommand command(L"si", L"submitcp");
 		command.addOption(L"g");
@@ -249,7 +273,7 @@ namespace IntegrityActions {
 		}
 
 		return true;
-	}
+	}*/
 
 	void setExcludeFileFilter(const IntegritySession& session, std::vector<std::wstring> patterns, std::function<void()> onDone)
 	{

@@ -27,6 +27,9 @@ enum MenuItem {
 	CreateSandbox,
 	ViewMyChangePackages,
 	ViewMyReviews,
+	viewMyLocks,
+	ViewMyProjectHistory,
+	ViewMyProjectDifferences,
 	MergeConflicts,
 
 	IgnoreSubMenu,
@@ -52,7 +55,7 @@ enum MenuItem {
 	Move,
 	Rename,
 
-	SubmitCP
+	/*SubmitCP*/
 };
 
 struct MenuInfo

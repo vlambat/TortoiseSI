@@ -182,6 +182,7 @@
     <Image Include="..\Resources\clippaste.ico" />
     <Image Include="..\Resources\copy.ico" />
     <Image Include="..\Resources\icon1.ico" />
+    <Image Include="..\Resources\icon2.ico" />
     <Image Include="..\Resources\menuabout.ico" />
     <Image Include="..\Resources\menuadd.ico" />
     <Image Include="..\Resources\menublame.ico" />
@@ -238,6 +239,8 @@
     <Image Include="..\Resources\tsvnmenulink.ico" />
     <Image Include="..\Resources\tsvnmenumultiple.ico" />
     <Image Include="..\Resources\update1.ico" />
+    <Image Include="..\Resources\view_lock.png" />
+    <Image Include="view_lock.png" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\Resources\TortoiseShellENG.rc" />

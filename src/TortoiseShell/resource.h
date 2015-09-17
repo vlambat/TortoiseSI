@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by D:\git\TortoiseSI\src\Resources\TortoiseShellENG.rc
+// Used by D:\Project\TortoiseSI\src\Resources\TortoiseShellENG.rc
 //
 #define IDI_PULL                        5
 #define IDD_PROPPAGE                    107
@@ -71,6 +71,12 @@
 #define IDS_MERGE_CONFLICTS_DESC        211
 #define IDS_REMOVE_SUBMENU              212
 #define IDS_REMOVE_SUBMENU_DESC         213
+#define IDS_VIEW_LOCKS                  214
+#define IDS_VIEW_LOCKS_DESC             215
+#define IDS_VIEW_PROJECTHISTORY         216
+#define IDS_VIEW_PROJECTHISTORY_DESC    217
+#define IDS_VIEW_PROJECTDIFFERENCES_DESC 218
+#define IDS_VIEW_PROJECTDIFFERENCES     219
 #define IDI_MENUSYNC                    321
 #define IDI_REVISIONGRAPH               366
 #define IDS_LOADING                     369
@@ -104,34 +110,17 @@
 #define IDS_PROP_REVISION               397
 #define IDS_VIEW_CHANGEPACKAGES         999
 #define IDS_VIEW_CHANGEPACKAGES_DESC    1000
-#define IDC_REVISION                    1001
 #define IDC_HEAD_HASH                   1001
 #define IDC_LAST_HASH                   1002
-#define IDC_REPOURL                     1003
 #define IDC_SHELL_CURRENT_BRANCH        1003
-#define IDC_CREVISION                   1004
 #define IDC_HEAD_SUBJECT                1004
-#define IDC_CDATE                       1005
 #define IDC_LAST_SUBJECT                1005
-#define IDC_AUTHOR                      1006
-#define IDC_TEXTSTATUS                  1007
 #define IDC_HEAD_AUTHOR                 1007
-#define IDC_TEXTDATE                    1008
 #define IDC_LAST_AUTHOR                 1008
-#define IDC_PROPSTATUS                  1009
 #define IDC_HEAD_DATE                   1009
-#define IDC_PROPDATE                    1010
 #define IDC_LAST_DATE                   1010
-#define IDC_PROPLIST                    1011
-#define IDC_SWITCHED                    1011
-#define IDC_ADDBUTTON                   1012
-#define IDC_COPIED                      1012
-#define IDC_REMOVEBUTTON                1013
-#define IDC_EDITNAME                    1014
-#define IDC_EDITVALUE                   1015
 #define IDC_SHOWLOG                     1016
 #define IDC_SHOWSETTINGS                1017
-#define IDC_RECURSIVE                   1018
 #define IDI_REPOBROWSE                  5145
 #define IDI_BLAME                       5146
 #define IDI_PATCH                       5147
@@ -159,25 +148,19 @@
 #define IDI_DAEMON                      5180
 #define IDI_MERGEABORT                  5181
 #define IDI_LOCK                        5183
+#define IDI_ICON2                       5187
 #define IDC_CONFIG_AUTOCRLF             11020
-#define IDC_EDITPROPERTIES              11021
-#define IDC_REPOURLUNESCAPED            11022
 #define IDC_SHELL_REMOTE_BRANCH         11022
 #define IDC_ESCAPEDURLLABEL             11023
-#define IDC_REPOUUID                    11024
 #define IDC_CONFIG_SAFECRLF             11024
-#define IDC_CHANGELIST                  11025
 #define IDC_CONFIG_USERNAME             11025
-#define IDC_DEPTHEDIT                   11026
 #define IDC_CONFIG_USEREMAIL            11026
-#define IDC_CHECKSUM                    11027
 #define IDC_ASSUMEVALID                 11027
 #define IDC_EXECUTABLE                  11028
 #define IDC_SKIPWORKTREE                11029
 #define IDC_STATIC_LASTMODIFIED         11030
 #define IDC_SYMLINK                     11031
 #define IDS_ETC                         11032
-#define IDC_LIST1                       11032
 #define IDS_SHOWING_PARTIAL_RESULTS     11033
 #define IDC_LIST2                       11033
 
@@ -185,9 +168,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        5186
+#define _APS_NEXT_RESOURCE_VALUE        5190
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         11034
-#define _APS_NEXT_SYMED_VALUE           5101
+#define _APS_NEXT_SYMED_VALUE           5122
 #endif
 #endif
