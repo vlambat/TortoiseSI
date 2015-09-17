@@ -122,7 +122,7 @@ namespace IntegrityActions {
 
 	void viewMyReviews(const IntegritySession& session, std::wstring path)
 	{
-		IntegrityCommand command(L"si", L"locks");
+		IntegrityCommand command(L"si", L"viewcps");
 		command.addOption(L"g");
 		command.addOption(L"myReviews");
 
