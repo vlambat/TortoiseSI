@@ -22,14 +22,17 @@
 #include "FileStatus.h"
 
 enum MenuItem {
-	WorkingFileChangesView,
-	ViewSandbox,
 	CreateSandbox,
-	ViewMyChangePackages,
-	ViewMyReviews,
-	viewMyLocks,
+	ViewSandbox,
 	ViewMyProjectHistory,
 	ViewMyProjectDifferences,
+	ViewRelatedChangePackages,
+
+	ViewMyChangePackages,
+	WorkingFileChangesView,
+	viewMyLocks,
+	ViewMyReviews,
+
 	MergeConflicts,
 
 	IgnoreSubMenu,

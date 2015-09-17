@@ -77,6 +77,8 @@
 #define IDS_VIEW_PROJECTHISTORY_DESC    217
 #define IDS_VIEW_PROJECTDIFFERENCES_DESC 218
 #define IDS_VIEW_PROJECTDIFFERENCES     219
+#define IDS_VIEW_RELATEDCP              220
+#define IDS_VIEW_RELATEDCP_DESC         221
 #define IDI_MENUSYNC                    321
 #define IDI_REVISIONGRAPH               366
 #define IDS_LOADING                     369
@@ -148,7 +150,6 @@
 #define IDI_DAEMON                      5180
 #define IDI_MERGEABORT                  5181
 #define IDI_LOCK                        5183
-#define IDI_ICON2                       5187
 #define IDC_CONFIG_AUTOCRLF             11020
 #define IDC_SHELL_REMOTE_BRANCH         11022
 #define IDC_ESCAPEDURLLABEL             11023
