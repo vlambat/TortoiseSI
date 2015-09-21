@@ -269,7 +269,7 @@ std::vector<MenuInfo> menuInfo =
 	}
 	},	
 
-	{ MenuItem::ViewMyLocks, IDI_LOCK, IDS_VIEW_LOCKS, IDS_VIEW_LOCKS_DESC,
+	/*{ MenuItem::ViewMyLocks, IDI_LOCK, IDS_VIEW_LOCKS, IDS_VIEW_LOCKS_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND)
 	{
 		IntegrityActions::viewMyLocks(getIntegritySession(), selectedItems.front());
@@ -278,7 +278,7 @@ std::vector<MenuInfo> menuInfo =
 	{
 		return true;
 	}
-	},
+	},*/
 
 	{ MenuItem::ViewMyReviews, IDI_REPOBROWSE, IDS_VIEW_MYREVIEWS, IDS_VIEW_MYREVIEWS_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND)
