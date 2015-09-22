@@ -96,17 +96,10 @@ namespace IntegrityActions {
 
 	}
 
-	void viewMyLocks(const IntegritySession& session, std::wstring path)
-	{
-		IntegrityCommand command(L"si", L"locks");
-		command.addOption(L"g");
-
-		executeUserCommand(session, command, nullptr);
-	}
-
 	void viewMyProjectHistory(const IntegritySession& session, std::wstring path)
 	{
 		IntegrityCommand command(L"si", L"viewprojecthistory");
+		command.addOption(L"cwd", path);
 		command.addOption(L"g");
 
 		executeUserCommand(session, command, nullptr);
@@ -114,7 +107,11 @@ namespace IntegrityActions {
 
 	void viewMyProjectDifferences(const IntegritySession& session, std::wstring path)
 	{
+		// Get the SandBox Name
+		std::wstring sandboxName = getSandboxName(session, path);
+
 		IntegrityCommand command(L"si", L"mods");
+		command.addOption(L"sandbox", sandboxName);
 		command.addOption(L"g");
 
 		executeUserCommand(session, command, nullptr);
