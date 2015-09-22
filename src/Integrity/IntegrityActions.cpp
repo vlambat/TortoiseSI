@@ -98,6 +98,16 @@ namespace IntegrityActions {
 
 	void viewMyProjectHistory(const IntegritySession& session, std::wstring path)
 	{
+		std::shared_ptr<IntegrityActions::FolderProperties> folderProp =
+			IntegrityActions::getFolderInfo(session, path);
+
+		// Can't retrieve properties
+		if (!folderProp) {
+			return;
+		}
+
+		// Extract properties to be displayed from properties object
+		std::wstring sandboxName = folderProp->getSandboxName();
 		IntegrityCommand command(L"si", L"viewprojecthistory");
 		command.addOption(L"cwd", path);
 		command.addOption(L"g");
@@ -107,8 +117,20 @@ namespace IntegrityActions {
 
 	void viewMyProjectDifferences(const IntegritySession& session, std::wstring path)
 	{
+
+		std::shared_ptr<IntegrityActions::FolderProperties> folderProp =
+			IntegrityActions::getFolderInfo(session, path);
+
+		// Can't retrieve properties
+		if (!folderProp) {
+			return;
+		}
+
+		// Extract properties to be displayed from properties object
+		std::wstring sandboxName = folderProp->getSandboxName();
+
 		IntegrityCommand command(L"si", L"mods");
-		command.addOption(L"cwd", path);
+		command.addOption(L"sandbox", sandboxName);
 		command.addOption(L"g");
 
 		executeUserCommand(session, command, nullptr);
