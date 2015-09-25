@@ -256,7 +256,7 @@ namespace IntegrityActions {
 		executeUserCommand(session, initializeWFExecute(command), onDone);
 	}
 
-	void resyncFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone)
+	void resyncByCp(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone)
 	{
 		IntegrityCommand command(L"si", L"resync");
 
@@ -270,11 +270,20 @@ namespace IntegrityActions {
 		executeUserCommand(session, initializeWFExecute(command), onDone);
 	}
 
-	void resyncEntireSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone)
+	void resyncSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone)
 	{
 		IntegrityCommand command(L"si", L"resync");
 		command.addOption(L"g");
 		command.addOption(L"sandbox", path);
+
+		executeUserCommand(session, command, onDone);
+	}
+
+	void resync(const IntegritySession& session, std::wstring path, std::function<void()> onDone)
+	{
+		IntegrityCommand command(L"si", L"resync");
+		command.addOption(L"g");
+		command.addSelection(path);
 
 		executeUserCommand(session, command, onDone);
 	}
