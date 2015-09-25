@@ -269,21 +269,21 @@ std::vector<MenuInfo> menuInfo =
 	}
 	},	
 
-	/*{ MenuItem::ViewMyLocks, IDI_LOCK, IDS_VIEW_LOCKS, IDS_VIEW_LOCKS_DESC,
+	{ MenuItem::ViewMyReviews, IDI_REPOBROWSE, IDS_VIEW_MYREVIEWS, IDS_VIEW_MYREVIEWS_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND)
 	{
-		IntegrityActions::viewMyLocks(getIntegritySession(), selectedItems.front());
+		IntegrityActions::viewMyReviews(getIntegritySession(), selectedItems.front());
 	},
 		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
 	{
 		return true;
 	}
-	},*/
+	},
 
-	{ MenuItem::ViewMyReviews, IDI_REPOBROWSE, IDS_VIEW_MYREVIEWS, IDS_VIEW_MYREVIEWS_DESC,
+	{ MenuItem::ViewMyLocks, IDI_REPOBROWSE, IDS_VIEW_LOCKS, IDS_VIEW_LOCKS_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND)
 	{
-		IntegrityActions::viewMyReviews(getIntegritySession(), selectedItems.front());
+		IntegrityActions::viewMyLocks(getIntegritySession(), selectedItems.front());
 	},
 		[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
 	{
@@ -304,7 +304,8 @@ std::vector<MenuInfo> menuInfo =
 			hasFileStatus(selectedItemsStatus, FileStatus::MergeNeeded);
 	}
 	},
-	{ MenuItem::WorkingFileChangesView, IDI_SHOWCHANGED, IDS_VIEW_WORKINGFILECHANGES, IDS_VIEW_WORKINGFILECHANGES_DESC,
+
+	/*{ MenuItem::WorkingFileChangesView, IDI_SHOWCHANGED, IDS_VIEW_WORKINGFILECHANGES, IDS_VIEW_WORKINGFILECHANGES_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND)
 	{
 		IntegrityActions::launchWorkingFileChangesView(getIntegritySession(), selectedItems.front());
@@ -316,6 +317,7 @@ std::vector<MenuInfo> menuInfo =
 			hasFileStatus(selectedItemsStatus, FileStatus::Member);
 	}
 	},
+
 	menuSeperator,
 	{ MenuItem::ResyncFile, IDI_PULL, IDS_RESYNC, IDS_RESYNC_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND)
