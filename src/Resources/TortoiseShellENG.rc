@@ -171,14 +171,14 @@ END
 STRINGTABLE
 BEGIN
     IDS_LOADING             "Loading..."
-    IDS_RESYNC              "Resynchronize by Change Package"
-    IDS_RESYNC_ENTIRE_SANDBOX "Resynchronize Entire Sandbox"
+    IDS_RESYNC_BYCP         "Resynchronize by Change Package"
+    IDS_RESYNC				"Resynchronize"
     IDS_DROP_SANDBOX        "Drop Sandbox"
     IDS_RETARGET_SANDBOX    "Retarget Sandbox"
     IDS_MULTIPLE_SANDBOXES  "Multiple top level Sandboxes found:"
     IDS_VIEW_SANDBOX_DESC   "Displays the contents of a Sandbox"
-    IDS_RESYNC_DESC         "Resynchronize Sandbox member files by Change Package"
-    IDS_RESYNC_ENTIRE_SANDBOX_DESC "Resynchronize Sandbox member files"
+    IDS_RESYNC_BYCP_DESC         "Resynchronize Sandbox member files by Change Package"
+    IDS_RESYNC_DESC			"Resynchronize"
     IDS_DROP_SANDBOX_DESC   "Unregister Sandbox from Integrity Client"
     IDS_RETARGET_SANDBOX_DESC 
                             "Point a Sandbox to a different project configuration"
