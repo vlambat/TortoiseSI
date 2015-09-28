@@ -246,7 +246,7 @@ namespace IntegrityActions {
 	std::wstring getSandboxName(const IntegritySession& session, std::wstring path);
 
 	//Get Current Username
-	std::wstring getUserName(const IntegritySession& session, std::wstring path);
+	std::wstring getUserName(const IntegritySession& session);
 
 	// list of patterns in exclude filter
 	std::vector<std::wstring> getExcludeFilterContents(const IntegritySession& session);

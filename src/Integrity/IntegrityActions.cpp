@@ -98,7 +98,7 @@ namespace IntegrityActions {
 
 	void viewMyLocks(const IntegritySession& session, std::wstring path)
 	{
-		std::wstring userName = getUserName(session, path);
+		std::wstring userName = getUserName(session);
 
 		IntegrityCommand command(L"si", L"locks");
 		command.addOption(L"g");
@@ -556,7 +556,7 @@ namespace IntegrityActions {
 	/*
 	Get Current Username
 	*/
-	std::wstring getUserName(const IntegritySession& session, std::wstring path)
+	std::wstring getUserName(const IntegritySession& session)
 	{
 		wchar_t user[DEFAULT_BUFFER_SIZE] = { '\0' };
 		size_t len = DEFAULT_BUFFER_SIZE;
