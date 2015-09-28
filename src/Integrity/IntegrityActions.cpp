@@ -102,8 +102,12 @@ namespace IntegrityActions {
 
 		IntegrityCommand command(L"si", L"locks");
 		command.addOption(L"g");
-		command.addOption(L"locker", userName);
 
+		if (!userName.empty())
+		{
+			command.addOption(L"locker", userName);
+		}
+		
 		executeUserCommand(session, command, nullptr);
 	}
 
