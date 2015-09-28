@@ -96,6 +96,21 @@ namespace IntegrityActions {
 
 	}
 
+	void viewMyLocks(const IntegritySession& session, std::wstring path)
+	{
+		std::wstring userName = getUserName(session);
+
+		IntegrityCommand command(L"si", L"locks");
+		command.addOption(L"g");
+
+		if (!userName.empty())
+		{
+			command.addOption(L"locker", userName);
+		}
+		
+		executeUserCommand(session, command, nullptr);
+	}
+
 	void viewMyProjectHistory(const IntegritySession& session, std::wstring path)
 	{
 		IntegrityCommand command(L"si", L"viewprojecthistory");
@@ -549,6 +564,24 @@ namespace IntegrityActions {
 
 		// Populated folder properties object
 		return folderProps;
+	}
+
+	/*
+	Get Current Username
+	*/
+	std::wstring getUserName(const IntegritySession& session)
+	{
+		wchar_t user[DEFAULT_BUFFER_SIZE] = { '\0' };
+		size_t len = DEFAULT_BUFFER_SIZE;
+
+		IntegrityCommand command(L"si", L"viewcps");
+		std::unique_ptr<IntegrityResponse> response = session.execute(command);
+
+		/* Pass in the response of "si viewcps"(View My Change Packages) command to get the current Username as a return value*/
+		mksResponseGetConnectionUsername(response->getResponse(), user, len);
+
+		std::wstring userName(user);
+		return userName;
 	}
 
 	/**
