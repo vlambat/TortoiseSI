@@ -220,7 +220,7 @@ namespace IntegrityActions {
 	}
 
 	//Drop a Sub Project
-	void dropProject(const IntegritySession& session, std::wstring path, std::function<void()> onDone)
+	void dropSubProject(const IntegritySession& session, std::wstring path, std::function<void()> onDone)
 	{
 
 		std::shared_ptr<IntegrityActions::FolderProperties> folderProp =
@@ -587,19 +587,10 @@ namespace IntegrityActions {
 	}
 
 //Get Model Type (Project or Sub Project)
-	std::wstring getmodelType(const IntegritySession& session, std::wstring path) {
+	std::wstring getFileStatus(const IntegritySession& session, std::wstring path) {
 		std::wstring modelType = {'/0'};
 
-		std::shared_ptr<IntegrityActions::FolderProperties> folderProp =
-			IntegrityActions::getFolderInfo(session, path);
-
-		// Can't retrieve properties
-		if (!folderProp){
-			return NULL;
-		}
-
-		// Extract properties to be displayed from properties object
-		std::wstring sandboxName = folderProp->getSandboxName();
+		std::wstring sandboxName = getSandboxName(session, path);
 
 		IntegrityCommand command(L"si", L"projectinfo");
 		command.addOption(L"sandbox", sandboxName);

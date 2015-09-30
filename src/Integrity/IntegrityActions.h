@@ -261,7 +261,7 @@ namespace IntegrityActions {
 	std::vector<std::shared_ptr<IntegrityActions::WorkingFileChange>> getWorkingFileChanges(const IntegritySession& session, std::wstring path);
 
 	//Get Model Type
-	std::wstring getmodelType(const IntegritySession& session, std::wstring path);
+	std::wstring getFileStatus(const IntegritySession& session, std::wstring path);
 
 	bool connect(const IntegritySession& session);
 
@@ -298,9 +298,7 @@ namespace IntegrityActions {
 
 	void createSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 	void dropSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
-	void dropProject(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
-	void resyncFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone);
-	void resyncEntireSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
+	void dropSubProject(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 	void resyncByCp(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone);
 	void resyncSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 	void resync(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
