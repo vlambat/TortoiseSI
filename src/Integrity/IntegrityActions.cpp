@@ -222,16 +222,6 @@ namespace IntegrityActions {
 	//Drop a Sub Project
 	void dropSubProject(const IntegritySession& session, std::wstring path, std::function<void()> onDone)
 	{
-
-		std::shared_ptr<IntegrityActions::FolderProperties> folderProp =
-			IntegrityActions::getFolderInfo(session, path);
-
-		if (!folderProp) {
-			return;
-		}
-
-		std::wstring projectName = folderProp->getProjectName();
-		
 		IntegrityCommand command(L"si", L"dropproject");
 		command.addOption(L"g");
 		command.addSelection(path);
@@ -587,7 +577,7 @@ namespace IntegrityActions {
 	}
 
 //Get Model Type (Project or Sub Project)
-	std::wstring getFileStatus(const IntegritySession& session, std::wstring path) {
+	boolean isSubProject(const IntegritySession& session, std::wstring path) {
 		std::wstring modelType = {'/0'};
 
 		std::wstring sandboxName = getSandboxName(session, path);
@@ -600,14 +590,17 @@ namespace IntegrityActions {
 		if (response->getException() != NULL) {
 			logAnyExceptions(*response);
 			displayException(*response);
-			return modelType;
+			return false;
 		}
 
 		for (mksWorkItem item : *response) {
 
 			modelType = getModelType(item);
 		}
-		return modelType;
+		if (modelType == L"si.Subproject")
+			return true;
+		else
+			return false;
 	}
 
 

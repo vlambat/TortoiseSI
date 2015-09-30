@@ -455,7 +455,7 @@ std::vector<MenuInfo> menuInfo =
 			std::wstring file;
 
 			if (selectedItems.empty()) {
-				EventLog::writeDebug(L"selected items list empty for drop sandbox operation");
+				EventLog::writeDebug(L"selected items list empty for drop sub project operation");
 				return;
 			}
 
@@ -469,10 +469,8 @@ std::vector<MenuInfo> menuInfo =
 		},
 			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
 		{
-			std::wstring modelType;
-			modelType = IntegrityActions::getFileStatus(getIntegritySession(), selectedItems.front());
 			return selectedItems.size() == 1 &&
-				(modelType==L"si.Subproject");
+				IntegrityActions::isSubProject(getIntegritySession(), selectedItems.front());
 		}
 	},
 

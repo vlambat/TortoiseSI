@@ -260,8 +260,8 @@ namespace IntegrityActions {
 	// list of working file changes
 	std::vector<std::shared_ptr<IntegrityActions::WorkingFileChange>> getWorkingFileChanges(const IntegritySession& session, std::wstring path);
 
-	//Get Model Type
-	std::wstring getFileStatus(const IntegritySession& session, std::wstring path);
+	//To Check whether the selected item is a Sub Project or not
+	boolean isSubProject(const IntegritySession& session, std::wstring path);
 
 	bool connect(const IntegritySession& session);
 
