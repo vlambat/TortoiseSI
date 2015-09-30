@@ -219,6 +219,26 @@ namespace IntegrityActions {
 		executeUserCommand(session, initializeWFExecute(command), onDone);
 	}
 
+	//Drop a Sub Project
+	void dropProject(const IntegritySession& session, std::wstring path, std::function<void()> onDone)
+	{
+
+		std::shared_ptr<IntegrityActions::FolderProperties> folderProp =
+			IntegrityActions::getFolderInfo(session, path);
+
+		if (!folderProp) {
+			return;
+		}
+
+		std::wstring projectName = folderProp->getProjectName();
+		
+		IntegrityCommand command(L"si", L"dropproject");
+		command.addOption(L"g");
+		command.addSelection(path);
+
+		executeUserCommand(session, command, onDone);
+	}
+
 	void lockFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone)
 	{
 		IntegrityCommand command(L"si", L"lock");
@@ -556,6 +576,40 @@ namespace IntegrityActions {
 		// Populated folder properties object
 		return folderProps;
 	}
+
+//Get Model Type (Project or Sub Project)
+	std::wstring getmodelType(const IntegritySession& session, std::wstring path) {
+		std::wstring modelType = {'/0'};
+
+		std::shared_ptr<IntegrityActions::FolderProperties> folderProp =
+			IntegrityActions::getFolderInfo(session, path);
+
+		// Can't retrieve properties
+		if (!folderProp){
+			return NULL;
+		}
+
+		// Extract properties to be displayed from properties object
+		std::wstring sandboxName = folderProp->getSandboxName();
+
+		IntegrityCommand command(L"si", L"projectinfo");
+		command.addOption(L"sandbox", sandboxName);
+
+		std::unique_ptr<IntegrityResponse> response = session.execute(command);
+
+		if (response->getException() != NULL) {
+			logAnyExceptions(*response);
+			displayException(*response);
+			return modelType;
+		}
+
+		for (mksWorkItem item : *response) {
+
+			modelType = getModelType(item);
+		}
+		return modelType;
+	}
+
 
 	/*
 	Get Current Username

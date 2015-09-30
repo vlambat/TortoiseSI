@@ -203,6 +203,7 @@ namespace IntegrityActions {
 			std::wstring m_serverName;
 			std::wstring m_serverPort;
 			std::wstring m_revision;
+			std::wstring m_modelType;
 
 		public:
 			FolderProperties() {};
@@ -214,11 +215,13 @@ namespace IntegrityActions {
 			std::wstring getServerName() { return m_serverName; }
 			std::wstring getServerPort() { return m_serverPort; }
 			std::wstring getRevision() { return m_revision; }
+			std::wstring getModelType() { return m_modelType; }
 
 			void setLastCheckpoint(time_t lastCheckpoint) { m_lastCheckpoint = lastCheckpoint; }
 			void setDevelopmentPath(std::wstring developmentPath) { m_developmentPath = developmentPath; }
 			void setSandboxName(std::wstring sandboxName) { m_sandboxName = sandboxName; }
 			void setProjectName(std::wstring projectName) { m_projectName = projectName; }
+			void setModelType(std::wstring projectName) { m_projectName = m_modelType; }
 			void setServerName(std::wstring serverName) { m_serverName = serverName; }
 			void setServerPort(std::wstring serverPort) { m_serverPort = serverPort; }
 			void setRevision(std::wstring revision) { m_revision = revision; }
@@ -257,6 +260,9 @@ namespace IntegrityActions {
 	// list of working file changes
 	std::vector<std::shared_ptr<IntegrityActions::WorkingFileChange>> getWorkingFileChanges(const IntegritySession& session, std::wstring path);
 
+	//Get Model Type
+	std::wstring getmodelType(const IntegritySession& session, std::wstring path);
+
 	bool connect(const IntegritySession& session);
 
 	void launchSandboxView(const IntegritySession& session, std::wstring path);
@@ -292,6 +298,7 @@ namespace IntegrityActions {
 
 	void createSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 	void dropSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
+	void dropProject(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 	void resyncFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone);
 	void resyncEntireSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
 	void retargetSandbox(const IntegritySession& session, std::wstring path, std::function<void()> onDone);
