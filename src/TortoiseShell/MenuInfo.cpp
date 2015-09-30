@@ -99,10 +99,10 @@ bool warnIfPathHasControlledDecendantFolders(std::wstring path, HWND parentWindo
 }
 
 /**
-*  Find the top level sandbox directory. Display an error if
-*  nested sandboxes are found.
+*  Finds registered sandboxes - possibly the top level sandbox if specified by the
+*  boolean returnTopLevel argument
 */
-std::wstring getTopLevelSandbox(std::wstring path, HWND parentWindow) {
+std::wstring getSandbox(std::wstring path, HWND parentWindow, boolean returnTopLevel) {
 
 	std::wstring message;
 	std::wstring topLevel;
@@ -118,12 +118,15 @@ std::wstring getTopLevelSandbox(std::wstring path, HWND parentWindow) {
 		// Strip off the .pj file at the end of the path before we do comparison
 		std::wstring subDir = sandboxFolder.substr(0, sandboxFolder.find_last_of('\\'));
 
-		// Re-append slash
-		if (subDir.at(subDir.size() - 1) != '\\') {
-			subDir += L"\\";
+		if (returnTopLevel) {
+			// Re-append slash
+			if (subDir.at(subDir.size() - 1) != '\\') {
+				subDir += L"\\";
+			}
 		}
 
-		if (startsWith(path, subDir)) {
+		if ((returnTopLevel && startsWith(path, subDir)) || 
+				(!returnTopLevel && path == subDir)) {
 
 			// Found another top level sandbox folder
 			if (!topLevel.empty()) {
@@ -148,6 +151,21 @@ std::wstring getTopLevelSandbox(std::wstring path, HWND parentWindow) {
 	return topLevel;
 }
 
+/**
+*  Find the top level sandbox directory. Display an error if
+*  nested sandboxes are found.
+*/
+std::wstring getTopLevelSandbox(std::wstring path, HWND parentWindow) {
+	return getSandbox(path, parentWindow, true);
+}
+
+/**
+* Find a registered sandbox regardless of whether it is a top
+* level sandbox
+*/
+std::wstring getRegisteredSandbox(std::wstring path, HWND parentWindow) {
+	return getSandbox(path, parentWindow, false);
+}
 
 /**
 * Get current contents of the exclude filter, add new pattern (if it is not already in the filter), and update the exclude filter
@@ -319,7 +337,64 @@ std::vector<MenuInfo> menuInfo =
 	},
 
 	menuSeperator,
-	{ MenuItem::ResyncFile, IDI_PULL, IDS_RESYNC, IDS_RESYNC_DESC,
+	{ MenuItem::Resync, IDI_PULL, IDS_RESYNC, IDS_RESYNC_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring sandboxName;
+			std::wstring folder;
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for resync operation");
+				return;
+			}
+
+			// Error will be displayed if multiple sandboxes found
+			sandboxName = getRegisteredSandbox(selectedItems.front(), parentWindow);
+			if (sandboxName.empty())
+				return;
+
+			// Extract folder name from file path
+			folder = sandboxName.substr(0, sandboxName.find_last_of('\\'));
+
+			IntegrityActions::resyncSandbox(getIntegritySession(), sandboxName,
+				[folder]{ refreshFolder(folder); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	{ MenuItem::Resync, IDI_PULL, IDS_RESYNC, IDS_RESYNC_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
+		{
+			std::wstring sandboxName;
+			std::wstring file;
+			std::wstring folder;
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for resync operation");
+				return;
+			}
+
+			// Retrieve selection
+			file = selectedItems.front();
+
+			// Extract folder name from file path
+			folder = file.substr(0, file.find_last_of('\\'));
+
+			IntegrityActions::resync(getIntegritySession(), selectedItems.front(),
+				[folder]{ refreshFolder(folder); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::File) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
+		}
+	},
+	{ MenuItem::ResyncByCp, IDI_PULL, IDS_RESYNC_BYCP, IDS_RESYNC_BYCP_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND)
 		{
 			std::wstring folder;
@@ -337,42 +412,13 @@ std::vector<MenuInfo> menuInfo =
 			folder = file.substr(0, file.find_last_of('\\'));
 
 			// Pass list of selections for resync operation
-			IntegrityActions::resyncFiles(getIntegritySession(), selectedItems,
+			IntegrityActions::resyncByCp(getIntegritySession(), selectedItems,
 				[folder] { refreshFolder(folder); });
 		},
 			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
 		{
 			return hasFileStatus(selectedItemsStatus, FileStatus::File) &&
 				!hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
-				hasFileStatus(selectedItemsStatus, FileStatus::Member);
-		}
-	},
-	{ MenuItem::ResyncEntireSandbox, IDI_PULL, IDS_RESYNC_ENTIRE_SANDBOX, IDS_RESYNC_ENTIRE_SANDBOX_DESC,
-	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
-		{
-			std::wstring sandboxName;
-			std::wstring folder;
-
-			if (selectedItems.empty()) {
-				EventLog::writeDebug(L"selected items list empty for resync entire sandbox operation");
-				return;
-			}
-
-			// Error will be displayed if multiple sandboxes found
-			sandboxName = getTopLevelSandbox(selectedItems.front(), parentWindow);
-			if (sandboxName.empty())
-				return;
-
-			// Extract folder name from file path
-			folder = sandboxName.substr(0, sandboxName.find_last_of('\\'));
-
-			IntegrityActions::resyncEntireSandbox(getIntegritySession(), sandboxName,
-				[folder]{ refreshFolder(folder); });
-		},
-			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
-		{
-			return selectedItems.size() == 1 &&
-				hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
 				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},

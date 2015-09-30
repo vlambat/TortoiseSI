@@ -39,8 +39,8 @@ enum MenuItem {
 	UnIgnoreSubMenu,
 
 	Seperator,
-	ResyncFile,
-	ResyncEntireSandbox,
+	ResyncByCp,
+	Resync,
 	DropSandbox,
 	RetargetSandbox,
 
