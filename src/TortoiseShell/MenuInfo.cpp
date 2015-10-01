@@ -447,6 +447,33 @@ std::vector<MenuInfo> menuInfo =
 				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},
+
+	{ MenuItem::DropSubProject, IDI_DELETE, IDS_DROP_SUBPROJECT, IDS_DROP_SUBPROJECT_DESC,
+	[](const std::vector<std::wstring>& selectedItems, HWND)
+		{
+			std::wstring folder;
+			std::wstring file;
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for drop sub project operation");
+				return;
+			}
+
+			// First selected file
+			file = selectedItems.front();
+			// Extract folder name from file path
+			folder = file.substr(0, file.find_last_of('\\'));
+
+			IntegrityActions::dropSubProject(getIntegritySession(), selectedItems.front(),
+				[folder]{ refreshFolder(folder); });
+		},
+			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
+		{
+			return selectedItems.size() == 1 &&
+				IntegrityActions::isSubProject(getIntegritySession(), selectedItems.front());
+		}
+	},
+
 	{ MenuItem::RetargetSandbox, IDI_RELOCATE, IDS_RETARGET_SANDBOX, IDS_RETARGET_SANDBOX_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
 		{
@@ -703,6 +730,7 @@ std::vector<MenuInfo> menuInfo =
 				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},
+
 	{ MenuItem::Lock, IDI_LOCK, IDS_LOCK, IDS_LOCK_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
 		{

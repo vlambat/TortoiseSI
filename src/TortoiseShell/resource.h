@@ -79,6 +79,8 @@
 #define IDS_VIEW_PROJECTDIFFERENCES     219
 #define IDS_VIEW_RELATEDCP              220
 #define IDS_VIEW_RELATEDCP_DESC         221
+#define IDS_DROP_SUBPROJECT             222
+#define IDS_DROP_SUBPROJECT_DESC        223
 #define IDI_MENUSYNC                    321
 #define IDI_REVISIONGRAPH               366
 #define IDS_LOADING                     369

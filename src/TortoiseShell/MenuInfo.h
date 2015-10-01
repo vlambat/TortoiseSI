@@ -52,6 +52,7 @@ enum MenuItem {
 	Add,
 	CheckOut,
 	Drop,
+	DropSubProject,
 	Lock,
 	CheckIn,
 	Revert,
