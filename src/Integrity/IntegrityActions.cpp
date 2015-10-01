@@ -222,9 +222,19 @@ namespace IntegrityActions {
 	//Drop a Sub Project
 	void dropSubProject(const IntegritySession& session, std::wstring path, std::function<void()> onDone)
 	{
-		IntegrityCommand command(L"si", L"dropproject");
+		std::wstring file = path;
+		std::wstring folder;
+
+		// Extract folder name from file path
+		folder = file.substr(0, file.find_last_of('\\'));
+
+		std::wstring currentProjectName = getProjectName(session, path);
+		std::wstring parentProjectName = getProjectName(session, folder);
+
+		IntegrityCommand command(L"si", L"drop");
 		command.addOption(L"g");
-		command.addSelection(path);
+		command.addOption(L"project", parentProjectName);
+		command.addSelection(currentProjectName);
 
 		executeUserCommand(session, command, onDone);
 	}
@@ -423,6 +433,28 @@ namespace IntegrityActions {
 		}
 
 		return sandboxName;
+	}
+
+	/*Gets the name of a project of specific path using the projectinfo command*/
+	std::wstring getProjectName(const IntegritySession& session, std::wstring path) {
+
+		std::wstring projectName;
+
+		IntegrityCommand command(L"si", L"projectinfo");
+		command.addOption(L"cwd", path);
+		std::unique_ptr<IntegrityResponse> response = session.execute(command);
+
+		if (response->getException() != NULL) {
+			logAnyExceptions(*response);
+			displayException(*response);
+			return projectName;
+		}
+
+		for (mksWorkItem item : *response) {
+			return getStringFieldValue(item, L"projectName" );
+		}
+
+		return projectName;
 	}
 
 	/**

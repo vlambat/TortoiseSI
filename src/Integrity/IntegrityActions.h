@@ -248,6 +248,9 @@ namespace IntegrityActions {
 	// name of specific sandbox (includes .pj file)
 	std::wstring getSandboxName(const IntegritySession& session, std::wstring path);
 
+	//name of specific Project
+	std::wstring getProjectName(const IntegritySession& session, std::wstring path);
+
 	//Get Current Username
 	std::wstring getUserName(const IntegritySession& session);
 
