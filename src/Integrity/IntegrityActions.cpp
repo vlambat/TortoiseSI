@@ -590,17 +590,14 @@ namespace IntegrityActions {
 		if (response->getException() != NULL) {
 			logAnyExceptions(*response);
 			displayException(*response);
-			return false;
+			return (modelType == L"si.Subproject");
 		}
 
 		for (mksWorkItem item : *response) {
 
 			modelType = getModelType(item);
 		}
-		if (modelType == L"si.Subproject")
-			return true;
-		else
-			return false;
+		return (modelType == L"si.Subproject");
 	}
 
 
