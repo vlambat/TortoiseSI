@@ -470,6 +470,8 @@ std::vector<MenuInfo> menuInfo =
 			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
 		{
 			return selectedItems.size() == 1 &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
+				hasFileStatus(selectedItemsStatus, FileStatus::Member)&&
 				IntegrityActions::isSubProject(getIntegritySession(), selectedItems.front());
 		}
 	},
