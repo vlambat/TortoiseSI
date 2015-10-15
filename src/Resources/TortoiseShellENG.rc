@@ -237,7 +237,7 @@ BEGIN
     IDS_RENAME_DESC         "Rename an existing project member"
     IDS_MOVE                "Move..."
     IDS_MOVE_DESC           "Move one or more project members between projects, or between directories in a single project"
-    IDS_VIEW_WORKINGFILECHANGES "View Working File Changes"
+    IDS_VIEW_WORKINGFILECHANGES "Working File Changes"
     IDS_VIEW_WORKINGFILECHANGES_DESC "Launch the Working File Changes View"
     IDS_SUBMIT_CP           "Submit Changes..."
     IDS_SUBMIT_CP_DESC      "Commit changes in a Change Package"
@@ -265,30 +265,36 @@ END
 
 STRINGTABLE
 BEGIN
-    IDS_VIEW_CHANGEPACKAGES "View My Change Packages"
+    IDS_VIEW_CHANGEPACKAGES "My Change Packages"
     IDS_VIEW_CHANGEPACKAGES_DESC 
                             "View All Active Change Packages of the Current User "
 END
 
 STRINGTABLE
 BEGIN
-    IDS_VIEW_MYREVIEWS      "View My Reviews"
+    IDS_VIEW_MYREVIEWS      "My Reviews"
     IDS_VIEW_MYREVIEWS_DESC "Views all the Change Packages Reviews of that User"
     IDS_MERGE_CONFLICTS     "Merge Conflicts"
     IDS_MERGE_CONFLICTS_DESC "Menu to Resolve Merge Conflicts"
     IDS_REMOVE_SUBMENU      "Remove from Exclude Filter"
     IDS_REMOVE_SUBMENU_DESC "Removes selected pattern from Non-Members View Exclude Filter"
-    IDS_VIEW_LOCKS          "View My Locks"
+    IDS_VIEW_LOCKS          "My Locks"
     IDS_VIEW_LOCKS_DESC     "Shows all the locked files in the users sandbox"
-    IDS_VIEW_PROJECTHISTORY "View Project History"
+    IDS_VIEW_PROJECTHISTORY "Project History"
     IDS_VIEW_PROJECTHISTORY_DESC "Brings up the Project History View "
     IDS_VIEW_PROJECTDIFFERENCES_DESC 
                             "Shows Changes Made Since Last Checkpoint"
-    IDS_VIEW_PROJECTDIFFERENCES "View Project Differences"
-    IDS_VIEW_RELATEDCP      "View Related Change Packages"
+    IDS_VIEW_PROJECTDIFFERENCES "Project Differences"
+    IDS_VIEW_RELATEDCP      "Related Change Packages"
     IDS_VIEW_RELATEDCP_DESC "Shows all Change Packages related to the Project represented by the selected Sandbox/Subsandbox."
     IDS_DROP_SUBPROJECT     "Drop Sub-Project"
     IDS_DROP_SUBPROJECT_DESC "Drops the Sub-Project"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DROP_SUBPROJECT_NOT_ALLOWED 
+                            "Selected folder is not a subproject and cannot be dropped. Select a folder that is a subproject or drop the individual files."
 END
 
 #endif    // English (United States) resources

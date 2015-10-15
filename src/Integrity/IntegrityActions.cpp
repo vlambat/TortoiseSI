@@ -1,5 +1,4 @@
  // TortoiseSI - a Windows shell extension for easy version control
-
 // Copyright (C) 2015 - TortoiseSI
 
 // This program is free software; you can redistribute it and/or
@@ -230,13 +229,12 @@ namespace IntegrityActions {
 
 		std::wstring currentProjectName = getProjectName(session, path);
 		std::wstring parentProjectName = getProjectName(session, folder);
-
 		IntegrityCommand command(L"si", L"drop");
 		command.addOption(L"g");
 		command.addOption(L"project", parentProjectName);
 		command.addSelection(currentProjectName);
 
-		executeUserCommand(session, command, onDone);
+		executeUserCommand(session, command, onDone);	
 	}
 
 	void lockFiles(const IntegritySession& session, std::vector<std::wstring> paths, std::function<void()> onDone)
@@ -419,6 +417,7 @@ namespace IntegrityActions {
 		std::wstring sandboxName;
 
 		IntegrityCommand command(L"si", L"sandboxinfo");
+		command.addOption(L"settingsUI", L"gui");
 		command.addOption(L"cwd", path);
 		std::unique_ptr<IntegrityResponse> response = session.execute(command);
 
@@ -441,6 +440,7 @@ namespace IntegrityActions {
 		std::wstring projectName;
 
 		IntegrityCommand command(L"si", L"projectinfo");
+		command.addOption(L"settingsUI", L"gui");
 		command.addOption(L"cwd", path);
 		std::unique_ptr<IntegrityResponse> response = session.execute(command);
 
