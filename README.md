@@ -1,8 +1,9 @@
 # TortoiseSI
-Windows Explorer Extension to Operate the SCM capabilities of PTC Integrity.
 
-User documentation for this project is coming soon to [TortoiseSI.org](http://www.tortoisesi.org)
+TortoiseSI is a free, open-source Microsoft® Windows® shell extension client for [PTC Integrity](http://www.ptc.com/application-lifecycle-management/integrity/lifecycle-manager) that exposes PTC Integrity views, source commands, and version-controlled member actions on Windows files and folders through Windows Explorer. PTC Integrity is a cross-platform, enterprise-class software configuration management and versioning solution.
 
-Development (pre-alpha) builds for this project are available at [AppVeyor](https://ci.appveyor.com/project/PTC-ALM/tortoisesi).
+User documentation and the first release for this project are available at [TortoiseSI.org](http://www.tortoisesi.org)
+
+Development builds for this project are available at [AppVeyor](https://ci.appveyor.com/project/PTC-ALM/tortoisesi).
 
 Please see the [wiki](http://github.com/PTC-ALM/TortoiseSI/wiki) for information on how to contribute to this project.
