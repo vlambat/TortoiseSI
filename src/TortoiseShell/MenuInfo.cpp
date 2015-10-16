@@ -449,7 +449,7 @@ std::vector<MenuInfo> menuInfo =
 	},
 
 	{ MenuItem::DropSubProject, IDI_DELETE, IDS_DROP_SUBPROJECT, IDS_DROP_SUBPROJECT_DESC,
-	[](const std::vector<std::wstring>& selectedItems, HWND)
+	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
 		{
 			std::wstring folder;
 			std::wstring file;
@@ -463,16 +463,21 @@ std::vector<MenuInfo> menuInfo =
 			file = selectedItems.front();
 			// Extract folder name from file path
 			folder = file.substr(0, file.find_last_of('\\'));
-
-			IntegrityActions::dropSubProject(getIntegritySession(), selectedItems.front(),
-				[folder]{ refreshFolder(folder); });
+			if (IntegrityActions::isSubProject(getIntegritySession(),file)){
+				IntegrityActions::dropSubProject(getIntegritySession(), selectedItems.front(),
+					[folder]{ refreshFolder(folder); });
+			}
+			else{
+				std::wstring message = getTortoiseSIString(IDS_DROP_SUBPROJECT_NOT_ALLOWED);
+				MessageBoxW(parentWindow, message.c_str(), NULL, MB_ICONERROR);
+			}
+			
 		},
 			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
 		{
 			return selectedItems.size() == 1 &&
 				hasFileStatus(selectedItemsStatus, FileStatus::Folder) &&
-				hasFileStatus(selectedItemsStatus, FileStatus::Member)&&
-				IntegrityActions::isSubProject(getIntegritySession(), selectedItems.front());
+				hasFileStatus(selectedItemsStatus, FileStatus::Member);
 		}
 	},
 
