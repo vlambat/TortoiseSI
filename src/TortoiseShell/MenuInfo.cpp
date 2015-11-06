@@ -340,7 +340,18 @@ std::vector<MenuInfo> menuInfo =
 	{ MenuItem::Resync, IDI_PULL, IDS_RESYNC, IDS_RESYNC_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
 		{
-			std::wstring sandboxName;
+			std::wstring file;
+			std::wstring folder;
+
+			if (selectedItems.empty()) {
+				EventLog::writeDebug(L"selected items list empty for rename operation");
+				return;
+			}
+
+			file = selectedItems.front();
+
+			folder = file.substr(0, file.find_last_of('\\'));
+			/*std::wstring sandboxName;
 			std::wstring folder;
 
 			if (selectedItems.empty()) {
@@ -349,14 +360,14 @@ std::vector<MenuInfo> menuInfo =
 			}
 
 			// Error will be displayed if multiple sandboxes found
-			sandboxName = getRegisteredSandbox(selectedItems.front(), parentWindow);
+			sandboxName = IntegrityActions::getSandboxName(getIntegritySession(), selectedItems.front());
 			if (sandboxName.empty())
 				return;
 
 			// Extract folder name from file path
-			folder = sandboxName.substr(0, sandboxName.find_last_of('\\'));
+			folder = sandboxName.substr(0, sandboxName.find_last_of('\\'));*/
 
-			IntegrityActions::resyncSandbox(getIntegritySession(), sandboxName,
+			IntegrityActions::resyncSandbox(getIntegritySession(), file,
 				[folder]{ refreshFolder(folder); });
 		},
 			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
