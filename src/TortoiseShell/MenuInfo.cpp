@@ -160,14 +160,6 @@ std::wstring getTopLevelSandbox(std::wstring path, HWND parentWindow) {
 }
 
 /**
-* Find a registered sandbox regardless of whether it is a top
-* level sandbox
-*/
-std::wstring getRegisteredSandbox(std::wstring path, HWND parentWindow) {
-	return getSandbox(path, parentWindow, false);
-}
-
-/**
 * Get current contents of the exclude filter, add new pattern (if it is not already in the filter), and update the exclude filter
 */
 void updateExcludeFileFilter(const std::vector<std::wstring>& selectedItems, const std::wstring newExclude) {
@@ -351,21 +343,6 @@ std::vector<MenuInfo> menuInfo =
 			file = selectedItems.front();
 
 			folder = file.substr(0, file.find_last_of('\\'));
-			/*std::wstring sandboxName;
-			std::wstring folder;
-
-			if (selectedItems.empty()) {
-				EventLog::writeDebug(L"selected items list empty for resync operation");
-				return;
-			}
-
-			// Error will be displayed if multiple sandboxes found
-			sandboxName = IntegrityActions::getSandboxName(getIntegritySession(), selectedItems.front());
-			if (sandboxName.empty())
-				return;
-
-			// Extract folder name from file path
-			folder = sandboxName.substr(0, sandboxName.find_last_of('\\'));*/
 
 			IntegrityActions::resyncSandbox(getIntegritySession(), file,
 				[folder]{ refreshFolder(folder); });
@@ -380,7 +357,6 @@ std::vector<MenuInfo> menuInfo =
 	{ MenuItem::Resync, IDI_PULL, IDS_RESYNC, IDS_RESYNC_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
 		{
-			std::wstring sandboxName;
 			std::wstring file;
 			std::wstring folder;
 
