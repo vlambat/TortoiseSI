@@ -332,7 +332,7 @@ std::vector<MenuInfo> menuInfo =
 	{ MenuItem::Resync, IDI_PULL, IDS_RESYNC, IDS_RESYNC_DESC,
 	[](const std::vector<std::wstring>& selectedItems, HWND parentWindow)
 		{
-			std::wstring file;
+			std::wstring selectedFolder;
 			std::wstring folder;
 
 			if (selectedItems.empty()) {
@@ -340,11 +340,11 @@ std::vector<MenuInfo> menuInfo =
 				return;
 			}
 
-			file = selectedItems.front();
+			selectedFolder = selectedItems.front();
 
-			folder = file.substr(0, file.find_last_of('\\'));
+			folder = selectedFolder.substr(0, selectedFolder.find_last_of('\\'));
 
-			IntegrityActions::resyncSandbox(getIntegritySession(), file,
+			IntegrityActions::resyncSandbox(getIntegritySession(), selectedFolder,
 				[folder]{ refreshFolder(folder); });
 		},
 			[](const std::vector<std::wstring>& selectedItems, FileStatusFlags selectedItemsStatus)
