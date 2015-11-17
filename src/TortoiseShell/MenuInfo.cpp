@@ -336,7 +336,7 @@ std::vector<MenuInfo> menuInfo =
 			std::wstring folder;
 
 			if (selectedItems.empty()) {
-				EventLog::writeDebug(L"selected items list empty for rename operation");
+				EventLog::writeDebug(L"selected items list empty for resync operation");
 				return;
 			}
 
