@@ -304,7 +304,7 @@ namespace IntegrityActions {
 	{
 		IntegrityCommand command(L"si", L"resync");
 		command.addOption(L"g");
-		command.addOption(L"sandbox", path);
+		command.addOption(L"cwd", path);
 
 		executeUserCommand(session, command, onDone);
 	}
