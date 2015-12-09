@@ -145,6 +145,7 @@ namespace IntegrityActions {
 		IntegrityCommand command(L"si", L"merge");
 		command.addOption(L"cwd", path);
 		command.addOption(L"g");
+		command.addOption(L"resolve");
 		command.addSelection(path);
 
 		executeUserCommand(session, command, nullptr);
