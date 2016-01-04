@@ -52,8 +52,9 @@
     <ul style="list-style: none;">
 	  <li><a href="#section6_1">TortoiseSI View Operations</a></li>
 	  <li><a href="#section6_2">TortoiseSI Icon Overlays</a></li>
-	  <li><a href="#section6_3">Viewing TortoiseSI File Properties</a></li>
-	  <li><a href="#section6_4">Excluding Files</a></li>
+	  <li><a href="#section6_3">Viewing TortoiseSI Folder Properties</a></li>
+      <li><a href="#section6_4">Viewing TortoiseSI File Properties</a></li>
+	  <li><a href="#section6_5">Excluding Files</a></li>
 	</ul>
   </li>
   <li><a href="#section7">Contacting Us</a></li>
@@ -85,7 +86,7 @@
   <ul>
   <li>HotFix HF-S140000000-003 is required for Integrity Client 10.7 customers using TortoiseSI. This HotFix forces Integrity's Working File Changes view to refresh after a non-transactional change package is submitted. For more information, contact PTC - Integrity Support through the <a href="http://www.ptc.com/support/integrity.htm">Integrity Support Center</a>.</li>
   </ul>
-  <li>TortoiseSI supports the same Windows platforms that are supported by  the Integrity Client. For details on supported platforms, refer to the <a href="http://www.ptc.com/partners/hardware/current/support.htm">PTC Integrity Product Platforms</a> documentation available through the <a href="http://www.ptc.com/support/integrity.htm">Integrity Support Center</a>.</li>
+  <li>TortoiseSI supports the same Windows platforms that are supported by  the Integrity client. For details on supported platforms, refer to the <a href="http://www.ptc.com/partners/hardware/current/support.htm">PTC Integrity Product Platforms</a> documentation available through the <a href="http://www.ptc.com/support/integrity.htm">Integrity Support Center</a>.</li>
   <li>TortoiseSI only supports files located on fixed local drives. Optical drives, network drives, and mass storage devices are not supported.</li>
 </ul>
 <p>If you encounter any problems while installing TortoiseSI, or following a TortoiseSI install, please refer to the <a href="#section2_6">Troubleshooting Tips</a> section in this document first before <a href="#section7">contacting us</a>.</p>
@@ -107,14 +108,14 @@
   <li>Using Windows Explorer, navigate to a folder on the file system.</li>
   <li>Right-click on the folder and select the <b>TortoiseSI &gt; Create Sandbox</b> option.<br /><br />
     <img src="images/TortoiseSIRightClickOption.png" alt="TortoiseSI Right-Click Option" /></li>
-  <li>When prompted, connect to an Integrity Server with valid credentials.</li>
+  <li>When prompted, connect to an Integrity server with valid credentials.</li>
   <li>When prompted, create a sandbox using Integrity's Create Sandbox Wizard. For details on creating sandboxes in Integrity, see the <em>PTC Integrity User Guide</em>, <em>Integrity Help Center</em>, or <em>Integrity CLI man pages.</em></li>
 </Ol>
 
 <h2 id="section2_6">Troubleshooting Tips</h2>
 <h3 id="section2_6_1">Connecting to Integrity Server</h3>
-<p>TortoiseSI automatically connects to an Integrity Server. The specific server is based on your Integrity client preferences. </p>
-<p>If you are not prompted to connect to  Integrity, verify that the  client is running, and that the client application can communicate with an Integrity Server.</p>
+<p>TortoiseSI automatically connects to an Integrity server. The specific server is based on your Integrity client preferences. </p>
+<p>If you are not prompted to connect to  Integrity, verify that the  client is running, and that the client application can communicate with an Integrity server.</p>
 <p>If TortoiseSI loses its connection to the  server, TortoiseSI will work silently in offline mode. To force a connection to the  server, perform an operation that requires a server connection, such as viewing a sandbox through  Integrity's Sandbox view.</p>
 
 <h3 id="section2_6_2">No Icon Overlays</h3>
@@ -150,7 +151,7 @@
   <tr>
     <td><p><b>Create a Sandbox</b></p></td>
     <td>
-	  <p>Create a private version-controlled project workspace on the file system that mirrors the content of a project on the Integrity Server.</p>
+	  <p>Create a private version-controlled project workspace on the file system that mirrors the content of a project on the Integrity server.</p>
       <p>Integrity command: <em>si createsandbox</em></p>
       <p><b>Note:</b> You cannot create sandboxes in other sandboxes (co-located sandboxes) using TortoiseSI. If you  previously created co-located sandboxes manually, TortoiseSI may not function as expected in the associated folders on the file system.</p>
 	</td>
@@ -241,7 +242,7 @@
     <td><p id="add"><b>Add</b></p></td>
     <td>
 	  <p>Add a member or multiple members to a project.</p>
-      <p>Once you add members to a sandbox, you can <a href="#check_out">check out</a> the members for editing, and then <a href="#check_in">check in</a> the members to preserve your changes.</p>
+      <p>Once you add members to a project, you can <a href="#check_out">check out</a> the members for editing, and then <a href="#check_in">check in</a> the members to preserve your changes.</p>
       <p>Integrity command: <em>si add</em></p>
 	</td>
     <td>
@@ -364,7 +365,7 @@
    <tr>
     <td><p id="rename"><b>Merge Conflicts</b></p></td>
     <td>
-	  <p>Merge  data from other member revisions against a top level revision. The merge result overwrites your working member on the file system.</p>
+	  <p>Merge conflicting changes into the member  revision, and create a new revision with the resulting contents. The merge result overwrites your working member on the file system.</p>
       <p>The merge conflicts option is only available when a member conflict is present.</p>
       <p>Integrity command: <em>si merge</em></p>
     </td>
@@ -406,7 +407,7 @@
   </tr>
   <tr><td><p><b>View Member Differences</b></p></td>
     <td>
-	  <p>Compare a working memberin a sandbox to the member revision in the repository to review the differences between the two revisions.</p>
+	  <p>Compare a working member in a sandbox to the member revision in the repository to review the differences between the two revisions.</p>
       <p>Integrity command: <em>si diff</em></p>
 	</td>
     <td>
@@ -463,21 +464,21 @@
    <tr>
     <td><p><b>View Related Change Packages</b></p></td>
     <td>
-	  <p>Review  all change packages containing members that belong to a specific project   branch.</p>
+	  <p>Review all change packages containing members that belong to a specific project branch.</p>
       <p>Integrity command: <em>si viewcps</em></p>
 	</td>
     <td>
-    <p><b>TortoiseSI &gt; Related Change Packages</b>	</p>
+    <p><b>TortoiseSI &gt;  Related Change Packages</b>	</p>
     <p>Select a  file, folder, or subfolder in a project.</p></td>
   </tr>
   <tr>
   <td><p><b>View Project History</b></p></td>
     <td>
-	  <p>Review  the history of a project since it was put under version control, including detailed information for a selected checkpoint.</p>
+	  <p>Review the history of a project since it was put under version control, including detailed information for a selected checkpoint.</p>
       <p>Integrity command: <em>si viewprojecthistory</em></p>
 	</td>
     <td>
-	  <p><b>TortoiseSI &gt; Project History</b></p>
+	  <p><b>TortoiseSI &gt;  Project History</b></p>
       <p>Select a folder or subfolder in a project. Single selection only.</p>
 	</td>
   </tr>
@@ -488,12 +489,12 @@
       <p><b>Notes:</b>
       <ul>
       <li>You can only compare project checkpoints that are within a single line of development. You cannot compare project checkpoints across branches.
-      <li>To see changes between two specific checkpoints, use TortoiseSI to run the View Project History command first. Then, in  Integrity’s Project History view, select  two checkpoints to compare, and  run Integrity's View Project Differences command.</li>
+      <li>To see changes between two specific checkpoints, use TortoiseSI to run the View Project History command first. Then, in Integrity’s Project History view, select two checkpoints to compare, and run Integrity's View Project Differences command.</li>
       </ul></p>
       <p>Integrity command: <em>si mods</em></p>
 	</td>
     <td>
-	  <p><b>TortoiseSI &gt; Project Differences</b></p>
+	  <p><b>TortoiseSI &gt;  Project Differences</b></p>
       <p>Select a folder or subfolder in a project. Single selection only.</p>
 	</td>
   </tr>
@@ -510,25 +511,25 @@
        <p>Integrity command: <em>si viewcps</em></p>
 	</td>
     <td>
-	  <p><b>TortoiseSI &gt; My Change Packages</b></p>
-    <p>Select a  file or a folder in a project. No selection or multiple selections are supported.</p></td>
+	  <p><b>TortoiseSI &gt;  My Change Packages</b></p>
+    <p>Select a file or a folder in a project. No selection or multiple selections are also supported.</p></td>
   </tr>
   <tr>
     <td><p><b>View My Reviews</b></p></td>
     <td>
-	  <p>Display  a list of all change packages that have been submitted and that are ready for you to  review. </p>
+	  <p>Display  a list of all change packages that have been submitted and that are ready for you to review. </p>
       <p>Integrity command: <em>si viewcps</em></p>
 	</td>
     <td>
-    <p><b>TortoiseSI &gt; My Reviews</b>	</p>
-    <p>Select a  file or a folder in a project. No selection or multiple selections are supported.</p></td>
+    <p><b>TortoiseSI &gt;  My Reviews</b>	</p>
+    <p>Select a  file or a folder in a project. No selection or multiple selections are also supported.</p></td>
   </tr>
   <tr>
     <td><b>View My Locks</b></td>
     <td><p>Review  all of the members that you have locked across all projects.</p>
     <p>Integrity command: <em>si locks</em></p></td>
-    <td><p><b>TortoiseSI &gt; My Locks</b></p>
-    <p>Select a  file or a folder in a project. No selection or multiple selections are supported.</p></td>
+    <td><p><b>TortoiseSI &gt;  My Locks</b></p>
+    <p>Select a  file or a folder in a project. No selection or multiple selections are also supported.</p></td>
   </tr>
   <tr>
     <td><p><b>View Working File Changes</b></p></td>
@@ -639,7 +640,7 @@
 	  <p>Server</p>
 	</td>
     <td>
-	  <p>The name of the host server where the Integrity Server is located.</p>
+	  <p>The name of the host server where the Integrity server is located.</p>
     </td>
   </tr>
   <tr>
@@ -651,7 +652,7 @@
 </table>
 <p>For more information on working with Integrity projects and subprojects, see the <em>PTC Integrity User Guide</em>, <em>Integrity Help Center</em>, or <em>Integrity CLI man pages</em>.</p>
 
-<h2 id="section6_3">Viewing TortoiseSI File Properties</h2>
+<h2 id="section6_4">Viewing TortoiseSI File Properties</h2>
 <p>To display  Integrity member properties for a file under version control, right-click on a file and select <b>Properties &gt; TortoiseSI</b>.</p>
 <p><b>Note:</b> The <b>TortoiseSI</b> tab is not visible for files that are not in a version-controlled Integrity project.</p>
 <p>The following Integrity Configuration Management properties are displayed.</p>
@@ -690,8 +691,8 @@
     <td>
 	  <p>The Integrity member status, such as a deferred operation. <br>
 	    Multiple statuses are pipe-delimited.<br>
-	    Status information for  <a href="#move">Moved</a> and <a href="#rename">renamed</a> members is available only for deferred operations. <br />
-      This information may correspond to sandbox icon overlays visible in the Integrity Client.</p>
+	    Status information for  <a href="#move">moved</a> and <a href="#rename">renamed</a> members is available only for deferred operations. <br />
+      This information may correspond to sandbox icon overlays visible in the Integrity client.</p>
     </td>
   </tr>
   <tr>
@@ -701,7 +702,7 @@
 </table>
 <p>For more information on working with Integrity members, see the <em>PTC Integrity User Guide</em>, <em>Integrity Help Center</em>, or <em>Integrity CLI man pages</em>.</p>
 
-<h2 id="section6_4">Excluding Files</h2>
+<h2 id="section6_5">Excluding Files</h2>
 <p>You can use TortoiseSI to exclude uncontrolled files in a sandbox from appearing in selections when adding members to a version-controlled Integrity project. </p>
 <p>For example, you may want to  avoid adding specific DLL files or all EXE files when performing a member add operation. You do not want to have to remember to  exclude  files manually. Excluding a specific filename or a file pattern adds that exclusion as an  Integrity  Non-Member Files exclusion filter preference in the client.</p>
 <ul>
